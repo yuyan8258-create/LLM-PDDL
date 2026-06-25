@@ -1,0 +1,145 @@
+{
+  "success": true,
+  "iterations": 1,
+  "plan": [
+    {
+      "action": "pick-up",
+      "args": [
+        "B4"
+      ]
+    },
+    {
+      "action": "stack-bridge",
+      "args": [
+        "B4",
+        "B1",
+        "B2"
+      ]
+    },
+    {
+      "action": "pick-up",
+      "args": [
+        "B5"
+      ]
+    },
+    {
+      "action": "stack-bridge",
+      "args": [
+        "B5",
+        "B2",
+        "B3"
+      ]
+    },
+    {
+      "action": "pick-up",
+      "args": [
+        "pyramid"
+      ]
+    },
+    {
+      "action": "stack-bridge",
+      "args": [
+        "pyramid",
+        "B4",
+        "B5"
+      ]
+    }
+  ],
+  "final_state": {
+    "on": [],
+    "on_bridge": [
+      [
+        "B4",
+        "B1",
+        "B2"
+      ],
+      [
+        "B5",
+        "B2",
+        "B3"
+      ],
+      [
+        "pyramid",
+        "B4",
+        "B5"
+      ]
+    ],
+    "ontable": [
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "clear": [
+      "B1",
+      "B2",
+      "B3",
+      "B4",
+      "B5",
+      "pyramid"
+    ],
+    "holding": [],
+    "handempty": true,
+    "left_free": [
+      "B1",
+      "B4",
+      "pyramid"
+    ],
+    "right_free": [
+      "B3",
+      "B5",
+      "pyramid"
+    ]
+  },
+  "logs": [
+    {
+      "iteration": 1,
+      "plan": [
+        {
+          "action": "pick-up",
+          "args": [
+            "B4"
+          ]
+        },
+        {
+          "action": "stack-bridge",
+          "args": [
+            "B4",
+            "B1",
+            "B2"
+          ]
+        },
+        {
+          "action": "pick-up",
+          "args": [
+            "B5"
+          ]
+        },
+        {
+          "action": "stack-bridge",
+          "args": [
+            "B5",
+            "B2",
+            "B3"
+          ]
+        },
+        {
+          "action": "pick-up",
+          "args": [
+            "pyramid"
+          ]
+        },
+        {
+          "action": "stack-bridge",
+          "args": [
+            "pyramid",
+            "B4",
+            "B5"
+          ]
+        }
+      ],
+      "raw_llm_output": "[\n  {\"action\": \"pick-up\", \"args\": [\"B4\"]},\n  {\"action\": \"stack-bridge\", \"args\": [\"B4\", \"B1\", \"B2\"]},\n  {\"action\": \"pick-up\", \"args\": [\"B5\"]},\n  {\"action\": \"stack-bridge\", \"args\": [\"B5\", \"B2\", \"B3\"]},\n  {\"action\": \"pick-up\", \"args\": [\"pyramid\"]},\n  {\"action\": \"stack-bridge\", \"args\": [\"pyramid\", \"B4\", \"B5\"]}\n]",
+      "verifier_message": "Plan is valid and all goal conditions are achieved.",
+      "success": true
+    }
+  ]
+}

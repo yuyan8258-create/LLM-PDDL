@@ -1,0 +1,5 @@
+Generate a valid construction plan using the available actions.
+
+The robot has only one hand.
+Each action must satisfy its preconditions.
+Output the plan as an action list.

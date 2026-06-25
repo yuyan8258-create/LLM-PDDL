@@ -1,0 +1,10 @@
+The previous plan failed symbolic verification.
+
+Error feedback:
+{feedback}
+
+Previous plan:
+{plan}
+
+Generate a corrected complete plan.
+Output only the action list.

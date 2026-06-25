@@ -1,0 +1,12 @@
+{
+  "success": false,
+  "error": "Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download",
+  "logs": [
+    {
+      "iteration": 1,
+      "parse_or_generation_error": "Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download",
+      "raw_llm_output": "",
+      "success": false
+    }
+  ]
+}

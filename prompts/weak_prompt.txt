@@ -1,0 +1,2 @@
+Generate a plan to build the target block structure.
+Output the plan only.

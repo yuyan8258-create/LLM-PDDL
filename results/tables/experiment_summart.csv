@@ -1,0 +1,4 @@
+scene,model,prompt_type,planner,result,iterations,error_type
+scene_02_pyramid,llama3.1:8b,strong,manual,SUCCESS,1,
+scene_02_pyramid,llama3.1:8b,medium,llm,FAILED,3,handempty/holding
+scene_02_pyramid,llama3.1:8b,strong,llm,SUCCESS,1,
