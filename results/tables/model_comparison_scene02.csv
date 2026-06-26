@@ -1,0 +1,4 @@
+scene,model,trial,result,iterations,error_type,notes
+scene_02_pyramid,llama3.1:8b,1,SUCCESS,1,,Generated a valid 6-step pyramid construction plan
+scene_02_pyramid,llama3.2:3b,1,FAILED,3,handempty / bridge_slot_error,Failed after three verifier-feedback iterations; first attempted extra pick-up while hand was not empty, then generated invalid bridge actions using occupied support slots
+scene_02_pyramid,qwen2.5:latest,1,FAILED,3,bridge_slot_error / extra_actions,Failed after three verifier-feedback iterations; generated unnecessary extra bridge actions after completing the target structure and violated right-free/left-free support-slot constraints

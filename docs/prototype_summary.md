@@ -23,7 +23,7 @@ put-down(blockA)
 pick-up(blockB)
 stack(blockB, blockC)
 ```
-
+This experiment is used as the easy baseline scene for testing the LLM + PDDL-style verification loop.
 
 ## Pyramid Demo: Successful LLM-Generated Plan
 ```text
@@ -34,3 +34,13 @@ stack-bridge(B5, B2, B3)
 pick-up(pyramid)
 stack-bridge(pyramid, B4, B5)
 ```
+
+## Initial Model Comparison on Scene 02
+
+An initial model comparison was conducted on the image-inspired pyramid scene.
+
+- `llama3.1:8b` generated a valid 6-step construction plan in one iteration.
+- `llama3.2:3b` failed after three verifier-feedback iterations. It first attempted to pick up another object while the robot hand was not empty, and later generated invalid bridge actions using occupied support slots.
+- `qwen2.5:latest` also failed after three verifier-feedback iterations. It generated unnecessary extra bridge actions after the target structure had already been completed, violating `right-free` and `left-free` support-slot constraints.
+
+These results show that different LLMs behave differently on the same symbolic construction task. They also demonstrate why symbolic verification is necessary: the generated plans can look plausible, but may violate action preconditions or continue acting after the goal has already been achieved.
