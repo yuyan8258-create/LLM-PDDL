@@ -1,7 +1,95 @@
 {
-  "success": false,
-  "iterations": 3,
-  "plan": null,
+  "success": true,
+  "iterations": 1,
+  "plan": [
+    {
+      "action": "pick-up",
+      "args": [
+        "B4"
+      ]
+    },
+    {
+      "action": "stack-bridge",
+      "args": [
+        "B4",
+        "B1",
+        "B2"
+      ]
+    },
+    {
+      "action": "pick-up",
+      "args": [
+        "B5"
+      ]
+    },
+    {
+      "action": "stack-bridge",
+      "args": [
+        "B5",
+        "B2",
+        "B3"
+      ]
+    },
+    {
+      "action": "pick-up",
+      "args": [
+        "pyramid"
+      ]
+    },
+    {
+      "action": "stack-bridge",
+      "args": [
+        "pyramid",
+        "B4",
+        "B5"
+      ]
+    }
+  ],
+  "final_state": {
+    "on": [],
+    "on_bridge": [
+      [
+        "B4",
+        "B1",
+        "B2"
+      ],
+      [
+        "B5",
+        "B2",
+        "B3"
+      ],
+      [
+        "pyramid",
+        "B4",
+        "B5"
+      ]
+    ],
+    "ontable": [
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "clear": [
+      "B1",
+      "B2",
+      "B3",
+      "B4",
+      "B5",
+      "pyramid"
+    ],
+    "holding": [],
+    "handempty": true,
+    "left_free": [
+      "B1",
+      "B4",
+      "pyramid"
+    ],
+    "right_free": [
+      "B3",
+      "B5",
+      "pyramid"
+    ]
+  },
   "logs": [
     {
       "iteration": 1,
@@ -47,181 +135,11 @@
             "B4",
             "B5"
           ]
-        },
-        {
-          "action": "pick-up",
-          "args": [
-            "B1"
-          ]
-        },
-        {
-          "action": "stack-bridge",
-          "args": [
-            "B1",
-            "B1",
-            "B1"
-          ]
-        },
-        {
-          "action": "pick-up",
-          "args": [
-            "B2"
-          ]
-        },
-        {
-          "action": "stack-bridge",
-          "args": [
-            "B2",
-            "B2",
-            "B2"
-          ]
-        },
-        {
-          "action": "pick-up",
-          "args": [
-            "B3"
-          ]
-        },
-        {
-          "action": "stack-bridge",
-          "args": [
-            "B3",
-            "B3",
-            "B3"
-          ]
         }
       ],
-      "raw_llm_output": "[\n  {\"action\": \"pick-up\", \"args\": [\"B4\"]},\n  {\"action\": \"stack-bridge\", \"args\": [\"B4\", \"B1\", \"B2\"]},\n  {\"action\": \"pick-up\", \"args\": [\"B5\"]},\n  {\"action\": \"stack-bridge\", \"args\": [\"B5\", \"B2\", \"B3\"]},\n  {\"action\": \"pick-up\", \"args\": [\"pyramid\"]},\n  {\"action\": \"stack-bridge\", \"args\": [\"pyramid\", \"B4\", \"B5\"]},\n  {\"action\": \"pick-up\", \"args\": [\"B1\"]},\n  {\"action\": \"stack-bridge\", \"args\": [\"B1\", \"B1\", \"B1\"]}, // Placeholder for ontable(B1) as it cannot be moved\n  {\"action\": \"pick-up\", \"args\": [\"B2\"]},\n  {\"action\": \"stack-bridge\", \"args\": [\"B2\", \"B2\", \"B2\"]}, // Placeholder for ontable(B2) as it cannot be moved\n  {\"action\": \"pick-up\", \"args\": [\"B3\"]},\n  {\"action\": \"stack-bridge\", \"args\": [\"B3\", \"B3\", \"B3\"]} // Placeholder for ontable(B3) as it cannot be moved\n]",
-      "verifier_message": "{\n  \"failed_step\": 8,\n  \"failed_action\": \"stack-bridge(B1, B1, B1)\",\n  \"error\": \"Missing preconditions: right-free(B1)\",\n  \"state_before_failure\": {\n    \"on\": [],\n    \"on_bridge\": [\n      [\n        \"B4\",\n        \"B1\",\n        \"B2\"\n      ],\n      [\n        \"B5\",\n        \"B2\",\n        \"B3\"\n      ],\n      [\n        \"pyramid\",\n        \"B4\",\n        \"B5\"\n      ]\n    ],\n    \"ontable\": [\n      \"B2\",\n      \"B3\"\n    ],\n    \"clear\": [\n      \"B2\",\n      \"B3\",\n      \"B4\",\n      \"B5\",\n      \"pyramid\"\n    ],\n    \"holding\": [\n      \"B1\"\n    ],\n    \"handempty\": false,\n    \"left_free\": [\n      \"B1\",\n      \"B4\",\n      \"pyramid\"\n    ],\n    \"right_free\": [\n      \"B3\",\n      \"B5\",\n      \"pyramid\"\n    ]\n  }\n}",
-      "success": false
-    },
-    {
-      "iteration": 2,
-      "plan": [
-        {
-          "action": "pick-up",
-          "args": [
-            "B4"
-          ]
-        },
-        {
-          "action": "stack-bridge",
-          "args": [
-            "B4",
-            "B1",
-            "B2"
-          ]
-        },
-        {
-          "action": "pick-up",
-          "args": [
-            "B5"
-          ]
-        },
-        {
-          "action": "stack-bridge",
-          "args": [
-            "B5",
-            "B2",
-            "B3"
-          ]
-        },
-        {
-          "action": "pick-up",
-          "args": [
-            "pyramid"
-          ]
-        },
-        {
-          "action": "stack-bridge",
-          "args": [
-            "pyramid",
-            "B4",
-            "B5"
-          ]
-        },
-        {
-          "action": "pick-up",
-          "args": [
-            "B2"
-          ]
-        },
-        {
-          "action": "stack-bridge",
-          "args": [
-            "B2",
-            "B1",
-            "B3"
-          ]
-        }
-      ],
-      "raw_llm_output": "[\n  {\"action\": \"pick-up\", \"args\": [\"B4\"]},\n  {\"action\": \"stack-bridge\", \"args\": [\"B4\", \"B1\", \"B2\"]},\n  {\"action\": \"pick-up\", \"args\": [\"B5\"]},\n  {\"action\": \"stack-bridge\", \"args\": [\"B5\", \"B2\", \"B3\"]},\n  {\"action\": \"pick-up\", \"args\": [\"pyramid\"]},\n  {\"action\": \"stack-bridge\", \"args\": [\"pyramid\", \"B4\", \"B5\"]},\n  {\"action\": \"pick-up\", \"args\": [\"B2\"]},\n  {\"action\": \"stack-bridge\", \"args\": [\"B2\", \"B1\", \"B3\"]}\n]",
-      "verifier_message": "{\n  \"failed_step\": 8,\n  \"failed_action\": \"stack-bridge(B2, B1, B3)\",\n  \"error\": \"Missing preconditions: right-free(B1), left-free(B3)\",\n  \"state_before_failure\": {\n    \"on\": [],\n    \"on_bridge\": [\n      [\n        \"B4\",\n        \"B1\",\n        \"B2\"\n      ],\n      [\n        \"B5\",\n        \"B2\",\n        \"B3\"\n      ],\n      [\n        \"pyramid\",\n        \"B4\",\n        \"B5\"\n      ]\n    ],\n    \"ontable\": [\n      \"B1\",\n      \"B3\"\n    ],\n    \"clear\": [\n      \"B1\",\n      \"B3\",\n      \"B4\",\n      \"B5\",\n      \"pyramid\"\n    ],\n    \"holding\": [\n      \"B2\"\n    ],\n    \"handempty\": false,\n    \"left_free\": [\n      \"B1\",\n      \"B4\",\n      \"pyramid\"\n    ],\n    \"right_free\": [\n      \"B3\",\n      \"B5\",\n      \"pyramid\"\n    ]\n  }\n}",
-      "success": false
-    },
-    {
-      "iteration": 3,
-      "plan": [
-        {
-          "action": "pick-up",
-          "args": [
-            "B4"
-          ]
-        },
-        {
-          "action": "stack-bridge",
-          "args": [
-            "B4",
-            "B1",
-            "B2"
-          ]
-        },
-        {
-          "action": "pick-up",
-          "args": [
-            "B5"
-          ]
-        },
-        {
-          "action": "stack-bridge",
-          "args": [
-            "B5",
-            "B2",
-            "B3"
-          ]
-        },
-        {
-          "action": "pick-up",
-          "args": [
-            "pyramid"
-          ]
-        },
-        {
-          "action": "stack-bridge",
-          "args": [
-            "pyramid",
-            "B4",
-            "B5"
-          ]
-        },
-        {
-          "action": "pick-up",
-          "args": [
-            "B2"
-          ]
-        },
-        {
-          "action": "stack-bridge",
-          "args": [
-            "B2",
-            "B1",
-            "B3"
-          ]
-        }
-      ],
-      "raw_llm_output": "[\n  {\"action\": \"pick-up\", \"args\": [\"B4\"]},\n  {\"action\": \"stack-bridge\", \"args\": [\"B4\", \"B1\", \"B2\"]},\n  {\"action\": \"pick-up\", \"args\": [\"B5\"]},\n  {\"action\": \"stack-bridge\", \"args\": [\"B5\", \"B2\", \"B3\"]},\n  {\"action\": \"pick-up\", \"args\": [\"pyramid\"]},\n  {\"action\": \"stack-bridge\", \"args\": [\"pyramid\", \"B4\", \"B5\"]},\n  {\"action\": \"pick-up\", \"args\": [\"B2\"]},\n  {\"action\": \"stack-bridge\", \"args\": [\"B2\", \"B1\", \"B3\"]}\n]",
-      "verifier_message": "{\n  \"failed_step\": 8,\n  \"failed_action\": \"stack-bridge(B2, B1, B3)\",\n  \"error\": \"Missing preconditions: right-free(B1), left-free(B3)\",\n  \"state_before_failure\": {\n    \"on\": [],\n    \"on_bridge\": [\n      [\n        \"B4\",\n        \"B1\",\n        \"B2\"\n      ],\n      [\n        \"B5\",\n        \"B2\",\n        \"B3\"\n      ],\n      [\n        \"pyramid\",\n        \"B4\",\n        \"B5\"\n      ]\n    ],\n    \"ontable\": [\n      \"B1\",\n      \"B3\"\n    ],\n    \"clear\": [\n      \"B1\",\n      \"B3\",\n      \"B4\",\n      \"B5\",\n      \"pyramid\"\n    ],\n    \"holding\": [\n      \"B2\"\n    ],\n    \"handempty\": false,\n    \"left_free\": [\n      \"B1\",\n      \"B4\",\n      \"pyramid\"\n    ],\n    \"right_free\": [\n      \"B3\",\n      \"B5\",\n      \"pyramid\"\n    ]\n  }\n}",
-      "success": false
+      "raw_llm_output": "[\n  {\"action\": \"pick-up\", \"args\": [\"B4\"]},\n  {\"action\": \"stack-bridge\", \"args\": [\"B4\", \"B1\", \"B2\"]},\n  {\"action\": \"pick-up\", \"args\": [\"B5\"]},\n  {\"action\": \"stack-bridge\", \"args\": [\"B5\", \"B2\", \"B3\"]},\n  {\"action\": \"pick-up\", \"args\": [\"pyramid\"]},\n  {\"action\": \"stack-bridge\", \"args\": [\"pyramid\", \"B4\", \"B5\"]}\n]",
+      "verifier_message": "Plan is valid and all goal conditions are achieved.",
+      "success": true
     }
   ]
 }

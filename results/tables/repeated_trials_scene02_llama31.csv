@@ -1,0 +1,4 @@
+scene,model,prompt_type,trial,result,iterations,error_type,notes
+scene_02_pyramid,llama3.1:8b,strong,1,SUCCESS,1,,valid plan generated
+scene_02_pyramid,llama3.1:8b,strong,2,SUCCESS,1,,valid plan generated
+scene_02_pyramid,llama3.1:8b,strong,3,SUCCESS,1,,valid plan generated
