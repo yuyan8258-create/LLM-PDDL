@@ -25,6 +25,7 @@ The current prototype focuses on an image-inspired block construction task. The 
 |---|---|---|---|
 | scene_01_blocksworld_basic | Basic BlocksWorld rearrangement: unstack blockA from blockB and stack blockB on blockC | Easy | Added |
 | scene_02_pyramid | Image-inspired pyramid bridge scene | Medium | Implemented and tested |
+| scene_03_large_pyramid | Larger bridge pyramid with more objects | Hard | Added |
 
 ## Example Target Structure
 

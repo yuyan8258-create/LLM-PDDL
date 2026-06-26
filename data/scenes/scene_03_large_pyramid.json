@@ -1,0 +1,39 @@
+{
+    "scene_id": "scene_03_large_pyramid",
+    "scene_name": "Larger pyramid bridge structure",
+    "description": "A more complex bridge-style block construction scene with four base blocks, three middle bridge blocks, two upper bridge blocks, and one top block.",
+    "difficulty": "hard",
+    "objects": ["B1", "B2", "B3", "B4", "M1", "M2", "M3", "U1", "U2", "top"],
+    "initial_state": {
+      "ontable": ["B1", "B2", "B3", "B4", "M1", "M2", "M3", "U1", "U2", "top"],
+      "clear": ["B1", "B2", "B3", "B4", "M1", "M2", "M3", "U1", "U2", "top"],
+      "holding": [],
+      "handempty": true
+    },
+    "goal_state": {
+      "on_bridge": [
+        ["M1", "B1", "B2"],
+        ["M2", "B2", "B3"],
+        ["M3", "B3", "B4"],
+        ["U1", "M1", "M2"],
+        ["U2", "M2", "M3"],
+        ["top", "U1", "U2"]
+      ],
+      "ontable": ["B1", "B2", "B3", "B4"],
+      "handempty": true
+    },
+    "expected_plan": [
+      "pick-up(M1)",
+      "stack-bridge(M1, B1, B2)",
+      "pick-up(M2)",
+      "stack-bridge(M2, B2, B3)",
+      "pick-up(M3)",
+      "stack-bridge(M3, B3, B4)",
+      "pick-up(U1)",
+      "stack-bridge(U1, M1, M2)",
+      "pick-up(U2)",
+      "stack-bridge(U2, M2, M3)",
+      "pick-up(top)",
+      "stack-bridge(top, U1, U2)"
+    ]
+  }
