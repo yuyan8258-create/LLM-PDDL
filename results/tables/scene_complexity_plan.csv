@@ -1,0 +1,6 @@
+scene,difficulty,objects,relations,status,purpose
+scene_01_blocksworld_basic,easy,3,on,implemented,baseline standard BlocksWorld planning
+scene_02_pyramid,medium,6,on_bridge,implemented,image-inspired bridge construction
+scene_03_large_pyramid,hard,10,on_bridge,added,test long-horizon bridge planning
+scene_04_partial_occlusion,hard,TBD,TBD,planned,test visible vs hidden object information
+scene_05_gearbox_assembly,extension,TBD,assembly predicates,planned,test symbolic assembly planning
