@@ -1,0 +1,29 @@
+{
+  "scene_id": "scene_01_blocksworld_basic",
+  "scene_name": "Basic BlocksWorld rearrangement",
+  "description": "A simple BlocksWorld scene where blockA starts on blockB, and the goal is to place blockA on the table and stack blockB on blockC.",
+  "difficulty": "easy",
+  "objects": ["blockA", "blockB", "blockC"],
+  "initial_state": {
+    "on": [
+      ["blockA", "blockB"]
+    ],
+    "ontable": ["blockB", "blockC"],
+    "clear": ["blockA", "blockC"],
+    "holding": [],
+    "handempty": true
+  },
+  "goal_state": {
+    "on": [
+      ["blockB", "blockC"]
+    ],
+    "ontable": ["blockA"],
+    "handempty": true
+  },
+  "expected_plan": [
+    "unstack(blockA, blockB)",
+    "put-down(blockA)",
+    "pick-up(blockB)",
+    "stack(blockB, blockC)"
+  ]
+}

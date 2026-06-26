@@ -19,6 +19,13 @@ The current prototype focuses on an image-inspired block construction task. The 
 - Robust parser for LLM outputs
 - Experiment result logging
 
+## Available Scenes
+
+| Scene ID | Description | Difficulty | Status |
+|---|---|---|---|
+| scene_01_blocksworld_basic | Basic BlocksWorld rearrangement: unstack blockA from blockB and stack blockB on blockC | Easy | Added |
+| scene_02_pyramid | Image-inspired pyramid bridge scene | Medium | Implemented and tested |
+
 ## Example Target Structure
 
 ```text
