@@ -1,0 +1,19 @@
+Scene: Scene 02 Image-Inspired Pyramid
+Planner: Fast Downward
+Validator: VAL
+
+Plan:
+1. pick-up b4
+2. stack-bridge b4 b1 b2
+3. pick-up b5
+4. stack-bridge b5 b2 b3
+5. pick-up pyramid
+6. stack-bridge pyramid b4 b5
+
+Validation result:
+Plan executed successfully.
+Goal conditions satisfied.
+Plan valid.
+
+Plan length: 6
+Plan cost: 6
