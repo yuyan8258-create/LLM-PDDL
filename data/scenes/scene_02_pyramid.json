@@ -1,21 +1,68 @@
 {
   "scene_id": "scene_02_pyramid",
+  "domain_id": "block_building",
   "scene_name": "Image-inspired pyramid block structure",
   "description": "A manually abstracted symbolic scene based on an image-like block construction task.",
-  "objects": ["B1", "B2", "B3", "B4", "B5", "pyramid"],
+  "difficulty": "medium",
+  "objects": [
+    "B1",
+    "B2",
+    "B3",
+    "B4",
+    "B5",
+    "pyramid"
+  ],
   "initial_state": {
-    "ontable": ["B1", "B2", "B3", "B4", "B5", "pyramid"],
-    "clear": ["B1", "B2", "B3", "B4", "B5", "pyramid"],
+    "ontable": [
+      "B1",
+      "B2",
+      "B3",
+      "B4",
+      "B5",
+      "pyramid"
+    ],
+    "clear": [
+      "B1",
+      "B2",
+      "B3",
+      "B4",
+      "B5",
+      "pyramid"
+    ],
     "holding": [],
     "handempty": true
   },
   "goal_state": {
     "on_bridge": [
-      ["B4", "B1", "B2"],
-      ["B5", "B2", "B3"],
-      ["pyramid", "B4", "B5"]
+      [
+        "B4",
+        "B1",
+        "B2"
+      ],
+      [
+        "B5",
+        "B2",
+        "B3"
+      ],
+      [
+        "pyramid",
+        "B4",
+        "B5"
+      ]
     ],
-    "ontable": ["B1", "B2", "B3"],
+    "ontable": [
+      "B1",
+      "B2",
+      "B3"
+    ],
     "handempty": true
-  }
+  },
+  "expected_plan": [
+    "pick-up(B4)",
+    "stack-bridge(B4, B1, B2)",
+    "pick-up(B5)",
+    "stack-bridge(B5, B2, B3)",
+    "pick-up(pyramid)",
+    "stack-bridge(pyramid, B4, B5)"
+  ]
 }

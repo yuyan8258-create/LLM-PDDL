@@ -1,5 +1,6 @@
 {
     "scene_id": "scene_03_large_pyramid",
+    "domain_id": "block_building",
     "scene_name": "Larger pyramid bridge structure",
     "description": "A more complex bridge-style block construction scene with four base blocks, three middle bridge blocks, two upper bridge blocks, and one top block.",
     "difficulty": "hard",
