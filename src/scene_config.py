@@ -15,16 +15,7 @@ GENERATED_PDDL_DIRECTORY = PROJECT_ROOT / "generated_pddl"
 RESULTS_DIRECTORY = PROJECT_ROOT / "results"
 
 
-# Temporary compatibility for the three existing JSON files.
-#
-# These files currently do not contain domain_id. They are known to belong
-# to the existing block-building domain. After domain_id is added to those
-# JSON files, this compatibility set can be removed.
-LEGACY_BLOCK_SCENES = {
-    "scene_01_blocksworld_basic",
-    "scene_02_pyramid",
-    "scene_03_large_pyramid",
-}
+
 
 
 @dataclass(frozen=True)
@@ -162,29 +153,28 @@ def _resolve_domain_id(
     scene_json_file: Path,
 ) -> str:
     """
-    Resolve the scene's domain identifier.
+    Read and validate the scene's explicit domain identifier.
 
-    The three existing block scenes temporarily default to
-    block_building because their current JSON files predate domain_id.
-
-    Every new scene must explicitly provide domain_id.
+    Every scene must declare domain_id in its JSON file.
     """
 
     raw_domain_id = scene_data.get("domain_id")
 
-    if isinstance(raw_domain_id, str):
-        domain_id = raw_domain_id.strip()
+    if not isinstance(raw_domain_id, str):
+        raise ValueError(
+            f"Scene '{scene_id}' must define domain_id as a string: "
+            f"{scene_json_file}"
+        )
 
-        if domain_id:
-            return domain_id
+    domain_id = raw_domain_id.strip()
 
-    if scene_id in LEGACY_BLOCK_SCENES:
-        return "block_building"
+    if not domain_id:
+        raise ValueError(
+            f"Scene '{scene_id}' contains an empty domain_id: "
+            f"{scene_json_file}"
+        )
 
-    raise ValueError(
-        f"Scene '{scene_id}' does not define a valid domain_id: "
-        f"{scene_json_file}"
-    )
+    return domain_id
 
 
 def _normalise_objects(
