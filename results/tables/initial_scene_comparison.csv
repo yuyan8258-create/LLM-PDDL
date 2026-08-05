@@ -1,3 +1,3 @@
 scene,model,prompt_type,result,iterations,main_error,notes
-scene_01_blocksworld_basic,llama3.1:8b,strong,TO_RUN,,,basic single-support BlocksWorld
+scene_01_blocksworld_basic,llama3.1:8b,strong,SUCCESS,1,,basic single-support BlocksWorld
 scene_02_pyramid,llama3.1:8b,strong,SUCCESS,1,,image-inspired bridge structure

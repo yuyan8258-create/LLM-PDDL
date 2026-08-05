@@ -1,0 +1,14 @@
+[
+  {"action": "pick-up", "args": ["B4"]},
+  {"action": "stack-bridge", "args": ["B4", "B1", "B2"]},
+  {"action": "pick-up", "args": ["B5"]},
+  {"action": "stack-bridge", "args": ["B5", "B2", "B3"]},
+  {"action": "pick-up", "args": ["pyramid"]},
+  {"action": "stack-bridge", "args": ["pyramid", "B4", "B5"]},
+  {"action": "pick-up", "args": ["B1"]},
+  {"action": "stack-bridge", "args": ["B1", "B1", "B1"]}, // Placeholder for ontable(B1) as it cannot be moved
+  {"action": "pick-up", "args": ["B2"]},
+  {"action": "stack-bridge", "args": ["B2", "B2", "B2"]}, // Placeholder for ontable(B2) as it cannot be moved
+  {"action": "pick-up", "args": ["B3"]},
+  {"action": "stack-bridge", "args": ["B3", "B3", "B3"]} // Placeholder for ontable(B3) as it cannot be moved
+]

@@ -1,0 +1,9 @@
+{
+  "batch_id": "batch_pure_llm_llama3.1_8b_20260804_230735",
+  "model": "llama3.1:8b",
+  "method": "pure_llm",
+  "number_of_runs": 2,
+  "max_iterations": 1,
+  "started_at": "2026-08-04T23:07:35",
+  "batch_directory": "E:\\桌面\\LLM-PDDL\\results\\refinement\\batches\\batch_pure_llm_llama3.1_8b_20260804_230735"
+}

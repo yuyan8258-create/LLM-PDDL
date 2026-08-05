@@ -1,0 +1,100 @@
+﻿Checking plan: /mnt/e/桌面/LLM-PDDL/results/refinement/scene_02_pyramid/run_pure_llm_llama3.2_3b_02/attempt_01.plan
+Plan to validate:
+
+Plan size: 10
+1:
+(pick-up b4)
+
+2:
+(stack-bridge b4 b1 b2)
+
+3:
+(pick-up b5)
+
+4:
+(stack-bridge b5 b2 b3)
+
+5:
+(pick-up pyramid)
+
+6:
+(stack-bridge pyramid b4 b5)
+
+7:
+(pick-up b1)
+
+8:
+(pick-up b2)
+
+9:
+(pick-up b3)
+
+10:
+(stack-bridge b1 b2 b3)
+
+
+Plan Validation details
+-----------------------
+
+Checking next happening (time 1)
+Deleting (ontable b4)
+Deleting (clear b4)
+Deleting (handempty)
+Adding (holding b4)
+
+Checking next happening (time 2)
+Deleting (holding b4)
+Deleting (right-free b1)
+Deleting (left-free b2)
+Adding (on-bridge b4 b1 b2)
+Adding (clear b4)
+Adding (handempty)
+
+Checking next happening (time 3)
+Deleting (ontable b5)
+Deleting (clear b5)
+Deleting (handempty)
+Adding (holding b5)
+
+Checking next happening (time 4)
+Deleting (holding b5)
+Deleting (right-free b2)
+Deleting (left-free b3)
+Adding (on-bridge b5 b2 b3)
+Adding (clear b5)
+Adding (handempty)
+
+Checking next happening (time 5)
+Deleting (ontable pyramid)
+Deleting (clear pyramid)
+Deleting (handempty)
+Adding (holding pyramid)
+
+Checking next happening (time 6)
+Deleting (holding pyramid)
+Deleting (right-free b4)
+Deleting (left-free b5)
+Adding (on-bridge pyramid b4 b5)
+Adding (clear pyramid)
+Adding (handempty)
+
+Checking next happening (time 7)
+Deleting (ontable b1)
+Deleting (clear b1)
+Deleting (handempty)
+Adding (holding b1)
+
+Checking next happening (time 8)
+Plan failed because of unsatisfied precondition in:
+(pick-up b2)
+
+Plan failed to execute
+
+Plan Repair Advice:
+
+(pick-up b2) has an unsatisfied precondition at time 8
+(Set (handempty) to true)
+
+
+Failed plans:
+ /mnt/e/桌面/LLM-PDDL/results/refinement/scene_02_pyramid/run_pure_llm_llama3.2_3b_02/attempt_01.plan

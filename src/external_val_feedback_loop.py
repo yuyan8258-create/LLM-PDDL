@@ -258,14 +258,90 @@ def get_mock_plan(iteration: int) -> list[PlanStep]:
 # Run directory and result saving
 # ---------------------------------------------------------------------------
 
-def create_run_directory() -> Path:
+def sanitise_name(value: str) -> str:
     """
-    Create a separate result directory for every experiment run.
+    Convert text into a safe Windows directory name.
+    """
+    return (
+        value.strip()
+        .replace(":", "_")
+        .replace("/", "_")
+        .replace("\\", "_")
+        .replace(" ", "_")
+    )
+
+
+def get_next_run_number(
+    prefix: str,
+) -> int:
+    """
+    Find the next available run number for a given prefix.
+
+    Example:
+        run_pure_llm_qwen2.5_latest_01
+        run_pure_llm_qwen2.5_latest_02
+
+    Returns:
+        3
+    """
+    existing_numbers: list[int] = []
+
+    for directory in RESULTS_ROOT.glob(f"{prefix}_*"):
+        if not directory.is_dir():
+            continue
+
+        final_part = directory.name.rsplit(
+            "_",
+            maxsplit=1,
+        )[-1]
+
+        if final_part.isdigit():
+            existing_numbers.append(
+                int(final_part)
+            )
+
+    if existing_numbers:
+        return max(existing_numbers) + 1
+
+    return 1
+
+
+def create_run_directory(
+    mode: str,
+    model: str,
+    max_iterations: int,
+) -> Path:
+    """
+    Create a clearly named result directory for each experiment run.
     """
 
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    method = (
+        "pure_llm"
+        if mode == "llm" and max_iterations == 1
+        else (
+            "hybrid_feedback"
+            if mode == "llm"
+            else "mock"
+        )
+    )
 
-    run_directory = RESULTS_ROOT / f"run_{timestamp}"
+    if mode == "llm":
+        safe_model_name = sanitise_name(model)
+
+        run_prefix = (
+            f"run_{method}_{safe_model_name}"
+        )
+    else:
+        run_prefix = "run_mock"
+
+    run_number = get_next_run_number(
+        prefix=run_prefix,
+    )
+
+    run_directory = (
+        RESULTS_ROOT
+        / f"{run_prefix}_{run_number:02d}"
+    )
 
     run_directory.mkdir(
         parents=True,
@@ -324,7 +400,11 @@ def run_refinement_loop(
             f"Problem file does not exist: {PROBLEM_FILE}"
         )
 
-    run_directory = create_run_directory()
+    run_directory = create_run_directory(
+        mode=mode,
+        model=model,
+        max_iterations=max_iterations,
+    )
 
     # Save copies of the exact PDDL files used in this run.
     shutil.copy2(
@@ -511,6 +591,15 @@ def run_refinement_loop(
             summary = {
                 "scene": SCENE_NAME,
                 "mode": mode,
+                "method": (
+                    "pure_llm"
+                    if mode == "llm" and max_iterations == 1
+                    else (
+                        "hybrid_feedback"
+                        if mode == "llm"
+                        else "mock"
+                    )
+                ),
                 "model": (
                     model
                     if mode == "llm"
@@ -609,6 +698,15 @@ def run_refinement_loop(
     summary = {
         "scene": SCENE_NAME,
         "mode": mode,
+        "method": (
+            "pure_llm"
+            if mode == "llm" and max_iterations == 1
+            else (
+               "hybrid_feedback"
+               if mode == "llm"
+               else "mock"
+            )
+        ),
         "model": (
             model
             if mode == "llm"

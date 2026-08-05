@@ -1,0 +1,8 @@
+﻿scene,mode,method,model,total_runs,first_attempt_successes,first_attempt_success_rate,final_successes,final_success_rate,average_iterations,average_total_val_runtime_seconds
+scene_02_pyramid,llm,hybrid_feedback,llama3.1:8b,3,3,1.0,3,1.0,1.0,11.274351
+scene_02_pyramid,llm,hybrid_feedback,llama3.2:3b,3,0,0.0,0,0.0,3.0,23.504524
+scene_02_pyramid,llm,hybrid_feedback,qwen2.5:latest,5,0,0.0,5,1.0,2.0,19.483401
+scene_02_pyramid,llm,pure_llm,llama3.1:8b,5,5,1.0,5,1.0,1.0,12.982898
+scene_02_pyramid,llm,pure_llm,llama3.2:3b,3,0,0.0,0,0.0,1.0,10.687174
+scene_02_pyramid,llm,pure_llm,qwen2.5:latest,3,0,0.0,0,0.0,1.0,11.611146
+scene_02_pyramid,mock,,mock,1,0,0.0,1,1.0,2.0,18.964291

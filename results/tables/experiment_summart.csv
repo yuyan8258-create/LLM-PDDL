@@ -1,4 +1,6 @@
 scene,model,prompt_type,planner,result,iterations,error_type
+scene_01_blocksworld_basic,llama3.1:8b,strong,llm,TO_RUN,,,Basic BlocksWorld rearrangement demo from earlier prototype
+scene_01_blocksworld_basic,llama3.1:8b,strong,llm,SUCCESS,1,,Basic BlocksWorld rearrangement demo
 scene_02_pyramid,llama3.1:8b,strong,manual,SUCCESS,1,
 scene_02_pyramid,llama3.1:8b,medium,llm,FAILED,3,handempty/holding
 scene_02_pyramid,llama3.1:8b,strong,llm,SUCCESS,1,

@@ -1,0 +1,77 @@
+{
+  "model": "qwen2.5:latest",
+  "domain_file": "E:\\桌面\\LLM-PDDL\\generated_pddl\\scene_02_pyramid\\domain.pddl",
+  "problem_file": "E:\\桌面\\LLM-PDDL\\generated_pddl\\scene_02_pyramid\\problem.pddl",
+  "max_refinements": 3,
+  "initial_temperature": 0.0,
+  "refinement_temperature": 0.4,
+  "attempts": [
+    {
+      "attempt": 0,
+      "type": "initial",
+      "temperature": 0.0,
+      "prompt_file": "E:\\桌面\\LLM-PDDL\\results\\local_llm_test\\planning_prompt.txt",
+      "raw_response_file": "E:\\桌面\\LLM-PDDL\\results\\local_llm_test\\raw_response.txt",
+      "plan_file": "E:\\桌面\\LLM-PDDL\\results\\local_llm_test\\extracted_plan.plan",
+      "plan_length": 11,
+      "validation": {
+        "valid": false,
+        "return_code": 1,
+        "runtime_seconds": 8.211783599996124,
+        "final_value": null,
+        "raw_log_file": "E:\\桌面\\LLM-PDDL\\results\\local_llm_test\\validation.txt"
+      }
+    },
+    {
+      "attempt": 1,
+      "type": "refinement",
+      "temperature": 0.4,
+      "prompt_file": "E:\\桌面\\LLM-PDDL\\results\\local_llm_test\\refinement_01_prompt.txt",
+      "raw_response_file": "E:\\桌面\\LLM-PDDL\\results\\local_llm_test\\refinement_01_raw_response.txt",
+      "plan_file": "E:\\桌面\\LLM-PDDL\\results\\local_llm_test\\refinement_01_plan.plan",
+      "plan_length": 12,
+      "validation": {
+        "valid": false,
+        "return_code": 1,
+        "runtime_seconds": 7.975996300010593,
+        "final_value": null,
+        "raw_log_file": "E:\\桌面\\LLM-PDDL\\results\\local_llm_test\\refinement_01_validation.txt"
+      }
+    },
+    {
+      "attempt": 2,
+      "type": "refinement",
+      "temperature": 0.4,
+      "prompt_file": "E:\\桌面\\LLM-PDDL\\results\\local_llm_test\\refinement_02_prompt.txt",
+      "raw_response_file": "E:\\桌面\\LLM-PDDL\\results\\local_llm_test\\refinement_02_raw_response.txt",
+      "plan_file": "E:\\桌面\\LLM-PDDL\\results\\local_llm_test\\refinement_02_plan.plan",
+      "plan_length": 16,
+      "validation": {
+        "valid": false,
+        "return_code": 1,
+        "runtime_seconds": 8.209471099995426,
+        "final_value": null,
+        "raw_log_file": "E:\\桌面\\LLM-PDDL\\results\\local_llm_test\\refinement_02_validation.txt"
+      }
+    },
+    {
+      "attempt": 3,
+      "type": "refinement",
+      "temperature": 0.4,
+      "prompt_file": "E:\\桌面\\LLM-PDDL\\results\\local_llm_test\\refinement_03_prompt.txt",
+      "raw_response_file": "E:\\桌面\\LLM-PDDL\\results\\local_llm_test\\refinement_03_raw_response.txt",
+      "plan_file": "E:\\桌面\\LLM-PDDL\\results\\local_llm_test\\refinement_03_plan.plan",
+      "plan_length": 14,
+      "validation": {
+        "valid": false,
+        "return_code": 1,
+        "runtime_seconds": 8.300906699994812,
+        "final_value": null,
+        "raw_log_file": "E:\\桌面\\LLM-PDDL\\results\\local_llm_test\\refinement_03_validation.txt"
+      }
+    }
+  ],
+  "final_status": "max_refinements_reached",
+  "final_valid": false,
+  "refinements_used": 3
+}

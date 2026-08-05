@@ -1,0 +1,9 @@
+{
+  "batch_id": "batch_hybrid_feedback_qwen2.5_latest_20260804_231134",
+  "model": "qwen2.5:latest",
+  "method": "hybrid_feedback",
+  "number_of_runs": 2,
+  "max_iterations": 3,
+  "started_at": "2026-08-04T23:11:34",
+  "batch_directory": "E:\\桌面\\LLM-PDDL\\results\\refinement\\batches\\batch_hybrid_feedback_qwen2.5_latest_20260804_231134"
+}

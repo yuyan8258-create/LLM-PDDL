@@ -1,0 +1,47 @@
+(define (problem image_pyramid_scene)
+  (:domain image_block_building)
+
+  (:objects
+    B1 B2 B3 B4 B5 pyramid
+  )
+
+  (:init
+    (ontable B1)
+    (ontable B2)
+    (ontable B3)
+    (ontable B4)
+    (ontable B5)
+    (ontable pyramid)
+    (clear B1)
+    (clear B2)
+    (clear B3)
+    (clear B4)
+    (clear B5)
+    (clear pyramid)
+    (left-free B1)
+    (left-free B2)
+    (left-free B3)
+    (left-free B4)
+    (left-free B5)
+    (left-free pyramid)
+    (right-free B1)
+    (right-free B2)
+    (right-free B3)
+    (right-free B4)
+    (right-free B5)
+    (right-free pyramid)
+    (handempty)
+  )
+
+  (:goal
+    (and
+      (ontable B1)
+      (ontable B2)
+      (ontable B3)
+      (on-bridge B4 B1 B2)
+      (on-bridge B5 B2 B3)
+      (on-bridge pyramid B4 B5)
+      (handempty)
+    )
+  )
+)

@@ -1,0 +1,143 @@
+{
+  "validation_authority": "VAL",
+  "val_valid": false,
+  "symbolic_verifier_valid": false,
+  "previous_plan": [
+    {
+      "action": "pick-up",
+      "args": [
+        "B4"
+      ]
+    },
+    {
+      "action": "stack-bridge",
+      "args": [
+        "B4",
+        "B1",
+        "B2"
+      ]
+    },
+    {
+      "action": "pick-up",
+      "args": [
+        "B5"
+      ]
+    },
+    {
+      "action": "stack-bridge",
+      "args": [
+        "B5",
+        "B2",
+        "B3"
+      ]
+    },
+    {
+      "action": "pick-up",
+      "args": [
+        "pyramid"
+      ]
+    },
+    {
+      "action": "stack-bridge",
+      "args": [
+        "pyramid",
+        "B4",
+        "B5"
+      ]
+    },
+    {
+      "action": "pick-up",
+      "args": [
+        "B1"
+      ]
+    },
+    {
+      "action": "stack-bridge",
+      "args": [
+        "B1",
+        "B1",
+        "B1"
+      ]
+    },
+    {
+      "action": "pick-up",
+      "args": [
+        "B2"
+      ]
+    },
+    {
+      "action": "stack-bridge",
+      "args": [
+        "B2",
+        "B2",
+        "B2"
+      ]
+    },
+    {
+      "action": "pick-up",
+      "args": [
+        "B3"
+      ]
+    },
+    {
+      "action": "stack-bridge",
+      "args": [
+        "B3",
+        "B3",
+        "B3"
+      ]
+    }
+  ],
+  "symbolic_failure_details": {
+    "failed_step": 8,
+    "failed_action": "stack-bridge(B1, B1, B1)",
+    "error": "Missing preconditions: right-free(B1)",
+    "state_before_failure": {
+      "on": [],
+      "on_bridge": [
+        [
+          "B4",
+          "B1",
+          "B2"
+        ],
+        [
+          "B5",
+          "B2",
+          "B3"
+        ],
+        [
+          "pyramid",
+          "B4",
+          "B5"
+        ]
+      ],
+      "ontable": [
+        "B2",
+        "B3"
+      ],
+      "clear": [
+        "B2",
+        "B3",
+        "B4",
+        "B5",
+        "pyramid"
+      ],
+      "holding": [
+        "B1"
+      ],
+      "handempty": false,
+      "left_free": [
+        "B1",
+        "B4",
+        "pyramid"
+      ],
+      "right_free": [
+        "B3",
+        "B5",
+        "pyramid"
+      ]
+    }
+  },
+  "val_output_tail": "Deleting (right-free b2)\nDeleting (left-free b3)\nAdding (on-bridge b5 b2 b3)\nAdding (clear b5)\nAdding (handempty)\n\nChecking next happening (time 5)\nDeleting (ontable pyramid)\nDeleting (clear pyramid)\nDeleting (handempty)\nAdding (holding pyramid)\n\nChecking next happening (time 6)\nDeleting (holding pyramid)\nDeleting (right-free b4)\nDeleting (left-free b5)\nAdding (on-bridge pyramid b4 b5)\nAdding (clear pyramid)\nAdding (handempty)\n\nChecking next happening (time 7)\nDeleting (ontable b1)\nDeleting (clear b1)\nDeleting (handempty)\nAdding (holding b1)\n\nChecking next happening (time 8)\nPlan failed because of unsatisfied precondition in:\n(stack-bridge b1 b1 b1)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(stack-bridge b1 b1 b1) has an unsatisfied precondition at time 8\n(Set (right-free b1) to true)\n\n\nFailed plans:\n /mnt/e/桌面/LLM-PDDL/results/refinement/scene_02_pyramid/run_20260724_023032/attempt_01.plan",
+  "repair_instruction": "Generate a complete corrected plan. Fix the failed action and any earlier actions that caused the failed precondition. Do not return only a partial plan."
+}

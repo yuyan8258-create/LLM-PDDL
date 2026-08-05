@@ -1,0 +1,72 @@
+﻿Checking plan: /mnt/e/桌面/LLM-PDDL/results/local_llm_test/extracted_plan.plan
+
+
+
+
+
+
+
+
+
+
+
+Plan to validate:
+
+Plan size: 11
+1:
+(pick-up b1)
+
+2:
+(pick-up b2)
+
+3:
+(stack b1 b2)
+
+4:
+(pick-up b3)
+
+5:
+(stack b2 b3)
+
+6:
+(pick-up b4)
+
+7:
+(stack-bridge b4 b1 b2)
+
+8:
+(pick-up b5)
+
+9:
+(stack-bridge b5 b2 b3)
+
+10:
+(pick-up pyramid)
+
+11:
+(stack-bridge pyramid b4 b5)
+
+
+Plan Validation details
+-----------------------
+
+Checking next happening (time 1)
+Deleting (ontable b1)
+Deleting (clear b1)
+Deleting (handempty)
+Adding (holding b1)
+
+Checking next happening (time 2)
+Plan failed because of unsatisfied precondition in:
+(pick-up b2)
+
+Plan failed to execute
+
+Plan Repair Advice:
+
+(pick-up b2) has an unsatisfied precondition at time 2
+(Set (handempty) to true)
+
+
+Failed plans:
+ /mnt/e/桌面/LLM-PDDL/results/local_llm_test/extracted_plan.plan

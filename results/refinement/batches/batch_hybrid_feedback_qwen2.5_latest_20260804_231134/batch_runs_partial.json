@@ -1,0 +1,32 @@
+[
+  {
+    "batch_run_index": 1,
+    "completed": true,
+    "success": true,
+    "scene": "scene_02_pyramid",
+    "mode": "llm",
+    "method": "hybrid_feedback",
+    "model": "qwen2.5:latest",
+    "iterations": 2,
+    "failure_stage": "",
+    "run_directory": "E:\\桌面\\LLM-PDDL\\results\\refinement\\scene_02_pyramid\\run_hybrid_feedback_qwen2.5_latest_01",
+    "started_at": "2026-08-04T23:11:34",
+    "finished_at": "2026-08-04T23:16:38",
+    "duration_seconds": 304.685
+  },
+  {
+    "batch_run_index": 2,
+    "completed": true,
+    "success": true,
+    "scene": "scene_02_pyramid",
+    "mode": "llm",
+    "method": "hybrid_feedback",
+    "model": "qwen2.5:latest",
+    "iterations": 2,
+    "failure_stage": "",
+    "run_directory": "E:\\桌面\\LLM-PDDL\\results\\refinement\\scene_02_pyramid\\run_hybrid_feedback_qwen2.5_latest_02",
+    "started_at": "2026-08-04T23:16:38",
+    "finished_at": "2026-08-04T23:20:40",
+    "duration_seconds": 241.969
+  }
+]
