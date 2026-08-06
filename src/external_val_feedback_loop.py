@@ -554,13 +554,16 @@ def run_refinement_loop(
         scene_id
     )
 
-    if context.scene.scene_id != SCENE_NAME:
+    if (
+        mode == "mock"
+        and context.scene.scene_id != SCENE_NAME
+    ):
         raise ValueError(
-            "The legacy LLM/mock refinement logic currently "
-            "supports only 'scene_02_pyramid'. "
+            "The legacy mock plans currently support only "
+            "'scene_02_pyramid'. "
             f"Requested scene: '{context.scene.scene_id}'. "
-            "The runtime context is valid, but the planner and "
-            "feedback logic have not yet been migrated."
+            "Use LLM mode for other scenes, or add a "
+            "scene-specific mock plan."
         )
 
     run_directory = create_run_directory(
