@@ -256,6 +256,8 @@ def legacy_plan_to_domain_plan(
         )
         for step in plan
     ]
+
+
 def make_structured_feedback(
     context: RuntimeContext,
     plan: list[PlanStep],
@@ -617,18 +619,30 @@ def run_refinement_loop(
         else:
             assert planner is not None
 
+            planning_prompt = ""
+
             try:
-                plan = planner.generate(
-                    feedback=feedback_text,
+                planning_prompt = (
+                    context.adapter.build_plan_prompt(
+                        scene=context.prepared_scene,
+                        feedback=feedback_text,
+                    )
                 )
 
-                raw_llm_output = planner.last_raw_response
+                plan = planner.generate_from_prompt(
+                    planning_prompt
+                )
+
+                raw_llm_output = (
+                    planner.last_raw_response
+                )
 
             except Exception as exc:
                 error_record = {
                     "iteration": iteration,
                     "stage": "llm_generation_or_parsing",
                     "error": str(exc),
+                    "planning_prompt": planning_prompt,
                     "raw_llm_output": getattr(
                         planner,
                         "last_raw_response",
@@ -669,6 +683,15 @@ def run_refinement_loop(
             print(
                 f"  {step_number}. "
                 f"{step.action}({', '.join(step.args)})"
+            )
+
+        if mode == "llm":
+            (
+                run_directory
+                / f"attempt_{iteration:02d}_prompt.txt"
+            ).write_text(
+                planning_prompt,
+                encoding="utf-8",
             )
 
         if raw_llm_output is not None:

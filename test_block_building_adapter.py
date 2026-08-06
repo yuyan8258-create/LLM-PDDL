@@ -141,6 +141,18 @@ def main() -> None:
         "Scene 01 on relation in prompt",
     )
 
+    require_text(
+        scene_01_prompt,
+        "Output only one JSON array.",
+        "Scene 01 JSON-only output requirement",
+    )
+
+    require_text(
+        scene_01_prompt,
+        '"action"',
+        "Scene 01 action output field",
+    )
+
     print()
     print("Scene 01 preparation: SUCCESS")
     print("  Ordinary stacking state preserved.")
@@ -257,6 +269,17 @@ def main() -> None:
             prompt,
             "PREVIOUS VERIFICATION FEEDBACK",
             f"{scene_id} feedback section",
+        )
+        require_text(
+            prompt,
+            "Return a repaired complete plan",
+            f"{scene_id} complete repair instruction",
+        )
+
+        require_text(
+            prompt,
+            '"args"',
+            f"{scene_id} argument output field",
         )
 
         feedback = adapter.build_feedback(

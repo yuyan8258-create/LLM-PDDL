@@ -710,6 +710,35 @@ class LLMPlanner:
         self.last_raw_response = raw
         return normalize_llm_json_plan(raw)
 
+    def generate_from_prompt(
+        self,
+        prompt: str,
+    ) -> List[PlanStep]:
+        """
+        Generate and parse a plan from a completed external prompt.
+
+        This preserves the existing Ollama call and robust plan parser,
+        while allowing the unified pipeline to obtain scene-specific
+        prompt text from a DomainAdapter.
+        """
+
+        cleaned_prompt = prompt.strip()
+
+        if not cleaned_prompt:
+            raise ValueError(
+                "LLM planning prompt must not be empty."
+            )
+
+        raw = self._call_ollama(
+            cleaned_prompt
+        )
+
+        self.last_raw_response = raw
+
+        return normalize_llm_json_plan(
+            raw
+        )
+
     def _build_prompt(self, feedback: Optional[str]) -> str:
         feedback_section = ""
         if feedback:
