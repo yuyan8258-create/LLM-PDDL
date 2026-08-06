@@ -1,0 +1,24 @@
+{
+    "domain_id": "block_building",
+    "pddl_domain_name": "image_block_building",
+    "adapter": "block_building",
+    "description": "Symbolic manipulation domain supporting ordinary BlocksWorld stacking and bridge-style block construction.",
+    "predicate_arities": {
+      "ontable": 1,
+      "on": 2,
+      "on-bridge": 3,
+      "clear": 1,
+      "holding": 1,
+      "handempty": 0,
+      "left-free": 1,
+      "right-free": 1
+    },
+    "action_arities": {
+      "pick-up": 1,
+      "put-down": 1,
+      "stack": 2,
+      "unstack": 2,
+      "stack-bridge": 3,
+      "unstack-bridge": 3
+    }
+  }
