@@ -1,10 +1,11 @@
 from __future__ import annotations
 
 import copy
-import json
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
+
+from src.config_io import read_json_object
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -94,7 +95,7 @@ def discover_scene_files() -> dict[str, Path]:
     for scene_json_file in sorted(
         SCENES_DIRECTORY.rglob("*.json")
     ):
-        scene_data = _read_json_object(scene_json_file)
+        scene_data = read_json_object(scene_json_file)
 
         raw_scene_id = scene_data.get("scene_id")
 
@@ -124,27 +125,6 @@ def discover_scene_files() -> dict[str, Path]:
     return discovered
 
 
-def _read_json_object(json_file: Path) -> dict[str, Any]:
-    """
-    Read one JSON file and require a top-level object.
-    """
-
-    try:
-        loaded_data = json.loads(
-            json_file.read_text(encoding="utf-8-sig")
-        )
-    except json.JSONDecodeError as exc:
-        raise ValueError(
-            f"Invalid JSON file: {json_file}\n{exc}"
-        ) from exc
-
-    if not isinstance(loaded_data, dict):
-        raise ValueError(
-            f"JSON file must contain one top-level object: "
-            f"{json_file}"
-        )
-
-    return loaded_data
 
 
 def _resolve_domain_id(
@@ -358,7 +338,7 @@ def load_scene_config(scene_id: str) -> SceneConfig:
         )
 
     scene_json_file = scene_files[requested_scene_id]
-    scene_data = _read_json_object(scene_json_file)
+    scene_data = read_json_object(scene_json_file)
 
     _validate_scene_data(
         requested_scene_id=requested_scene_id,
