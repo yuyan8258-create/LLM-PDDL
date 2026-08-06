@@ -12,7 +12,10 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from src.external_val_feedback_loop import run_refinement_loop
+from src.external_val_feedback_loop import (
+    SCENE_NAME,
+    run_refinement_loop,
+)
 from src.collect_refinement_results import (
     load_run_rows,
     print_console_summary,
@@ -62,6 +65,7 @@ def refresh_existing_csv_summaries() -> None:
 
 
 def run_batch(
+    scene_id: str,
     model: str,
     number_of_runs: int,
     max_iterations: int,
@@ -79,8 +83,17 @@ def run_batch(
     )
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    safe_model_name = sanitise_name(model)
-    batch_id = f"batch_{method}_{safe_model_name}_{timestamp}"
+    safe_scene_id = sanitise_name(
+        scene_id
+    )
+    safe_model_name = sanitise_name(
+        model
+    )
+
+    batch_id = (
+        f"batch_{method}_{safe_scene_id}_"
+        f"{safe_model_name}_{timestamp}"
+    )
     batch_directory = BATCH_RESULTS_ROOT / batch_id
     batch_directory.mkdir(parents=True, exist_ok=False)
 
@@ -88,6 +101,7 @@ def run_batch(
 
     batch_config = {
         "batch_id": batch_id,
+        "scene": scene_id,
         "model": model,
         "method": method,
         "number_of_runs": number_of_runs,
@@ -107,6 +121,7 @@ def run_batch(
     print("BATCH REFINEMENT EXPERIMENT")
     print("=" * 78)
     print(f"Batch ID        : {batch_id}")
+    print(f"Scene           : {scene_id}")
     print(f"Model           : {model}")
     print(f"Method          : {method}")
     print(f"Independent runs: {number_of_runs}")
@@ -130,6 +145,7 @@ def run_batch(
                 mode="llm",
                 model=model,
                 max_iterations=max_iterations,
+                scene_id=scene_id,
             )
 
             run_finished_at = datetime.now()
@@ -160,7 +176,7 @@ def run_batch(
                 "batch_run_index": batch_run_index,
                 "completed": False,
                 "success": False,
-                "scene": "scene_02_pyramid",
+                "scene": scene_id,
                 "mode": "llm",
                 "method": method,
                 "model": model,
@@ -273,6 +289,15 @@ def main() -> None:
     )
 
     parser.add_argument(
+        "--scene",
+        default=SCENE_NAME,
+        help=(
+            "Scene ID used for every independent "
+            "run in this batch."
+        ),
+    )
+
+    parser.add_argument(
         "--model",
         default="llama3.1:8b",
         help="Ollama model name.",
@@ -298,6 +323,7 @@ def main() -> None:
     args = parser.parse_args()
 
     run_batch(
+        scene_id=args.scene,
         model=args.model,
         number_of_runs=args.runs,
         max_iterations=args.max_iterations,
