@@ -404,6 +404,37 @@ def get_mock_plan(iteration: int) -> list[PlanStep]:
     ]
 
 
+def resolve_experiment_method(
+    mode: str,
+    max_iterations: int,
+) -> str:
+    """
+    Resolve the recorded experiment method from the execution mode.
+
+    This preserves the current command-line behaviour:
+    one LLM attempt is Pure LLM, while multiple LLM attempts enable
+    feedback-based repair.
+    """
+
+    if max_iterations < 1:
+        raise ValueError(
+            "max_iterations must be at least 1."
+        )
+
+    if mode == "mock":
+        return "mock"
+
+    if mode == "llm":
+        if max_iterations == 1:
+            return "pure_llm"
+
+        return "hybrid_feedback"
+
+    raise ValueError(
+        f"Unsupported refinement mode: '{mode}'."
+    )
+
+
 # ---------------------------------------------------------------------------
 # Run directory and result saving
 # ---------------------------------------------------------------------------
@@ -466,22 +497,12 @@ def get_next_run_number(
 def create_run_directory(
     results_root: Path,
     mode: str,
+    method: str,
     model: str,
-    max_iterations: int,
 ) -> Path:
     """
     Create a clearly named result directory for each experiment run.
     """
-
-    method = (
-        "pure_llm"
-        if mode == "llm" and max_iterations == 1
-        else (
-            "hybrid_feedback"
-            if mode == "llm"
-            else "mock"
-        )
-    )
 
     if mode == "llm":
         safe_model_name = sanitise_name(model)
@@ -554,6 +575,11 @@ def run_refinement_loop(
         scene_id
     )
 
+    method = resolve_experiment_method(
+        mode=mode,
+        max_iterations=max_iterations,
+    )
+
     if (
         mode == "mock"
         and context.scene.scene_id != SCENE_NAME
@@ -569,8 +595,8 @@ def run_refinement_loop(
     run_directory = create_run_directory(
         results_root=context.results_root,
         mode=mode,
+        method=method,
         model=model,
-        max_iterations=max_iterations,
     )
 
     # Save copies of the exact PDDL files used in this run.
@@ -600,6 +626,7 @@ def run_refinement_loop(
          f"{context.scene.scene_id}"
     )
     print(f"Mode           : {mode}")
+    print(f"Method         : {method}")
     print(f"Model          : {model if mode == 'llm' else 'not used'}")
     print(f"Max iterations : {max_iterations}")
     print(f"Run directory  : {run_directory}")
@@ -664,6 +691,7 @@ def run_refinement_loop(
                 summary = {
                     "scene": context.scene.scene_id,
                     "mode": mode,
+                    "method": method,
                     "model": model,
                     "success": False,
                     "iterations": iteration,
@@ -782,15 +810,7 @@ def run_refinement_loop(
             summary = {
                 "scene": context.scene.scene_id,
                 "mode": mode,
-                "method": (
-                    "pure_llm"
-                    if mode == "llm" and max_iterations == 1
-                    else (
-                        "hybrid_feedback"
-                        if mode == "llm"
-                        else "mock"
-                    )
-                ),
+                "method": method,
                 "model": (
                     model
                     if mode == "llm"
@@ -890,15 +910,7 @@ def run_refinement_loop(
     summary = {
         "scene": context.scene.scene_id,
         "mode": mode,
-        "method": (
-            "pure_llm"
-            if mode == "llm" and max_iterations == 1
-            else (
-               "hybrid_feedback"
-               if mode == "llm"
-               else "mock"
-            )
-        ),
+        "method": method,
         "model": (
             model
             if mode == "llm"

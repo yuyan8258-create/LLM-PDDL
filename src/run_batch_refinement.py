@@ -14,6 +14,7 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from src.external_val_feedback_loop import (
     SCENE_NAME,
+    resolve_experiment_method,
     run_refinement_loop,
 )
 from src.collect_refinement_results import (
@@ -76,10 +77,9 @@ def run_batch(
     if max_iterations < 1:
         raise ValueError("--max-iterations must be at least 1.")
 
-    method = (
-        "pure_llm"
-        if max_iterations == 1
-        else "hybrid_feedback"
+    method = resolve_experiment_method(
+        mode="llm",
+        max_iterations=max_iterations,
     )
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
