@@ -381,10 +381,11 @@ def sanitise_name(value: str) -> str:
 
 
 def get_next_run_number(
+    results_root: Path,
     prefix: str,
 ) -> int:
     """
-    Find the next available run number for a given prefix.
+    Find the next available run number below one scene result root.
 
     Example:
         run_pure_llm_qwen2.5_latest_01
@@ -393,9 +394,15 @@ def get_next_run_number(
     Returns:
         3
     """
+
     existing_numbers: list[int] = []
 
-    for directory in RESULTS_ROOT.glob(f"{prefix}_*"):
+    if not results_root.exists():
+        return 1
+
+    for directory in results_root.glob(
+        f"{prefix}_*"
+    ):
         if not directory.is_dir():
             continue
 
@@ -416,6 +423,7 @@ def get_next_run_number(
 
 
 def create_run_directory(
+    results_root: Path,
     mode: str,
     model: str,
     max_iterations: int,
@@ -444,11 +452,12 @@ def create_run_directory(
         run_prefix = "run_mock"
 
     run_number = get_next_run_number(
+        results_root=results_root,
         prefix=run_prefix,
     )
 
     run_directory = (
-        RESULTS_ROOT
+        results_root
         / f"{run_prefix}_{run_number:02d}"
     )
 
@@ -487,6 +496,7 @@ def run_refinement_loop(
     mode: str,
     model: str,
     max_iterations: int,
+    scene_id: str = SCENE_NAME,
 ) -> dict[str, Any]:
     """
     Run:
@@ -499,17 +509,21 @@ def run_refinement_loop(
             -> VAL again
     """
 
-    if not DOMAIN_FILE.exists():
-        raise FileNotFoundError(
-            f"Domain file does not exist: {DOMAIN_FILE}"
-        )
+    context = initialise_runtime_context(
+        scene_id
+    )
 
-    if not PROBLEM_FILE.exists():
-        raise FileNotFoundError(
-            f"Problem file does not exist: {PROBLEM_FILE}"
+    if context.scene.scene_id != SCENE_NAME:
+        raise ValueError(
+            "The legacy LLM/mock refinement logic currently "
+            "supports only 'scene_02_pyramid'. "
+            f"Requested scene: '{context.scene.scene_id}'. "
+            "The runtime context is valid, but the planner and "
+            "feedback logic have not yet been migrated."
         )
 
     run_directory = create_run_directory(
+        results_root=context.results_root,
         mode=mode,
         model=model,
         max_iterations=max_iterations,
@@ -517,12 +531,12 @@ def run_refinement_loop(
 
     # Save copies of the exact PDDL files used in this run.
     shutil.copy2(
-        DOMAIN_FILE,
+        context.domain_file,
         run_directory / "domain.pddl",
     )
 
     shutil.copy2(
-        PROBLEM_FILE,
+        context.problem_file,
         run_directory / "problem.pddl",
     )
 
@@ -537,7 +551,10 @@ def run_refinement_loop(
     print("=" * 78)
     print("EXTERNAL VAL FEEDBACK LOOP")
     print("=" * 78)
-    print(f"Scene          : {SCENE_NAME}")
+    print(
+         f"Scene          : "
+         f"{context.scene.scene_id}"
+    )
     print(f"Mode           : {mode}")
     print(f"Model          : {model if mode == 'llm' else 'not used'}")
     print(f"Max iterations : {max_iterations}")
@@ -589,7 +606,7 @@ def run_refinement_loop(
                 )
 
                 summary = {
-                    "scene": SCENE_NAME,
+                    "scene": context.scene.scene_id,
                     "mode": mode,
                     "model": model,
                     "success": False,
@@ -658,8 +675,8 @@ def run_refinement_loop(
         print("Running VAL...")
 
         val_result = run_val(
-            domain_file=DOMAIN_FILE,
-            problem_file=PROBLEM_FILE,
+            domain_file=context.domain_file,
+            problem_file=context.problem_file,
             plan_file=plan_file,
             log_file=val_log_file,
             verbose=True,
@@ -698,7 +715,7 @@ def run_refinement_loop(
             iteration_logs.append(attempt_record)
 
             summary = {
-                "scene": SCENE_NAME,
+                "scene": context.scene.scene_id,
                 "mode": mode,
                 "method": (
                     "pure_llm"
@@ -805,7 +822,7 @@ def run_refinement_loop(
     # -------------------------------------------------------------------
 
     summary = {
-        "scene": SCENE_NAME,
+        "scene": context.scene.scene_id,
         "mode": mode,
         "method": (
             "pure_llm"
