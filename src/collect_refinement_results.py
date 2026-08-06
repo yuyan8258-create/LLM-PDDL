@@ -10,11 +10,17 @@ from typing import Any
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
-RESULTS_ROOT = (
+REFINEMENT_ROOT = (
     PROJECT_ROOT
     / "results"
     / "refinement"
-    / "scene_02_pyramid"
+)
+
+RESULTS_ROOTS = (
+    REFINEMENT_ROOT
+    / "scene_02_pyramid",
+    REFINEMENT_ROOT
+    / "block_building",
 )
 
 OUTPUT_DIRECTORY = (
@@ -102,6 +108,7 @@ def extract_failure_details(
 
 
 def infer_root_cause(
+    scene_id: str,
     first_attempt: dict[str, Any] | None,
 ) -> str:
     """
@@ -118,8 +125,12 @@ def infer_root_cause(
     # the first six actions already solve the task,
     # but unnecessary actions are appended afterwards.
     if (
-        len(plan) > len(SCENE_02_VALID_PLAN)
-        and plan[: len(SCENE_02_VALID_PLAN)]
+        scene_id == "scene_02_pyramid"
+        and len(plan)
+        > len(SCENE_02_VALID_PLAN)
+        and plan[
+            : len(SCENE_02_VALID_PLAN)
+        ]
         == SCENE_02_VALID_PLAN
     ):
         return "redundant_actions_after_goal_achievement"
@@ -144,28 +155,50 @@ def infer_root_cause(
 
 def find_summary_files() -> list[Path]:
     """
-    Find both original run_summary.json files and manually
-    renamed summary files.
+    Find run-summary JSON files in both the legacy Scene 02
+    result location and the new domain/scene result layout.
 
     Duplicate runs are removed later using run_directory.
     """
-    if not RESULTS_ROOT.exists():
-        raise FileNotFoundError(
-            f"Results directory not found: {RESULTS_ROOT}"
+
+    existing_roots = [
+        root
+        for root in RESULTS_ROOTS
+        if root.exists()
+    ]
+
+    if not existing_roots:
+        searched_locations = "\n".join(
+            f"- {root}"
+            for root in RESULTS_ROOTS
         )
 
-    candidates = []
+        raise FileNotFoundError(
+            "No refinement result directories were found.\n"
+            f"Searched:\n{searched_locations}"
+        )
 
-    for json_file in RESULTS_ROOT.rglob("*.json"):
-        filename = json_file.name.lower()
+    candidates: list[Path] = []
 
-        if (
-            filename == "run_summary.json"
-            or filename.endswith("_summary.json")
+    for results_root in existing_roots:
+        for json_file in results_root.rglob(
+            "*.json"
         ):
-            candidates.append(json_file)
+            filename = json_file.name.lower()
 
-    return sorted(candidates)
+            if (
+                filename == "run_summary.json"
+                or filename.endswith(
+                    "_summary.json"
+                )
+            ):
+                candidates.append(
+                    json_file
+                )
+
+    return sorted(
+        set(candidates)
+    )
 
 
 def load_run_rows() -> list[dict[str, Any]]:
@@ -310,7 +343,12 @@ def load_run_rows() -> list[dict[str, Any]]:
                 "final_error":
                     final_failure["error"],
                 "inferred_root_cause":
-                    infer_root_cause(first_attempt),
+                    infer_root_cause(
+                        scene_id=str(
+                            data.get("scene", "")
+                        ),
+                        first_attempt=first_attempt,
+                ),
                 "total_val_runtime_seconds":
                     round(total_val_runtime, 6),
                 "average_val_runtime_seconds":
