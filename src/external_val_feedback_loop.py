@@ -42,8 +42,6 @@ from src.pyramid_demo_v3 import (
     LLMPlanner,
     PlanStep,
     REFERENCE_PLAN,
-    SCENE_DESCRIPTION,
-    SymbolicVerifier,
 )
 
 
@@ -240,7 +238,26 @@ def plan_to_dict(plan: list[PlanStep]) -> list[dict[str, Any]]:
 # Feedback generation
 # ---------------------------------------------------------------------------
 
+def legacy_plan_to_domain_plan(
+    plan: list[PlanStep],
+) -> list[DomainPlanStep]:
+    """
+    Convert legacy Scene 02 PlanStep objects into the common PlanModel.
+
+    This is a temporary migration boundary. The legacy LLM planner and
+    mock generator still return pyramid_demo_v3.PlanStep objects, while
+    the new domain verifier accepts domain-independent PlanStep objects.
+    """
+
+    return [
+        DomainPlanStep(
+            action=step.action,
+            args=tuple(step.args),
+        )
+        for step in plan
+    ]
 def make_structured_feedback(
+    context: RuntimeContext,
     plan: list[PlanStep],
     val_valid: bool,
     val_stdout: str,
@@ -251,25 +268,47 @@ def make_structured_feedback(
 
     VAL is the final authority for plan validity.
 
-    The existing Python SymbolicVerifier is used to identify the failed
-    action, missing preconditions, and state before failure.
+    The domain symbolic verifier is used to identify the failed action,
+    missing preconditions, and state before failure.
     """
 
-    symbolic_verifier = SymbolicVerifier()
-
-    symbolic_valid, symbolic_message, _ = symbolic_verifier.verify(
-        plan=plan,
-        initial_state=SCENE_DESCRIPTION["initial_state"],
-        goal_state=SCENE_DESCRIPTION["goal_state"],
-        verbose=False,
+    domain_plan = legacy_plan_to_domain_plan(
+        plan
     )
 
-    try:
-        symbolic_details: Any = json.loads(symbolic_message)
-    except json.JSONDecodeError:
-        symbolic_details = {
-            "message": symbolic_message,
-        }
+    symbolic_result = context.verifier.verify(
+        domain_plan,
+        context.prepared_scene,
+    )
+
+    symbolic_valid = symbolic_result.success
+
+    symbolic_details: dict[str, Any] = {
+        "message": symbolic_result.message,
+    }
+
+    if symbolic_result.failed_step is not None:
+        symbolic_details["failed_step"] = (
+            symbolic_result.failed_step
+        )
+
+    if symbolic_result.failed_action is not None:
+        symbolic_details["failed_action"] = (
+            symbolic_result.failed_action
+        )
+
+    if symbolic_result.error is not None:
+        symbolic_details["error"] = (
+            symbolic_result.error
+        )
+
+    if (
+        symbolic_result.state_before_failure
+        is not None
+    ):
+        symbolic_details["state_before_failure"] = (
+            symbolic_result.state_before_failure
+        )
 
     val_combined_output = (
         f"{val_stdout}\n{val_stderr}"
@@ -765,6 +804,7 @@ def run_refinement_loop(
         # ---------------------------------------------------------------
 
         feedback = make_structured_feedback(
+            context=context,
             plan=plan,
             val_valid=val_result.valid,
             val_stdout=val_result.stdout,
