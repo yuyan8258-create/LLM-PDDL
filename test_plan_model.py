@@ -4,6 +4,7 @@ from src.domain_config import (
 from src.plan_model import (
     PlanStep,
     load_expected_plan,
+    parse_external_plan_actions,
     parse_plan_step,
     plan_to_json,
     plan_to_pddl_text,
@@ -115,6 +116,7 @@ def main() -> None:
     print()
     print("Cross-format parsing: SUCCESS")
 
+
     scene_01 = load_scene_config(
         "scene_01_blocksworld_basic"
     )
@@ -122,6 +124,59 @@ def main() -> None:
     block_domain = load_domain_config(
         "block_building"
     )
+
+    external_plan = parse_external_plan_actions(
+        actions=[
+            "unstack blocka blockb",
+            "put-down blocka",
+            "pick-up blockb",
+            "stack blockb blockc",
+        ],
+        scene=scene_01,
+        domain=block_domain,
+    )
+
+    expected_external_plan = [
+        PlanStep(
+            action="unstack",
+            args=("blockA", "blockB"),
+        ),
+        PlanStep(
+            action="put-down",
+            args=("blockA",),
+        ),
+        PlanStep(
+            action="pick-up",
+            args=("blockB",),
+        ),
+        PlanStep(
+            action="stack",
+            args=("blockB", "blockC"),
+        ),
+    ]
+
+    if external_plan != expected_external_plan:
+        raise AssertionError(
+            "External planner actions were not converted "
+            "to canonical scene object names."
+        )
+
+    if external_plan[0].args != (
+        "blockA",
+        "blockB",
+    ):
+        raise AssertionError(
+            "External plan did not restore canonical "
+            "Scene 01 object casing."
+        )
+
+    print(
+        "External planner parsing: SUCCESS"
+    )
+    print(
+        "Canonical object casing : SUCCESS"
+    )
+
 
     try:
         validate_plan(
@@ -183,6 +238,47 @@ def main() -> None:
     print("Unknown action test : SUCCESS")
     print("Incorrect arity test: SUCCESS")
     print("Unknown object test : SUCCESS")
+
+
+    try:
+        parse_external_plan_actions(
+            actions=[
+                "unknown-action blocka",
+            ],
+            scene=scene_01,
+            domain=block_domain,
+        )
+    except ValueError as exc:
+        if "unknown action" not in str(exc).lower():
+            raise
+    else:
+        raise AssertionError(
+            "Unknown external action was not rejected."
+        )
+
+    try:
+        parse_external_plan_actions(
+            actions=[
+                "pick-up missing-object",
+            ],
+            scene=scene_01,
+            domain=block_domain,
+        )
+    except ValueError as exc:
+        if "undeclared object" not in str(exc).lower():
+            raise
+    else:
+        raise AssertionError(
+            "Unknown external object was not rejected."
+        )
+
+    print(
+        "External unknown action: SUCCESS"
+    )
+    print(
+        "External unknown object: SUCCESS"
+    )
+
 
     print()
     print("=" * 72)

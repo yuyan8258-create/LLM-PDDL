@@ -11,6 +11,9 @@ from src.external_val_feedback_loop import (
     PROJECT_ROOT,
     initialise_runtime_context,
 )
+from src.plan_model import (
+    parse_external_plan_actions,
+)
 
 
 def main() -> None:
@@ -112,6 +115,36 @@ def main() -> None:
                     f"{len(fd_result.plan)}."
                 )
 
+            domain_plan = parse_external_plan_actions(
+                actions=fd_result.plan,
+                scene=context.prepared_scene,
+                domain=context.domain,
+            )
+
+            if len(domain_plan) != len(
+                fd_result.plan
+            ):
+                raise AssertionError(
+                    f"PlanModel step-count mismatch for "
+                    f"'{scene_id}': external planner "
+                    f"returned {len(fd_result.plan)}, but "
+                    f"PlanModel produced {len(domain_plan)}."
+                )
+
+            symbolic_result = context.verifier.verify(
+                domain_plan,
+                context.prepared_scene,
+            )
+
+            if not symbolic_result.success:
+                raise AssertionError(
+                    f"Python symbolic verifier rejected "
+                    f"the Fast Downward plan for "
+                    f"'{scene_id}'.\n"
+                    f"Message: {symbolic_result.message}"
+                )
+
+
             val_result = run_val(
                 domain_file=context.domain_file,
                 problem_file=context.problem_file,
@@ -165,6 +198,14 @@ def main() -> None:
             print(
                 f"FD runtime     : "
                 f"{fd_result.runtime_seconds:.3f} seconds"
+            )
+            print(
+                f"PlanModel steps: "
+                f"{len(domain_plan)}"
+            )
+            print(
+                f"Symbolic valid : "
+                f"{symbolic_result.success}"
             )
             print(
                 f"VAL valid      : "

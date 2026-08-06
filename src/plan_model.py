@@ -7,6 +7,7 @@ from typing import Any, Iterable
 
 from src.domain_config import DomainConfig
 from src.scene_config import SceneConfig
+from collections.abc import Sequence
 
 
 @dataclass(frozen=True)
@@ -245,6 +246,130 @@ def parse_plan_steps(
 
     return parsed_plan
 
+def parse_external_plan_actions(
+    actions: Sequence[str],
+    scene: SceneConfig,
+    domain: DomainConfig,
+) -> list[PlanStep]:
+    """
+    Convert external-planner action strings into validated PlanStep objects.
+
+    Fast Downward commonly returns actions without outer parentheses and
+    lowercases object names. This function performs case-insensitive lookup
+    and restores the canonical object names declared by the scene.
+    """
+
+    if not actions:
+        raise ValueError(
+            "External plan must contain at least one action."
+        )
+
+    object_lookup: dict[str, str] = {}
+
+    for object_name in scene.objects:
+        lookup_key = object_name.casefold()
+
+        existing_name = object_lookup.get(
+            lookup_key
+        )
+
+        if (
+            existing_name is not None
+            and existing_name != object_name
+        ):
+            raise ValueError(
+                "Scene contains object names that differ only "
+                f"by case: '{existing_name}' and "
+                f"'{object_name}'."
+            )
+
+        object_lookup[lookup_key] = object_name
+
+    action_lookup: dict[str, str] = {}
+
+    for action_name in domain.action_arities:
+        lookup_key = action_name.casefold()
+
+        existing_name = action_lookup.get(
+            lookup_key
+        )
+
+        if (
+            existing_name is not None
+            and existing_name != action_name
+        ):
+            raise ValueError(
+                "Domain contains action names that differ only "
+                f"by case: '{existing_name}' and "
+                f"'{action_name}'."
+            )
+
+        action_lookup[lookup_key] = action_name
+
+    converted_plan: list[PlanStep] = []
+
+    for step_number, raw_action in enumerate(
+        actions,
+        start=1,
+    ):
+        action_text = raw_action.strip()
+
+        if not action_text:
+            raise ValueError(
+                f"External plan step {step_number} is empty."
+            )
+
+        if not (
+            action_text.startswith("(")
+            and action_text.endswith(")")
+        ):
+            action_text = f"({action_text})"
+
+        parsed_step = parse_plan_step(
+            action_text
+        )
+
+        canonical_action = action_lookup.get(
+            parsed_step.action.casefold()
+        )
+
+        if canonical_action is None:
+            raise ValueError(
+                f"External plan step {step_number} uses "
+                f"unknown action '{parsed_step.action}'."
+            )
+
+        canonical_arguments: list[str] = []
+
+        for argument in parsed_step.args:
+            canonical_object = object_lookup.get(
+                argument.casefold()
+            )
+
+            if canonical_object is None:
+                raise ValueError(
+                    f"External plan step {step_number} uses "
+                    f"undeclared object '{argument}'."
+                )
+
+            canonical_arguments.append(
+                canonical_object
+            )
+
+        converted_plan.append(
+            PlanStep(
+                action=canonical_action,
+                args=tuple(canonical_arguments),
+            )
+        )
+
+    validate_plan(
+        plan=converted_plan,
+        scene=scene,
+        domain=domain,
+    )
+
+    return converted_plan
 
 def validate_plan_step(
     step: PlanStep,
