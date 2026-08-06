@@ -4,6 +4,7 @@ import argparse
 import json
 import shutil
 import sys
+from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -20,7 +21,19 @@ if str(PROJECT_ROOT) not in sys.path:
 
 
 # Reuse your existing modules instead of rewriting them.
+from src.domain_adapters import get_domain_adapter
+from src.domain_adapters.base import DomainAdapter
+from src.domain_config import DomainConfig, load_domain_config
 from src.external_tools.val_runner import run_val
+from src.pddl_problem_builder import write_pddl_problem
+from src.scene_config import SceneConfig, load_scene_config
+from src.verifiers import get_symbolic_verifier
+from src.verifiers.base import (
+    SymbolicVerifier as DomainSymbolicVerifier,
+)
+
+# Legacy Scene 02 components are temporarily preserved so the currently
+# working refinement loop continues to behave exactly as before.
 from src.pyramid_demo_v3 import (
     LLMPlanner,
     PlanStep,
@@ -57,6 +70,89 @@ RESULTS_ROOT = (
     / SCENE_NAME
 )
 
+# ---------------------------------------------------------------------------
+# Unified runtime context
+# ---------------------------------------------------------------------------
+
+@dataclass(frozen=True)
+class RuntimeContext:
+    """
+    Runtime objects and paths resolved from one scene ID.
+
+    This is the first migration seam between the legacy Scene 02 loop
+    and the new domain-independent project infrastructure.
+
+    Creating this context does not run the LLM, VAL, feedback loop, or
+    batch execution.
+    """
+
+    scene: SceneConfig
+    domain: DomainConfig
+    adapter: DomainAdapter
+    prepared_scene: SceneConfig
+    verifier: DomainSymbolicVerifier
+
+    domain_file: Path
+    problem_file: Path
+    results_root: Path
+
+
+def initialise_runtime_context(
+    scene_id: str,
+) -> RuntimeContext:
+    """
+    Load and prepare all common runtime dependencies for one scene.
+
+    This function intentionally performs initialization only. It does
+    not create a refinement run directory and does not execute the
+    legacy LLM/VAL loop.
+    """
+
+    scene = load_scene_config(scene_id)
+
+    domain = load_domain_config(
+        scene.domain_id
+    )
+
+    adapter = get_domain_adapter(domain)
+
+    prepared_scene = adapter.prepare_scene(
+        scene
+    )
+
+    verifier = get_symbolic_verifier(
+        domain
+    )
+
+    problem_file = write_pddl_problem(
+        scene=prepared_scene,
+        domain=domain,
+    )
+
+    domain_file = domain.domain_file
+    results_root = prepared_scene.results_directory
+
+    if not domain_file.exists():
+        raise FileNotFoundError(
+            f"Domain file does not exist: {domain_file}"
+        )
+
+    if not problem_file.exists():
+        raise FileNotFoundError(
+            f"Generated problem file does not exist: "
+            f"{problem_file}"
+        )
+
+    return RuntimeContext(
+        scene=scene,
+        domain=domain,
+        adapter=adapter,
+        prepared_scene=prepared_scene,
+        verifier=verifier,
+        domain_file=domain_file,
+        problem_file=problem_file,
+        results_root=results_root,
+    )
 
 # ---------------------------------------------------------------------------
 # Plan conversion
