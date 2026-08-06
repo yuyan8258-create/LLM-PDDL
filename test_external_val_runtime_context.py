@@ -26,15 +26,33 @@ def main() -> None:
     print("EXTERNAL VAL RUNTIME CONTEXT TEST")
     print("=" * 72)
 
-    expected_bridge_counts = {
-        "scene_01_blocksworld_basic": None,
-        "scene_02_pyramid": 6,
-        "scene_03_large_pyramid": 10,
+    expected_scenes = {
+        "scene_01_blocksworld_basic": {
+            "bridge_count": None,
+            "plan_length": 4,
+            "first_action": "unstack",
+            "last_action": "stack",
+        },
+        "scene_02_pyramid": {
+            "bridge_count": 6,
+            "plan_length": 6,
+            "first_action": "pick-up",
+            "last_action": "stack-bridge",
+        },
+        "scene_03_large_pyramid": {
+            "bridge_count": 10,
+            "plan_length": 12,
+            "first_action": "pick-up",
+            "last_action": "stack-bridge",
+        },
     }
 
-    for scene_id, bridge_count in (
-        expected_bridge_counts.items()
+    for scene_id, expected in (
+        expected_scenes.items()
     ):
+        bridge_count = expected[
+            "bridge_count"
+        ]
         context = initialise_runtime_context(
             scene_id
         )
@@ -100,6 +118,47 @@ def main() -> None:
             "Generated problem PDDL file",
         )
 
+        expected_plan = context.expected_plan
+
+        if len(expected_plan) != expected[
+            "plan_length"
+        ]:
+            raise AssertionError(
+                f"'{scene_id}' expected "
+                f"{expected['plan_length']} plan steps, "
+                f"but received {len(expected_plan)}."
+            )
+
+        if expected_plan[0].action != expected[
+            "first_action"
+        ]:
+            raise AssertionError(
+                f"'{scene_id}' has unexpected first action: "
+                f"{expected_plan[0].action}"
+            )
+
+        if expected_plan[-1].action != expected[
+            "last_action"
+        ]:
+            raise AssertionError(
+                f"'{scene_id}' has unexpected last action: "
+                f"{expected_plan[-1].action}"
+            )
+
+        for step in expected_plan:
+            if not isinstance(step.args, tuple):
+                raise AssertionError(
+                    f"'{scene_id}' expected DomainPlanStep "
+                    f"arguments to be tuples."
+                )
+
+            if not step.to_pddl_text().startswith("("):
+                raise AssertionError(
+                    f"'{scene_id}' produced invalid PDDL plan "
+                    f"text for action '{step.action}'."
+                )
+
+
         left_free = (
             context.prepared_scene
             .initial_state
@@ -164,6 +223,18 @@ def main() -> None:
         print(f"Domain file    : {context.domain_file}")
         print(f"Problem file   : {context.problem_file}")
         print(f"Results root   : {context.results_root}")
+        print(
+            f"Plan steps     : "
+            f"{len(context.expected_plan)}"
+        )
+        print(
+            f"First plan step: "
+            f"{context.expected_plan[0].to_function_text()}"
+        )
+        print(
+            f"Last plan step : "
+            f"{context.expected_plan[-1].to_function_text()}"
+        )
         print("Context result : SUCCESS")
 
     print()

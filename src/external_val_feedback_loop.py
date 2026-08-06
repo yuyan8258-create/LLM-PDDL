@@ -26,6 +26,10 @@ from src.domain_adapters.base import DomainAdapter
 from src.domain_config import DomainConfig, load_domain_config
 from src.external_tools.val_runner import run_val
 from src.pddl_problem_builder import write_pddl_problem
+from src.plan_model import (
+    PlanStep as DomainPlanStep,
+    load_expected_plan,
+)
 from src.scene_config import SceneConfig, load_scene_config
 from src.verifiers import get_symbolic_verifier
 from src.verifiers.base import (
@@ -91,6 +95,7 @@ class RuntimeContext:
     adapter: DomainAdapter
     prepared_scene: SceneConfig
     verifier: DomainSymbolicVerifier
+    expected_plan: tuple[DomainPlanStep, ...]
 
     domain_file: Path
     problem_file: Path
@@ -124,6 +129,13 @@ def initialise_runtime_context(
         domain
     )
 
+    expected_plan = tuple(
+        load_expected_plan(
+            scene=prepared_scene,
+            domain=domain,
+        )
+    )
+
     problem_file = write_pddl_problem(
         scene=prepared_scene,
         domain=domain,
@@ -149,6 +161,7 @@ def initialise_runtime_context(
         adapter=adapter,
         prepared_scene=prepared_scene,
         verifier=verifier,
+        expected_plan=expected_plan,
         domain_file=domain_file,
         problem_file=problem_file,
         results_root=results_root,
