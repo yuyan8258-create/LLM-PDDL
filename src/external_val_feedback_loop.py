@@ -945,6 +945,17 @@ def main() -> None:
     )
 
     parser.add_argument(
+        "--scene",
+        default=SCENE_NAME,
+        help=(
+            "Scene ID to run. "
+            "LLM mode supports configured scenes; "
+            "legacy mock mode currently supports only "
+            "'scene_02_pyramid'."
+        ),
+    )
+
+    parser.add_argument(
         "--mode",
         choices=["mock", "llm"],
         default="mock",
@@ -973,6 +984,7 @@ def main() -> None:
         mode=args.mode,
         model=args.model,
         max_iterations=args.max_iterations,
+        scene_id=args.scene,
     )
 
 
