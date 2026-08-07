@@ -70,6 +70,7 @@ def run_batch(
     model: str,
     number_of_runs: int,
     max_iterations: int,
+    method: str | None = None,
 ) -> dict[str, Any]:
     if number_of_runs < 1:
         raise ValueError("--runs must be at least 1.")
@@ -77,9 +78,10 @@ def run_batch(
     if max_iterations < 1:
         raise ValueError("--max-iterations must be at least 1.")
 
-    method = resolve_experiment_method(
+    resolved_method = resolve_experiment_method(
         mode="llm",
         max_iterations=max_iterations,
+        requested_method=method,
     )
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -91,7 +93,7 @@ def run_batch(
     )
 
     batch_id = (
-        f"batch_{method}_{safe_scene_id}_"
+        f"batch_{resolved_method}_{safe_scene_id}_"
         f"{safe_model_name}_{timestamp}"
     )
     batch_directory = BATCH_RESULTS_ROOT / batch_id
@@ -103,7 +105,7 @@ def run_batch(
         "batch_id": batch_id,
         "scene": scene_id,
         "model": model,
-        "method": method,
+        "method": resolved_method,
         "number_of_runs": number_of_runs,
         "max_iterations": max_iterations,
         "started_at": batch_started_at.isoformat(timespec="seconds"),
@@ -123,7 +125,7 @@ def run_batch(
     print(f"Batch ID        : {batch_id}")
     print(f"Scene           : {scene_id}")
     print(f"Model           : {model}")
-    print(f"Method          : {method}")
+    print(f"Method          : {resolved_method}")
     print(f"Independent runs: {number_of_runs}")
     print(f"Max iterations  : {max_iterations}")
     print(f"Batch directory : {batch_directory}")
@@ -146,6 +148,8 @@ def run_batch(
                 model=model,
                 max_iterations=max_iterations,
                 scene_id=scene_id,
+                method=resolved_method,
+
             )
 
             run_finished_at = datetime.now()
@@ -156,7 +160,10 @@ def run_batch(
                 "success": bool(summary.get("success", False)),
                 "scene": summary.get("scene", ""),
                 "mode": summary.get("mode", "llm"),
-                "method": summary.get("method", method),
+                "method": summary.get(
+                   "method",
+                   resolved_method,
+                ),
                 "model": summary.get("model", model),
                 "iterations": summary.get("iterations", ""),
                 "failure_stage": summary.get("failure_stage", ""),
@@ -178,7 +185,7 @@ def run_batch(
                 "success": False,
                 "scene": scene_id,
                 "mode": "llm",
-                "method": method,
+                "method": resolved_method,
                 "model": model,
                 "iterations": "",
                 "failure_stage": "unhandled_batch_exception",
@@ -298,6 +305,23 @@ def main() -> None:
     )
 
     parser.add_argument(
+        "--method",
+        choices=[
+            "pure_llm",
+            "hybrid_feedback",
+        ],
+        default=None,
+        help=(
+            "Explicit experiment method for every "
+            "run in this batch. "
+            "pure_llm requires --max-iterations 1; "
+            "hybrid_feedback requires more than 1. "
+            "When omitted, the existing "
+            "iteration-based inference is used."
+        ),
+    )
+
+    parser.add_argument(
         "--model",
         default="llama3.1:8b",
         help="Ollama model name.",
@@ -327,6 +351,7 @@ def main() -> None:
         model=args.model,
         number_of_runs=args.runs,
         max_iterations=args.max_iterations,
+        method=args.method,
     )
 
 

@@ -407,13 +407,16 @@ def get_mock_plan(iteration: int) -> list[PlanStep]:
 def resolve_experiment_method(
     mode: str,
     max_iterations: int,
+    requested_method: str | None = None,
 ) -> str:
     """
-    Resolve the recorded experiment method from the execution mode.
+    Resolve and validate the experiment method.
 
-    This preserves the current command-line behaviour:
-    one LLM attempt is Pure LLM, while multiple LLM attempts enable
-    feedback-based repair.
+    When requested_method is omitted, the legacy behaviour is
+    preserved for backward compatibility.
+
+    Explicit methods prevent accidental mixing of Pure LLM and
+    feedback-based Hybrid experiments.
     """
 
     if max_iterations < 1:
@@ -422,16 +425,48 @@ def resolve_experiment_method(
         )
 
     if mode == "mock":
+        if requested_method not in (
+            None,
+            "mock",
+        ):
+            raise ValueError(
+                "Mock mode can only use method='mock'."
+            )
+
         return "mock"
 
-    if mode == "llm":
+    if mode != "llm":
+        raise ValueError(
+            f"Unsupported refinement mode: '{mode}'."
+        )
+
+    if requested_method is None:
         if max_iterations == 1:
             return "pure_llm"
 
         return "hybrid_feedback"
 
+    if requested_method == "pure_llm":
+        if max_iterations != 1:
+            raise ValueError(
+                "Pure LLM requires "
+                "max_iterations=1."
+            )
+
+        return "pure_llm"
+
+    if requested_method == "hybrid_feedback":
+        if max_iterations <= 1:
+            raise ValueError(
+                "Hybrid feedback requires "
+                "max_iterations greater than 1."
+            )
+
+        return "hybrid_feedback"
+
     raise ValueError(
-        f"Unsupported refinement mode: '{mode}'."
+        "Unsupported experiment method: "
+        f"'{requested_method}'."
     )
 
 
@@ -559,6 +594,7 @@ def run_refinement_loop(
     model: str,
     max_iterations: int,
     scene_id: str = SCENE_NAME,
+    method: str | None = None,
 ) -> dict[str, Any]:
     """
     Run:
@@ -575,9 +611,10 @@ def run_refinement_loop(
         scene_id
     )
 
-    method = resolve_experiment_method(
+    resolved_method = resolve_experiment_method(
         mode=mode,
         max_iterations=max_iterations,
+        requested_method=method,
     )
 
     if (
@@ -595,7 +632,7 @@ def run_refinement_loop(
     run_directory = create_run_directory(
         results_root=context.results_root,
         mode=mode,
-        method=method,
+        method=resolved_method,
         model=model,
     )
 
@@ -626,7 +663,7 @@ def run_refinement_loop(
          f"{context.scene.scene_id}"
     )
     print(f"Mode           : {mode}")
-    print(f"Method         : {method}")
+    print(f"Method         : {resolved_method}")
     print(f"Model          : {model if mode == 'llm' else 'not used'}")
     print(f"Max iterations : {max_iterations}")
     print(f"Run directory  : {run_directory}")
@@ -691,7 +728,7 @@ def run_refinement_loop(
                 summary = {
                     "scene": context.scene.scene_id,
                     "mode": mode,
-                    "method": method,
+                    "method": resolved_method,
                     "model": model,
                     "success": False,
                     "iterations": iteration,
@@ -810,7 +847,7 @@ def run_refinement_loop(
             summary = {
                 "scene": context.scene.scene_id,
                 "mode": mode,
-                "method": method,
+                "method": resolved_method,
                 "model": (
                     model
                     if mode == "llm"
@@ -910,7 +947,7 @@ def run_refinement_loop(
     summary = {
         "scene": context.scene.scene_id,
         "mode": mode,
-        "method": method,
+        "method": resolved_method,
         "model": (
             model
             if mode == "llm"
@@ -968,6 +1005,22 @@ def main() -> None:
     )
 
     parser.add_argument(
+        "--method",
+        choices=[
+            "pure_llm",
+            "hybrid_feedback",
+        ],
+        default=None,
+        help=(
+            "Explicit LLM experiment method. "
+            "pure_llm requires --max-iterations 1; "
+            "hybrid_feedback requires more than 1. "
+            "When omitted, the legacy iteration-based "
+            "method inference is preserved."
+        ),
+    )
+
+    parser.add_argument(
         "--mode",
         choices=["mock", "llm"],
         default="mock",
@@ -997,6 +1050,7 @@ def main() -> None:
         model=args.model,
         max_iterations=args.max_iterations,
         scene_id=args.scene,
+        method=args.method,
     )
 
 

@@ -30,6 +30,7 @@ def main() -> None:
         model: str,
         max_iterations: int,
         scene_id: str,
+        method: str | None = None,
     ) -> dict[str, Any]:
         calls.append(
             {
@@ -37,13 +38,14 @@ def main() -> None:
                 "model": model,
                 "max_iterations": max_iterations,
                 "scene_id": scene_id,
+                "method": method,
             }
         )
 
         return {
             "scene": scene_id,
             "mode": mode,
-            "method": "pure_llm",
+            "method": method,
             "model": model,
             "success": True,
             "iterations": 1,
@@ -83,6 +85,13 @@ def main() -> None:
                 raise AssertionError(
                     "Expected two independent loop calls."
                 )
+
+            for call in calls:
+                if call["method"] != "pure_llm":
+                    raise AssertionError(
+                        "Batch did not pass the resolved "
+                        "pure_llm method to the loop."
+                    )
 
             for call in calls:
                 if call["scene_id"] != (
