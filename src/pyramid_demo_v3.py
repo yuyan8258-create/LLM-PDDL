@@ -35,6 +35,7 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List, Tuple, Any, Optional
+from src.llm_provider import OllamaProvider
 
 
 # =============================================================================
@@ -700,8 +701,20 @@ class SymbolicVerifier:
 # =============================================================================
 
 class LLMPlanner:
-    def __init__(self, model: str):
+    def __init__(
+        self,
+        model: str,
+        provider=None,
+    ):
         self.model = model
+        self.provider = (
+            provider
+            if provider is not None
+            else OllamaProvider(
+                model=model,
+                temperature=0.0,
+            )
+        )
         self.last_raw_response = ""
 
     def generate(self, feedback: Optional[str] = None) -> List[PlanStep]:
@@ -709,7 +722,6 @@ class LLMPlanner:
         raw = self._call_ollama(prompt)
         self.last_raw_response = raw
         return normalize_llm_json_plan(raw)
-
     def generate_from_prompt(
         self,
         prompt: str,
@@ -822,21 +834,7 @@ Output format example:
 """.strip()
 
     def _call_ollama(self, prompt: str) -> str:
-        try:
-            import ollama  # type: ignore
-        except ImportError as exc:
-            raise RuntimeError(
-                "The 'ollama' Python package is not installed. "
-                "Install it with: pip install ollama\n"
-                "Or run this demo with: --planner manual"
-            ) from exc
-
-        response = ollama.chat(
-            model=self.model,
-            messages=[{"role": "user", "content": prompt}],
-            options={"temperature": 0.0},
-        )
-        return response["message"]["content"].strip()
+        return self.provider.generate(prompt)
 
 
 # =============================================================================

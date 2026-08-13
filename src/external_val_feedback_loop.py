@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Any
 
 
+
 # ---------------------------------------------------------------------------
 # Project paths
 # ---------------------------------------------------------------------------
@@ -34,6 +35,10 @@ from src.scene_config import SceneConfig, load_scene_config
 from src.verifiers import get_symbolic_verifier
 from src.verifiers.base import (
     SymbolicVerifier as DomainSymbolicVerifier,
+)
+from src.llm_provider import (
+    DeepSeekProvider,
+    OllamaProvider,
 )
 
 # Legacy Scene 02 components are temporarily preserved so the currently
@@ -595,6 +600,7 @@ def run_refinement_loop(
     max_iterations: int,
     scene_id: str = SCENE_NAME,
     method: str | None = None,
+    provider: str = "ollama",
 ) -> dict[str, Any]:
     """
     Run:
@@ -650,7 +656,28 @@ def run_refinement_loop(
     planner: LLMPlanner | None = None
 
     if mode == "llm":
-        planner = LLMPlanner(model=model)
+        normalized_provider = provider.strip().lower()
+
+        if normalized_provider == "ollama":
+           llm_provider = OllamaProvider(
+               model=model,
+               temperature=0.0,
+           )
+        elif normalized_provider == "deepseek":
+            llm_provider = DeepSeekProvider(
+                model=model,
+                temperature=0.0,
+            )
+        else:
+            raise ValueError(
+                f"Unsupported LLM provider: '{provider}'. "
+                "Supported providers are: ollama, deepseek."
+            )
+
+        planner = LLMPlanner(
+            model=model,
+            provider=llm_provider,
+        )
 
     feedback_text: str | None = None
     iteration_logs: list[dict[str, Any]] = []
@@ -665,6 +692,7 @@ def run_refinement_loop(
     print(f"Mode           : {mode}")
     print(f"Method         : {resolved_method}")
     print(f"Model          : {model if mode == 'llm' else 'not used'}")
+    print(f"Provider       : {provider}")
     print(f"Max iterations : {max_iterations}")
     print(f"Run directory  : {run_directory}")
     print("=" * 78)
@@ -729,6 +757,7 @@ def run_refinement_loop(
                     "scene": context.scene.scene_id,
                     "mode": mode,
                     "method": resolved_method,
+                    "provider": provider if mode == "llm" else None,
                     "model": model,
                     "success": False,
                     "iterations": iteration,
@@ -853,6 +882,11 @@ def run_refinement_loop(
                     if mode == "llm"
                     else None
                 ),
+                "provider": (
+                    provider
+                    if mode == "llm"
+                    else None
+                ),
                 "success": True,
                 "iterations": iteration,
                 "final_plan": plan_to_dict(plan),
@@ -953,6 +987,11 @@ def run_refinement_loop(
             if mode == "llm"
             else None
         ),
+        "provider": (
+            provider
+            if mode == "llm"
+            else None
+        ),
         "success": False,
         "iterations": max_iterations,
         "failure_stage": "maximum_iterations_reached",
@@ -1031,9 +1070,22 @@ def main() -> None:
     )
 
     parser.add_argument(
+        "--provider",
+        choices=[
+            "ollama",
+            "deepseek",
+        ],
+        default="ollama",
+        help=(
+            "LLM provider used in llm mode. "
+            "Supported providers: ollama, deepseek."
+        ),
+    )
+
+    parser.add_argument(
         "--model",
         default="llama3.1:8b",
-        help="Ollama model name used in llm mode.",
+        help="Model name used by the selected LLM provider.",
     )
 
     parser.add_argument(
@@ -1051,6 +1103,7 @@ def main() -> None:
         max_iterations=args.max_iterations,
         scene_id=args.scene,
         method=args.method,
+        provider=args.provider,
     )
 
 

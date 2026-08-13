@@ -31,6 +31,7 @@ def main() -> None:
         max_iterations: int,
         scene_id: str,
         method: str | None = None,
+        provider: str = "ollama",
     ) -> dict[str, Any]:
         calls.append(
             {
@@ -39,6 +40,7 @@ def main() -> None:
                 "max_iterations": max_iterations,
                 "scene_id": scene_id,
                 "method": method,
+                "provider": provider,
             }
         )
 
@@ -46,6 +48,7 @@ def main() -> None:
             "scene": scene_id,
             "mode": mode,
             "method": method,
+            "provider": provider,
             "model": model,
             "success": True,
             "iterations": 1,

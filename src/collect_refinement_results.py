@@ -318,6 +318,7 @@ def load_run_rows() -> list[dict[str, Any]]:
                 "scene": data.get("scene", ""),
                 "mode": data.get("mode", ""),
                 "method": data.get("method", ""),
+                "provider": data.get("provider", ""),
                 "model": data.get("model", ""),
                 "success": bool(
                     data.get("success", False)
@@ -376,6 +377,7 @@ def write_run_csv(
         "scene",
         "mode",
         "method",
+        "provider",
         "model",
         "success",
         "first_attempt_valid",
@@ -414,7 +416,7 @@ def write_model_summary_csv(
     rows: list[dict[str, Any]],
 ) -> None:
     grouped_rows: dict[
-        tuple[str, str, str, str],
+        tuple[str, str, str, str, str],
         list[dict[str, Any]],
     ] = defaultdict(list)
 
@@ -423,6 +425,7 @@ def write_model_summary_csv(
             str(row["scene"]),
             str(row["mode"]),
             str(row["method"]),
+            str(row["provider"]),
             str(row["model"]),
         )
 
@@ -434,6 +437,7 @@ def write_model_summary_csv(
         scene,
         mode,
         method,
+        provider,
         model,
     ), group in sorted(grouped_rows.items()):
 
@@ -483,6 +487,7 @@ def write_model_summary_csv(
                 "scene": scene,
                 "mode": mode,
                 "method": method,
+                "provider": provider,
                 "model": model,
                 "total_runs": total_runs,
                 "first_attempt_successes":
@@ -512,6 +517,7 @@ def write_model_summary_csv(
         "scene",
         "mode",
         "method",
+        "provider",
         "model",
         "total_runs",
         "first_attempt_successes",

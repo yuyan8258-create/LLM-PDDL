@@ -71,6 +71,7 @@ def run_batch(
     number_of_runs: int,
     max_iterations: int,
     method: str | None = None,
+    provider: str = "ollama",
 ) -> dict[str, Any]:
     if number_of_runs < 1:
         raise ValueError("--runs must be at least 1.")
@@ -91,10 +92,13 @@ def run_batch(
     safe_model_name = sanitise_name(
         model
     )
+    safe_provider_name = sanitise_name(
+        provider
+    )
 
     batch_id = (
         f"batch_{resolved_method}_{safe_scene_id}_"
-        f"{safe_model_name}_{timestamp}"
+        f"{safe_provider_name}_{safe_model_name}_{timestamp}"
     )
     batch_directory = BATCH_RESULTS_ROOT / batch_id
     batch_directory.mkdir(parents=True, exist_ok=False)
@@ -104,6 +108,7 @@ def run_batch(
     batch_config = {
         "batch_id": batch_id,
         "scene": scene_id,
+        "provider": provider,
         "model": model,
         "method": resolved_method,
         "number_of_runs": number_of_runs,
@@ -124,6 +129,7 @@ def run_batch(
     print("=" * 78)
     print(f"Batch ID        : {batch_id}")
     print(f"Scene           : {scene_id}")
+    print(f"Provider        : {provider}")
     print(f"Model           : {model}")
     print(f"Method          : {resolved_method}")
     print(f"Independent runs: {number_of_runs}")
@@ -149,7 +155,7 @@ def run_batch(
                 max_iterations=max_iterations,
                 scene_id=scene_id,
                 method=resolved_method,
-
+                provider=provider,
             )
 
             run_finished_at = datetime.now()
@@ -161,8 +167,12 @@ def run_batch(
                 "scene": summary.get("scene", ""),
                 "mode": summary.get("mode", "llm"),
                 "method": summary.get(
-                   "method",
-                   resolved_method,
+                    "method",
+                    resolved_method,
+                ),
+                "provider": summary.get(
+                    "provider",
+                    provider,
                 ),
                 "model": summary.get("model", model),
                 "iterations": summary.get("iterations", ""),
@@ -186,6 +196,7 @@ def run_batch(
                 "scene": scene_id,
                 "mode": "llm",
                 "method": resolved_method,
+                "provider": provider,
                 "model": model,
                 "iterations": "",
                 "failure_stage": "unhandled_batch_exception",
@@ -322,9 +333,22 @@ def main() -> None:
     )
 
     parser.add_argument(
+        "--provider",
+        choices=[
+            "ollama",
+            "deepseek",
+        ],
+        default="ollama",
+        help=(
+            "LLM provider used for every run in this batch. "
+            "Supported providers: ollama, deepseek."
+        ),
+    )
+
+    parser.add_argument(
         "--model",
         default="llama3.1:8b",
-        help="Ollama model name.",
+        help="Model name used by the selected LLM provider.",
     )
 
     parser.add_argument(
@@ -352,6 +376,7 @@ def main() -> None:
         number_of_runs=args.runs,
         max_iterations=args.max_iterations,
         method=args.method,
+        provider=args.provider,
     )
 
 
