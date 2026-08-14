@@ -48,6 +48,7 @@ def run_pure_pddl(
     scene_id: str,
     alias: str = "lama-first",
     timeout_seconds: int = 120,
+    results_base: Path | None = None,
 ) -> dict[str, Any]:
     """
     Run one Pure PDDL experiment for a configured scene.
@@ -60,9 +61,20 @@ def run_pure_pddl(
 
     run_started_at = datetime.now()
 
+    if results_base is None:
+        effective_results_base = (
+            PROJECT_ROOT / "results"
+        )
+    else:
+        effective_results_base = Path(results_base)
+
+        if not effective_results_base.is_absolute():
+            effective_results_base = (
+                PROJECT_ROOT / effective_results_base
+            )
+
     run_directory = (
-        PROJECT_ROOT
-        / "results"
+        effective_results_base
         / "pure_pddl"
         / context.domain.domain_id
         / context.scene.scene_id
@@ -203,12 +215,24 @@ def main() -> None:
         help="Fast Downward timeout in seconds.",
     )
 
+    parser.add_argument(
+        "--results-base",
+        type=Path,
+        default=None,
+        help=(
+            "Optional experiment results base directory. "
+            "When omitted, the existing Pure PDDL results "
+            "location is preserved."
+        ),
+    )
+
     args = parser.parse_args()
 
     summary = run_pure_pddl(
         scene_id=args.scene,
         alias=args.alias,
         timeout_seconds=args.timeout,
+        results_base=args.results_base,
     )
 
     print("=" * 72)

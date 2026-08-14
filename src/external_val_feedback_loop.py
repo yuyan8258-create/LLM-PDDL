@@ -601,6 +601,7 @@ def run_refinement_loop(
     scene_id: str = SCENE_NAME,
     method: str | None = None,
     provider: str = "ollama",
+    results_base: Path | None = None,
 ) -> dict[str, Any]:
     """
     Run:
@@ -635,8 +636,25 @@ def run_refinement_loop(
             "scene-specific mock plan."
         )
 
+    if results_base is None:
+        effective_results_root = context.results_root
+    else:
+        effective_results_base = Path(results_base)
+
+        if not effective_results_base.is_absolute():
+            effective_results_base = (
+                PROJECT_ROOT / effective_results_base
+            )
+
+        effective_results_root = (
+            effective_results_base
+            / "refinement"
+            / context.domain.domain_id
+            / context.scene.scene_id
+        )
+
     run_directory = create_run_directory(
-        results_root=context.results_root,
+        results_root=effective_results_root,
         mode=mode,
         method=resolved_method,
         model=model,
@@ -1083,6 +1101,17 @@ def main() -> None:
     )
 
     parser.add_argument(
+        "--results-base",
+        type=Path,
+        default=None,
+        help=(
+            "Optional experiment results base directory. "
+            "When omitted, the existing refinement results "
+            "location is preserved."
+        ),
+    )
+
+    parser.add_argument(
         "--model",
         default="llama3.1:8b",
         help="Model name used by the selected LLM provider.",
@@ -1104,6 +1133,7 @@ def main() -> None:
         scene_id=args.scene,
         method=args.method,
         provider=args.provider,
+        results_base=args.results_base,
     )
 
 

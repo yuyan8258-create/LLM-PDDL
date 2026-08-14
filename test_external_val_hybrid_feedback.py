@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import shutil
+import tempfile
 from pathlib import Path
 
 from src.external_val_feedback_loop import (
@@ -75,8 +76,18 @@ def main() -> None:
         ]
 
     run_directory: Path | None = None
+    temporary_results: tempfile.TemporaryDirectory[str] | None = None
 
     try:
+        temporary_results = tempfile.TemporaryDirectory(
+            prefix="formal_hybrid_test_"
+        )
+
+        formal_results_base = (
+            Path(temporary_results.name)
+            / "formal"
+        )
+
         LLMPlanner.generate_from_prompt = (
             fake_generate_from_prompt
         )
@@ -88,11 +99,27 @@ def main() -> None:
             scene_id=SCENE_ID,
             method="hybrid_feedback",
             provider="ollama",
+            results_base=formal_results_base,
         )
 
         run_directory = Path(
             summary["run_directory"]
         )
+
+        expected_scene_root = (
+            formal_results_base
+            / "refinement"
+            / "block_building"
+            / SCENE_ID
+        )
+
+        if run_directory.parent != expected_scene_root:
+            raise AssertionError(
+                "Hybrid run was written to the wrong "
+                "results root.\n"
+                f"Expected parent: {expected_scene_root}\n"
+                f"Actual parent  : {run_directory.parent}"
+            )
 
         if not summary.get("success", False):
             raise AssertionError(
@@ -193,6 +220,9 @@ def main() -> None:
         print(
             "VAL final acceptance   : SUCCESS"
         )
+        print(
+            "Formal result routing  : SUCCESS"
+        )
 
         print()
         print("=" * 72)
@@ -217,6 +247,13 @@ def main() -> None:
             print(
                 "Temporary hybrid feedback "
                 "run directory: CLEANED"
+            )
+
+        if temporary_results is not None:
+            temporary_results.cleanup()
+
+            print(
+                "Temporary formal results root: CLEANED"
             )
 
 

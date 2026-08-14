@@ -50,8 +50,32 @@ def save_json(data: Any, output_path: Path) -> None:
     )
 
 
-def refresh_existing_csv_summaries() -> None:
-    rows = load_run_rows()
+def refresh_existing_csv_summaries(
+    results_base: Path | None = None,
+) -> None:
+    if results_base is None:
+        results_roots = None
+        output_directory = (
+            PROJECT_ROOT / "results" / "tables"
+        )
+    else:
+        effective_results_base = Path(results_base)
+
+        if not effective_results_base.is_absolute():
+            effective_results_base = (
+                PROJECT_ROOT / effective_results_base
+            )
+
+        results_roots = (
+            effective_results_base / "refinement",
+        )
+        output_directory = (
+            effective_results_base / "tables"
+        )
+
+    rows = load_run_rows(
+        results_roots=results_roots
+    )
 
     if not rows:
         print(
@@ -60,8 +84,16 @@ def refresh_existing_csv_summaries() -> None:
         )
         return
 
-    write_run_csv(rows)
-    write_model_summary_csv(rows)
+    write_run_csv(
+        rows,
+        output_directory=output_directory,
+    )
+
+    write_model_summary_csv(
+        rows,
+        output_directory=output_directory,
+    )
+
     print_console_summary(rows)
 
 
@@ -72,6 +104,7 @@ def run_batch(
     max_iterations: int,
     method: str | None = None,
     provider: str = "ollama",
+    results_base: Path | None = None,
 ) -> dict[str, Any]:
     if number_of_runs < 1:
         raise ValueError("--runs must be at least 1.")
@@ -100,8 +133,27 @@ def run_batch(
         f"batch_{resolved_method}_{safe_scene_id}_"
         f"{safe_provider_name}_{safe_model_name}_{timestamp}"
     )
-    batch_directory = BATCH_RESULTS_ROOT / batch_id
-    batch_directory.mkdir(parents=True, exist_ok=False)
+    if results_base is None:
+        effective_batch_results_root = BATCH_RESULTS_ROOT
+    else:
+        effective_results_base = Path(results_base)
+
+        if not effective_results_base.is_absolute():
+            effective_results_base = (
+                PROJECT_ROOT / effective_results_base
+            )
+
+        effective_batch_results_root = (
+            effective_results_base / "batches"
+        )
+
+    batch_directory = (
+        effective_batch_results_root / batch_id
+    )
+    batch_directory.mkdir(
+        parents=True,
+        exist_ok=False,
+    )
 
     batch_started_at = datetime.now()
 
@@ -156,6 +208,7 @@ def run_batch(
                 scene_id=scene_id,
                 method=resolved_method,
                 provider=provider,
+                results_base=results_base,
             )
 
             run_finished_at = datetime.now()
@@ -238,7 +291,9 @@ def run_batch(
     collection_error = ""
 
     try:
-        refresh_existing_csv_summaries()
+       refresh_existing_csv_summaries(
+           results_base=results_base
+    )
     except Exception as exc:
         collection_success = False
         collection_error = str(exc)
@@ -286,13 +341,30 @@ def run_batch(
         "Batch summary  : "
         f"{batch_directory / 'batch_summary.json'}"
     )
+
+    if results_base is None:
+        csv_output_directory = (
+            PROJECT_ROOT / "results" / "tables"
+        )
+    else:
+        csv_results_base = Path(results_base)
+
+        if not csv_results_base.is_absolute():
+            csv_results_base = (
+                PROJECT_ROOT / csv_results_base
+            )
+
+        csv_output_directory = (
+            csv_results_base / "tables"
+        )
+
     print(
         "Run-level CSV  : "
-        f"{PROJECT_ROOT / 'results' / 'tables' / 'refinement_runs.csv'}"
+        f"{csv_output_directory / 'refinement_runs.csv'}"
     )
     print(
         "Model summary  : "
-        f"{PROJECT_ROOT / 'results' / 'tables' / 'refinement_model_summary.csv'}"
+        f"{csv_output_directory / 'refinement_model_summary.csv'}"
     )
 
     return batch_summary
@@ -346,6 +418,17 @@ def main() -> None:
     )
 
     parser.add_argument(
+        "--results-base",
+        type=Path,
+        default=None,
+        help=(
+            "Optional experiment results base directory. "
+            "When omitted, existing batch and refinement "
+            "result locations are preserved."
+        ),
+    )
+
+    parser.add_argument(
         "--model",
         default="llama3.1:8b",
         help="Model name used by the selected LLM provider.",
@@ -377,6 +460,7 @@ def main() -> None:
         max_iterations=args.max_iterations,
         method=args.method,
         provider=args.provider,
+        results_base=args.results_base,
     )
 
 

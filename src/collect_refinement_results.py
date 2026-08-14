@@ -3,6 +3,7 @@ from __future__ import annotations
 import csv
 import json
 import sys
+import argparse
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
@@ -153,7 +154,16 @@ def infer_root_cause(
     return ""
 
 
-def find_summary_files() -> list[Path]:
+def find_summary_files(
+    results_roots: tuple[Path, ...] | None = None,
+) -> list[Path]:
+
+    effective_results_roots = (
+        RESULTS_ROOTS
+        if results_roots is None
+        else results_roots
+    )
+
     """
     Find run-summary JSON files in both the legacy Scene 02
     result location and the new domain/scene result layout.
@@ -163,14 +173,14 @@ def find_summary_files() -> list[Path]:
 
     existing_roots = [
         root
-        for root in RESULTS_ROOTS
+        for root in effective_results_roots
         if root.exists()
     ]
 
     if not existing_roots:
         searched_locations = "\n".join(
             f"- {root}"
-            for root in RESULTS_ROOTS
+            for root in effective_results_roots
         )
 
         raise FileNotFoundError(
@@ -201,8 +211,12 @@ def find_summary_files() -> list[Path]:
     )
 
 
-def load_run_rows() -> list[dict[str, Any]]:
-    summary_files = find_summary_files()
+def load_run_rows(
+    results_roots: tuple[Path, ...] | None = None,
+) -> list[dict[str, Any]]:
+    summary_files = find_summary_files(
+        results_roots=results_roots
+    )
 
     rows = []
     seen_run_directories: set[str] = set()
@@ -366,8 +380,9 @@ def load_run_rows() -> list[dict[str, Any]]:
 
 def write_run_csv(
     rows: list[dict[str, Any]],
+    output_directory: Path = OUTPUT_DIRECTORY,
 ) -> None:
-    OUTPUT_DIRECTORY.mkdir(
+    output_directory.mkdir(
         parents=True,
         exist_ok=True,
     )
@@ -398,7 +413,12 @@ def write_run_csv(
         "summary_file",
     ]
 
-    with RUN_OUTPUT_FILE.open(
+    run_output_file = (
+        output_directory
+        / "refinement_runs.csv"
+    )
+
+    with run_output_file.open(
         "w",
         encoding="utf-8-sig",
         newline="",
@@ -414,6 +434,7 @@ def write_run_csv(
 
 def write_model_summary_csv(
     rows: list[dict[str, Any]],
+    output_directory: Path = OUTPUT_DIRECTORY,
 ) -> None:
     grouped_rows: dict[
         tuple[str, str, str, str, str],
@@ -528,7 +549,12 @@ def write_model_summary_csv(
         "average_total_val_runtime_seconds",
     ]
 
-    with MODEL_OUTPUT_FILE.open(
+    model_output_file = (
+        output_directory
+        / "refinement_model_summary.csv"
+    )
+
+    with model_output_file.open(
         "w",
         encoding="utf-8-sig",
         newline="",
@@ -567,7 +593,47 @@ def print_console_summary(
 
 
 def main() -> None:
-    rows = load_run_rows()
+    parser = argparse.ArgumentParser(
+        description=(
+            "Collect refinement experiment results "
+            "into run-level and grouped CSV summaries."
+        )
+    )
+
+    parser.add_argument(
+        "--results-base",
+        type=Path,
+        default=None,
+        help=(
+            "Optional experiment results base directory. "
+            "When omitted, legacy refinement results "
+            "and legacy output tables are preserved."
+        ),
+    )
+
+    args = parser.parse_args()
+
+    if args.results_base is None:
+        results_roots = None
+        output_directory = OUTPUT_DIRECTORY
+    else:
+        effective_results_base = args.results_base
+
+        if not effective_results_base.is_absolute():
+            effective_results_base = (
+                PROJECT_ROOT / effective_results_base
+            )
+
+        results_roots = (
+            effective_results_base / "refinement",
+        )
+        output_directory = (
+            effective_results_base / "tables"
+        )
+
+    rows = load_run_rows(
+        results_roots=results_roots
+    )
 
     if not rows:
         print(
@@ -575,8 +641,14 @@ def main() -> None:
         )
         raise SystemExit(1)
 
-    write_run_csv(rows)
-    write_model_summary_csv(rows)
+    write_run_csv(
+        rows,
+        output_directory=output_directory,
+    )
+    write_model_summary_csv(
+        rows,
+        output_directory=output_directory,
+    )
     print_console_summary(rows)
 
 

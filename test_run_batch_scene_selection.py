@@ -32,6 +32,7 @@ def main() -> None:
         scene_id: str,
         method: str | None = None,
         provider: str = "ollama",
+        results_base: Path | None = None,
     ) -> dict[str, Any]:
         calls.append(
             {
@@ -41,6 +42,7 @@ def main() -> None:
                 "scene_id": scene_id,
                 "method": method,
                 "provider": provider,
+                "results_base": results_base,
             }
         )
 
@@ -64,6 +66,9 @@ def main() -> None:
             temporary_root = Path(
                 temporary_directory
             )
+            formal_results_base = (
+                temporary_root / "formal"
+            )
 
             batch_module.BATCH_RESULTS_ROOT = (
                 temporary_root / "batches"
@@ -74,7 +79,7 @@ def main() -> None:
             )
 
             batch_module.refresh_existing_csv_summaries = (
-                lambda: None
+                lambda results_base=None: None
             )
 
             summary = batch_module.run_batch(
@@ -82,6 +87,7 @@ def main() -> None:
                 model="fake-test-model",
                 number_of_runs=2,
                 max_iterations=1,
+                results_base=formal_results_base,
             )
 
             if len(calls) != 2:
@@ -110,6 +116,13 @@ def main() -> None:
                         "Batch did not use LLM mode."
                     )
 
+                if call["results_base"] != formal_results_base:
+                    raise AssertionError(
+                        "Batch did not pass the formal "
+                        "results base to "
+                        "run_refinement_loop()."
+                    )
+
             if summary.get("scene") != (
                 "scene_03_large_pyramid"
             ):
@@ -128,6 +141,22 @@ def main() -> None:
             batch_directory = Path(
                 summary["batch_directory"]
             )
+
+            expected_batch_parent = (
+                formal_results_base / "batches"
+            )
+
+            if batch_directory.parent != (
+                expected_batch_parent
+            ):
+                raise AssertionError(
+                    "Batch directory was written to "
+                    "the wrong results root.\n"
+                    f"Expected parent: "
+                    f"{expected_batch_parent}\n"
+                    f"Actual parent  : "
+                    f"{batch_directory.parent}"
+                )
 
             config_file = (
                 batch_directory
@@ -189,6 +218,9 @@ def main() -> None:
                 f"{config_data['scene']}"
             )
             print("Batch result    : SUCCESS")
+            print(
+                "Formal routing : SUCCESS"
+            )
 
     finally:
         batch_module.BATCH_RESULTS_ROOT = (

@@ -90,6 +90,18 @@ def main() -> None:
                 / "block_building"
             )
 
+            formal_refinement_root = (
+                root
+                / "formal"
+                / "refinement"
+            )
+
+            formal_tables_root = (
+                root
+                / "formal"
+                / "tables"
+            )
+
             write_summary(
                 legacy_root
                 / "run_legacy"
@@ -118,6 +130,18 @@ def main() -> None:
                     "scene_03_large_pyramid"
                 ),
                 run_id="run_scene_03",
+            )
+
+            write_summary(
+                formal_refinement_root
+                / "block_building"
+                / "scene_01_blocksworld_basic"
+                / "run_formal_scene_01"
+                / "run_summary.json",
+                scene_id=(
+                    "scene_01_blocksworld_basic"
+                ),
+                run_id="run_formal_scene_01",
             )
 
             collector.RESULTS_ROOTS = (
@@ -175,6 +199,75 @@ def main() -> None:
                     "a Scene 02-specific root cause."
                 )
 
+            formal_results_roots = (
+                formal_refinement_root,
+            )
+
+            formal_summary_files = (
+                collector.find_summary_files(
+                    results_roots=(
+                        formal_results_roots
+                    )
+                )
+            )
+
+            if len(formal_summary_files) != 1:
+                raise AssertionError(
+                    "Expected exactly one formal "
+                    "summary file, "
+                    f"found {len(formal_summary_files)}."
+                )
+
+            formal_rows = collector.load_run_rows(
+                results_roots=formal_results_roots
+            )
+
+            if len(formal_rows) != 1:
+                raise AssertionError(
+                    "Expected exactly one formal run, "
+                    f"found {len(formal_rows)}."
+                )
+
+            if formal_rows[0]["scene"] != (
+                "scene_01_blocksworld_basic"
+            ):
+                raise AssertionError(
+                    "Formal collector read an "
+                    "unexpected scene."
+                )
+
+            collector.write_run_csv(
+                formal_rows,
+                output_directory=formal_tables_root,
+            )
+
+            collector.write_model_summary_csv(
+                formal_rows,
+                output_directory=formal_tables_root,
+            )
+
+            formal_run_csv = (
+                formal_tables_root
+                / "refinement_runs.csv"
+            )
+
+            formal_model_csv = (
+                formal_tables_root
+                / "refinement_model_summary.csv"
+            )
+
+            if not formal_run_csv.exists():
+                raise AssertionError(
+                    "Formal run-level CSV was "
+                    "not created."
+                )
+
+            if not formal_model_csv.exists():
+                raise AssertionError(
+                    "Formal model summary CSV was "
+                    "not created."
+                )
+
             print()
             print(
                 f"Summary files : "
@@ -191,6 +284,15 @@ def main() -> None:
             )
             print(
                 "Scene isolation: SUCCESS"
+            )
+            print(
+                "Formal isolation: SUCCESS"
+            )
+            print(
+                "Formal run CSV : SUCCESS"
+            )
+            print(
+                "Formal model CSV: SUCCESS"
             )
 
     finally:
