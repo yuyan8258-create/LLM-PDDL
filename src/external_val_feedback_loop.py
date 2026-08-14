@@ -283,39 +283,53 @@ def make_structured_feedback(
         plan
     )
 
-    symbolic_result = context.verifier.verify(
-        domain_plan,
-        context.prepared_scene,
-    )
-
-    symbolic_valid = symbolic_result.success
-
-    symbolic_details: dict[str, Any] = {
-        "message": symbolic_result.message,
-    }
-
-    if symbolic_result.failed_step is not None:
-        symbolic_details["failed_step"] = (
-            symbolic_result.failed_step
+    try:
+        symbolic_result = context.verifier.verify(
+            domain_plan,
+            context.prepared_scene,
         )
 
-    if symbolic_result.failed_action is not None:
-        symbolic_details["failed_action"] = (
-            symbolic_result.failed_action
-        )
+        symbolic_valid = symbolic_result.success
 
-    if symbolic_result.error is not None:
-        symbolic_details["error"] = (
-            symbolic_result.error
-        )
+        symbolic_details: dict[str, Any] = {
+            "message": symbolic_result.message,
+        }
 
-    if (
-        symbolic_result.state_before_failure
-        is not None
-    ):
-        symbolic_details["state_before_failure"] = (
+    except ValueError as exc:
+        symbolic_result = None
+        symbolic_valid = False
+
+        symbolic_details = {
+            "message": (
+                "The symbolic verifier could not execute the candidate "
+                "plan because the plan is malformed."
+            ),
+        "error": str(exc),
+        }
+
+    if symbolic_result is not None:
+        if symbolic_result.failed_step is not None:
+            symbolic_details["failed_step"] = (
+                symbolic_result.failed_step
+            )
+
+        if symbolic_result.failed_action is not None:
+            symbolic_details["failed_action"] = (
+                symbolic_result.failed_action
+            )
+
+        if symbolic_result.error is not None:
+            symbolic_details["error"] = (
+                symbolic_result.error
+            )
+
+        if (
             symbolic_result.state_before_failure
-        )
+            is not None
+        ):
+            symbolic_details["state_before_failure"] = (
+                symbolic_result.state_before_failure
+            )
 
     val_combined_output = (
         f"{val_stdout}\n{val_stderr}"
