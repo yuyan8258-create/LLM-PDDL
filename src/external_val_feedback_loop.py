@@ -243,6 +243,9 @@ def plan_to_dict(plan: list[PlanStep]) -> list[dict[str, Any]]:
 # Feedback generation
 # ---------------------------------------------------------------------------
 
+MAX_VAL_FEEDBACK_LINES = 40
+MAX_VAL_FEEDBACK_CHARS = 8000
+
 def legacy_plan_to_domain_plan(
     plan: list[PlanStep],
 ) -> list[DomainPlanStep]:
@@ -261,7 +264,6 @@ def legacy_plan_to_domain_plan(
         )
         for step in plan
     ]
-
 
 def make_structured_feedback(
     context: RuntimeContext,
@@ -335,10 +337,20 @@ def make_structured_feedback(
         f"{val_stdout}\n{val_stderr}"
     ).strip()
 
-    # Keep only the final section of VAL output in the LLM feedback.
-    # The full output is still saved separately in the VAL log file.
+    # Keep only a bounded final excerpt of VAL output in LLM feedback.
+    # The complete VAL result remains available separately through the
+    # normal VAL logging/result path.
     val_output_lines = val_combined_output.splitlines()
-    val_output_tail = "\n".join(val_output_lines[-40:])
+
+    val_output_tail = "\n".join(
+        val_output_lines[-MAX_VAL_FEEDBACK_LINES:]
+    ).strip()
+
+    if len(val_output_tail) > MAX_VAL_FEEDBACK_CHARS:
+        val_output_tail = (
+            "...[VAL output truncated]...\n"
+            + val_output_tail[-MAX_VAL_FEEDBACK_CHARS:]
+        )
 
     feedback = {
         "validation_authority": "VAL",
@@ -885,7 +897,20 @@ def run_refinement_loop(
             "iteration": iteration,
             "plan": plan_to_dict(plan),
             "plan_file": str(plan_file),
-            "val": val_result.to_dict(),
+            "val": {
+                "valid": val_result.valid,
+                "return_code": val_result.return_code,
+                "runtime_seconds": (
+                    val_result.runtime_seconds
+                ),
+                "log_file": str(val_log_file),
+                "stdout_chars": len(
+                    val_result.stdout
+                ),
+                "stderr_chars": len(
+                    val_result.stderr
+                ),
+            },
         }
 
         # ---------------------------------------------------------------

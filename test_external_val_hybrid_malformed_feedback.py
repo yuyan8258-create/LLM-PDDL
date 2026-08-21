@@ -182,6 +182,37 @@ def run_malformed_case(
                 f"got {len(attempts)}."
             )
 
+        first_val_summary = attempts[0].get(
+            "val",
+            {},
+        )
+
+        if "stdout" in first_val_summary:
+            raise AssertionError(
+                "Run summary unexpectedly contains raw "
+                "VAL stdout."
+            )
+
+        if "stderr" in first_val_summary:
+            raise AssertionError(
+                "Run summary unexpectedly contains raw "
+                "VAL stderr."
+            )
+
+        for required_key in (
+            "valid",
+            "return_code",
+            "runtime_seconds",
+            "log_file",
+            "stdout_chars",
+            "stderr_chars",
+        ):
+            if required_key not in first_val_summary:
+                raise AssertionError(
+                    "Compact VAL summary is missing "
+                    f"'{required_key}'."
+                )
+
         if attempts[0].get("success") is not False:
             raise AssertionError(
                 f"{case_name}: first attempt should fail."
@@ -207,6 +238,7 @@ def run_malformed_case(
         print("Feedback reached prompt  : SUCCESS")
         print("Second attempt repaired  : SUCCESS")
         print("VAL final acceptance     : SUCCESS")
+        print("Compact VAL summary      : SUCCESS")
         print("Run summary created      : SUCCESS")
 
     finally:

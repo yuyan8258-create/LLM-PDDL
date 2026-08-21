@@ -5,7 +5,9 @@ import tempfile
 from pathlib import Path
 
 from src.external_val_feedback_loop import (
+    MAX_VAL_FEEDBACK_CHARS,
     initialise_runtime_context,
+    make_structured_feedback,
     run_refinement_loop,
 )
 from src.pyramid_demo_v3 import LLMPlanner
@@ -202,6 +204,84 @@ def main() -> None:
                 "Structured feedback file was not created."
             )
 
+        # -------------------------------------------------------------
+        # Bounded VAL feedback regression
+        #
+        # A VAL timeout/error path can produce a very long individual
+        # output line. The feedback excerpt must therefore be bounded
+        # by character count as well as by line count.
+        # -------------------------------------------------------------
+
+        huge_val_stdout = (
+            "VAL diagnostic start\n"
+            + (" " * 500_000)
+            + "\ntype:\n"
+            + "(symbol)\n"
+        )
+
+        huge_val_stderr = (
+            "VAL timed out after 60 seconds."
+        )
+
+        bounded_feedback = make_structured_feedback(
+            context=context,
+            plan=[
+                PlanStep(
+                    action="pick-up",
+                    args=("blockB",),
+                ),
+            ],
+            val_valid=False,
+            val_stdout=huge_val_stdout,
+            val_stderr=huge_val_stderr,
+        )
+
+        val_output_tail = bounded_feedback.get(
+            "val_output_tail",
+            "",
+        )
+
+        if not isinstance(
+            val_output_tail,
+            str,
+        ):
+            raise AssertionError(
+                "val_output_tail must be a string."
+            )
+
+        max_expected_length = (
+            MAX_VAL_FEEDBACK_CHARS
+            + len(
+                "...[VAL output truncated]...\n"
+            )
+        )
+
+        if len(val_output_tail) > max_expected_length:
+            raise AssertionError(
+                "VAL feedback excerpt exceeded the "
+                "configured character bound.\n"
+                f"Length: {len(val_output_tail)}\n"
+                f"Maximum expected: {max_expected_length}"
+            )
+
+        if (
+            "VAL timed out after 60 seconds."
+            not in val_output_tail
+        ):
+            raise AssertionError(
+                "Bounded VAL feedback lost the "
+                "timeout diagnostic."
+            )
+
+        if (
+            "...[VAL output truncated]..."
+            not in val_output_tail
+        ):
+            raise AssertionError(
+                "Oversized VAL feedback was not "
+                "marked as truncated."
+            )
+
         print()
         print(f"Scene                 : {SCENE_ID}")
         print(f"Planner calls         : {call_count}")
@@ -222,6 +302,9 @@ def main() -> None:
         )
         print(
             "Formal result routing  : SUCCESS"
+        )
+        print(
+            "VAL feedback bound     : SUCCESS"
         )
 
         print()
