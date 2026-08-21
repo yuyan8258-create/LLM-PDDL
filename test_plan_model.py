@@ -22,6 +22,7 @@ def main() -> None:
     print("=" * 72)
 
     expected_lengths = {
+        "occlusion_easy": 4,
         "scene_01_blocksworld_basic": 4,
         "scene_02_pyramid": 6,
         "scene_03_large_pyramid": 12,

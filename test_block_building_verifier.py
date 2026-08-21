@@ -54,6 +54,11 @@ def main() -> None:
             scene_id
         )
 
+        if original_scene.domain_id != (
+            "block_building"
+        ):
+            continue
+
         prepared_scene = adapter.prepare_scene(
             original_scene
         )

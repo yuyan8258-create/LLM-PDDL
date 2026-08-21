@@ -1,0 +1,101 @@
+{
+  "scene_id": "occlusion_easy",
+  "domain_id": "occlusion_manipulation",
+
+  "scene_name": "Single ground occluder removal",
+
+  "description": "A Lego-like structure where one removable ground occluder blocks the target brick. The robot removes the occluder, temporarily places it, and relocates the target.",
+
+  "difficulty": "easy",
+
+  "objects": {
+    "target-brick": [
+      "T1"
+    ],
+
+    "occluder-brick": [
+      "O1"
+    ],
+
+    "target-structural-location": [
+      "target_slot"
+    ],
+
+    "occluder-structural-location": [
+      "front_slot"
+    ],
+
+    "temporary-location": [
+      "temp_A"
+    ],
+
+    "goal-location": [
+      "goal_region"
+    ]
+  },
+
+  "initial_state": {
+
+    "at": [
+      [
+        "T1",
+        "target_slot"
+      ],
+      [
+        "O1",
+        "front_slot"
+      ]
+    ],
+
+    "occludes": [
+      [
+        "O1",
+        "T1"
+      ]
+    ],
+
+    "accessible": [
+      "O1"
+    ],
+
+    "clear": [
+      "O1",
+      "T1"
+    ],
+
+    "holding": [],
+
+    "handempty": true,
+
+    "free": [
+      "temp_A",
+      "goal_region"
+    ],
+
+    "target-relocated": false
+  },
+
+  "goal_state": {
+
+    "at": [
+      [
+        "T1",
+        "goal_region"
+      ]
+    ],
+
+    "handempty": true,
+
+    "target-relocated": true
+  },
+
+
+  "expected_plan": [
+    "remove-ground-occluder(O1, front_slot, T1)",
+    "put-down-occluder(O1, temp_A)",
+    "pick-up-target(T1, target_slot)",
+    "put-down-target(T1, goal_region)"
+  ],
+
+  "planning_guidance": {}
+}
