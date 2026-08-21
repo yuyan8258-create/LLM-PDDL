@@ -1,0 +1,27 @@
+{
+  "domain_id": "occlusion_manipulation",
+  "pddl_domain_name": "image_occlusion_manipulation",
+  "adapter": "occlusion_manipulation",
+  "description": "Lego-like structural occlusion manipulation domain with ordered occluder removal, temporary placement, target relocation, and optional structure restoration.",
+  "predicate_arities": {
+    "at": 2,
+    "on": 2,
+    "clear": 1,
+    "occludes": 2,
+    "accessible": 1,
+    "holding": 1,
+    "handempty": 0,
+    "free": 1,
+    "target-relocated": 0
+  },
+  "action_arities": {
+    "remove-stacked-occluder": 2,
+    "remove-ground-occluder": 3,
+    "put-down-occluder": 2,
+    "pick-up-temp-occluder": 2,
+    "pick-up-target": 2,
+    "put-down-target": 2,
+    "restore-ground-occluder": 2,
+    "stack-occluder": 2
+  }
+}
