@@ -24,6 +24,7 @@ def main() -> None:
     expected_lengths = {
         "occlusion_easy": 4,
         "occlusion_medium": 6,
+        "occlusion_hard": 14,
         "scene_01_blocksworld_basic": 4,
         "scene_02_pyramid": 6,
         "scene_03_large_pyramid": 12,

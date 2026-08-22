@@ -1,0 +1,159 @@
+{
+  "scene_id": "occlusion_hard",
+  "domain_id": "occlusion_manipulation",
+
+  "scene_name": "Three-layer occlusion with mandatory restoration",
+
+  "description": "A Lego-like structural occlusion scene with a three-layer dependency chain. The top occluder O3 blocks O2, O2 blocks the front ground occluder O1, and O1 blocks access to the target brick T1. The robot must remove all three occluders in dependency order, temporarily store them, relocate the target, and then reconstruct the remaining occluder dependency chain. Restoration reconstructs the occluder structure after target relocation; the original O1-to-T1 occlusion is not restored because T1 has moved to the goal location.",
+
+  "difficulty": "hard",
+
+  "objects": {
+    "target-brick": [
+      "T1"
+    ],
+
+    "occluder-brick": [
+      "O1",
+      "O2",
+      "O3"
+    ],
+
+    "target-structural-location": [
+      "target_slot"
+    ],
+
+    "occluder-structural-location": [
+      "front_slot"
+    ],
+
+    "temporary-location": [
+      "temp_A",
+      "temp_B",
+      "temp_C"
+    ],
+
+    "goal-location": [
+      "goal_region"
+    ]
+  },
+
+  "initial_state": {
+    "at": [
+      [
+        "T1",
+        "target_slot"
+      ],
+      [
+        "O1",
+        "front_slot"
+      ]
+    ],
+
+    "on": [
+      [
+        "O2",
+        "O1"
+      ],
+      [
+        "O3",
+        "O2"
+      ]
+    ],
+
+    "occludes": [
+      [
+        "O3",
+        "O2"
+      ],
+      [
+        "O2",
+        "O1"
+      ],
+      [
+        "O1",
+        "T1"
+      ]
+    ],
+
+    "clear": [
+      "O3",
+      "T1"
+    ],
+
+    "accessible": [
+      "O3"
+    ],
+
+    "holding": [],
+
+    "handempty": true,
+
+    "free": [
+      "temp_A",
+      "temp_B",
+      "temp_C",
+      "goal_region"
+    ],
+
+    "target-relocated": false
+  },
+
+  "goal_state": {
+    "at": [
+      [
+        "T1",
+        "goal_region"
+      ],
+      [
+        "O1",
+        "front_slot"
+      ]
+    ],
+
+    "on": [
+      [
+        "O2",
+        "O1"
+      ],
+      [
+        "O3",
+        "O2"
+      ]
+    ],
+
+    "occludes": [
+      [
+        "O2",
+        "O1"
+      ],
+      [
+        "O3",
+        "O2"
+      ]
+    ],
+
+    "handempty": true,
+
+    "target-relocated": true
+  },
+
+  "expected_plan": [
+    "remove-stacked-occluder(O3, O2)",
+    "put-down-occluder(O3, temp_C)",
+    "remove-stacked-occluder(O2, O1)",
+    "put-down-occluder(O2, temp_B)",
+    "remove-ground-occluder(O1, front_slot, T1)",
+    "put-down-occluder(O1, temp_A)",
+    "pick-up-target(T1, target_slot)",
+    "put-down-target(T1, goal_region)",
+    "pick-up-temp-occluder(O1, temp_A)",
+    "restore-ground-occluder(O1, front_slot)",
+    "pick-up-temp-occluder(O2, temp_B)",
+    "stack-occluder(O2, O1)",
+    "pick-up-temp-occluder(O3, temp_C)",
+    "stack-occluder(O3, O2)"
+  ],
+
+  "planning_guidance": {}
+}
