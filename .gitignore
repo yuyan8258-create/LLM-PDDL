@@ -6,3 +6,9 @@ venv/
 .DS_Store
 *.log
 results/formal/
+# Generated PDDL files
+generated_pddl/
+
+# Development / smoke-test outputs
+results/occlusion_smoke/
+results/pure_pddl/
