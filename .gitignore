@@ -13,3 +13,4 @@ generated_pddl/
 results/occlusion_smoke/
 results/pure_pddl/
 results/occlusion_formal_test/
+results/occlusion_formal/
