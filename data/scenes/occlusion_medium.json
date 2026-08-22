@@ -1,0 +1,114 @@
+{
+  "scene_id": "occlusion_medium",
+  "domain_id": "occlusion_manipulation",
+
+  "scene_name": "Two-layer stacked occlusion dependency",
+
+  "description": "A Lego-like structural occlusion scene where an upper removable occluder O2 blocks access to the front ground occluder O1, and O1 blocks the target brick T1. The robot must clear the stacked dependency in order, temporarily place both occluders, and then relocate the target.",
+
+  "difficulty": "medium",
+
+  "objects": {
+    "target-brick": [
+      "T1"
+    ],
+
+    "occluder-brick": [
+      "O1",
+      "O2"
+    ],
+
+    "target-structural-location": [
+      "target_slot"
+    ],
+
+    "occluder-structural-location": [
+      "front_slot"
+    ],
+
+    "temporary-location": [
+      "temp_A",
+      "temp_B"
+    ],
+
+    "goal-location": [
+      "goal_region"
+    ]
+  },
+
+  "initial_state": {
+    "at": [
+      [
+        "T1",
+        "target_slot"
+      ],
+      [
+        "O1",
+        "front_slot"
+      ]
+    ],
+
+    "on": [
+      [
+        "O2",
+        "O1"
+      ]
+    ],
+
+    "occludes": [
+      [
+        "O2",
+        "O1"
+      ],
+      [
+        "O1",
+        "T1"
+      ]
+    ],
+
+    "clear": [
+      "O2",
+      "T1"
+    ],
+
+    "accessible": [
+      "O2"
+    ],
+
+    "holding": [],
+
+    "handempty": true,
+
+    "free": [
+      "temp_A",
+      "temp_B",
+      "goal_region"
+    ],
+
+    "target-relocated": false
+  },
+
+  "goal_state": {
+    "at": [
+      [
+        "T1",
+        "goal_region"
+      ]
+    ],
+
+    "handempty": true,
+
+    "target-relocated": true
+  },
+
+  "expected_plan": [
+    "remove-stacked-occluder(O2, O1)",
+    "put-down-occluder(O2, temp_B)",
+    "remove-ground-occluder(O1, front_slot, T1)",
+    "put-down-occluder(O1, temp_A)",
+    "pick-up-target(T1, target_slot)",
+    "put-down-target(T1, goal_region)"
+  ],
+
+  "planning_guidance": {}
+}

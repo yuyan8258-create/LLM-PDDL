@@ -320,55 +320,307 @@ def _clean_llm_output(raw: str) -> str:
     return raw
 
 
-def _try_parse_json_like_plan(raw: str) -> Optional[List[PlanStep]]:
+def _try_parse_json_like_plan(
+    raw: str,
+) -> Optional[List[PlanStep]]:
     """
-    Try to parse LLM output as JSON-like data.
+    Try to parse LLM output as JSON-like plan data.
 
-    This accepts the ideal format:
-      [{"action": "pick-up", "args": ["B4"]}, ...]
+    Supported representations include:
 
-    It also repairs common LLM mistakes:
-    - extra text before/after the JSON array
-    - trailing commas before ] or }
-    - Python-style single-quoted lists/dicts via ast.literal_eval
+    1. Ideal dict-based JSON:
+       [
+         {
+           "action": "pick-up",
+           "args": ["B4"]
+         }
+       ]
+
+    2. JSON array of action strings:
+       [
+         "pick-up(B4)",
+         "stack-bridge(B4, B1, B2)"
+       ]
+
+    3. Action-array representation:
+       [
+         ["remove-stacked-occluder", "O2", "O1"],
+         ["put-down-occluder", "O2", "temp_A"]
+       ]
+
+    4. Comma-separated action arrays without the outer list:
+       ["remove-stacked-occluder", "O2", "O1"],
+       ["put-down-occluder", "O2", "temp_A"]
+
+    5. Nested argument-array representation:
+       [
+         ["remove-stacked-occluder", ["O2", "O1"]],
+         ["put-down-occluder", ["O2", "temp_A"]]
+       ]
+
+    The parser is intentionally domain-agnostic. It only converts
+    structurally recognisable plan representations into PlanStep objects.
+    Action legality, arity, object membership, and typed argument roles
+    are checked later by the domain-aware validation layer.
     """
+
     cleaned = _clean_llm_output(raw)
 
-    match = re.search(r"\[.*\]", cleaned, flags=re.DOTALL)
+    # If the response contains surrounding explanatory text, retain the
+    # broadest bracketed JSON-like region.
+    match = re.search(
+        r"\[.*\]",
+        cleaned,
+        flags=re.DOTALL,
+    )
+
     if match:
         cleaned = match.group(0)
 
     # Remove JavaScript-style comments and trailing commas.
-    repaired = re.sub(r"//.*", "", cleaned)
-    repaired = re.sub(r",\s*([\]}])", r"\1", repaired)
+    repaired = re.sub(
+        r"//.*",
+        "",
+        cleaned,
+    )
 
-    data: Any
+    repaired = re.sub(
+        r",\s*([\]}])",
+        r"\1",
+        repaired,
+    )
+
+    data: Any = None
+    parse_succeeded = False
+
+    # ------------------------------------------------------------
+    # Attempt 1: strict JSON
+    # ------------------------------------------------------------
+
     try:
         data = json.loads(repaired)
+        parse_succeeded = True
+
     except json.JSONDecodeError:
+        pass
+
+    # ------------------------------------------------------------
+    # Attempt 2: Python literal syntax
+    #
+    # This is useful for common LLM output containing single quotes
+    # or comma-separated list expressions.
+    #
+    # Example:
+    #
+    # ["action-a", "x"], ["action-b", "y"]
+    #
+    # ast.literal_eval() interprets this as a tuple of lists.
+    # ------------------------------------------------------------
+
+    if not parse_succeeded:
         try:
             data = ast.literal_eval(repaired)
+            parse_succeeded = True
+
         except Exception:
-            return None
+            pass
+
+    # ------------------------------------------------------------
+    # Attempt 3: missing outer plan list
+    #
+    # Some models return:
+    #
+    # ["action-a", "x"], ["action-b", "y"]
+    #
+    # Try one minimal structural repair:
+    #
+    # [
+    #   ["action-a", "x"],
+    #   ["action-b", "y"]
+    # ]
+    # ------------------------------------------------------------
+
+    if not parse_succeeded:
+        wrapped = f"[{repaired}]"
+
+        try:
+            data = json.loads(wrapped)
+            parse_succeeded = True
+
+        except json.JSONDecodeError:
+            try:
+                data = ast.literal_eval(wrapped)
+                parse_succeeded = True
+
+            except Exception:
+                return None
+
+    # ------------------------------------------------------------
+    # Normalise tuple wrapper
+    #
+    # ast.literal_eval() converts comma-separated expressions into
+    # a tuple. For plan parsing, that tuple is simply the outer plan
+    # sequence.
+    # ------------------------------------------------------------
+
+    if isinstance(data, tuple):
+        data = list(data)
 
     if not isinstance(data, list):
         return None
 
+    # ------------------------------------------------------------
+    # Normalise a single flat action-array.
+    #
+    # Example:
+    #
+    # ["remove-stacked-occluder", "O2", "O1"]
+    #
+    # should represent one action, not three plan items.
+    #
+    # But:
+    #
+    # ["pick-up(B4)", "stack-bridge(B4, B1, B2)"]
+    #
+    # is a genuine list of textual actions, so preserve it.
+    # ------------------------------------------------------------
+
+    if (
+        data
+        and isinstance(data[0], str)
+        and "(" not in data[0]
+        and ")" not in data[0]
+    ):
+        data = [data]
+
     parsed: List[PlanStep] = []
+
+    # ------------------------------------------------------------
+    # Parse each plan item
+    # ------------------------------------------------------------
+
     for item in data:
+
+        # --------------------------------------------------------
+        # Format A:
+        #
+        # {
+        #   "action": "...",
+        #   "args": [...]
+        # }
+        # --------------------------------------------------------
+
         if isinstance(item, dict):
             action = item.get("action")
             args = item.get("args")
-            if isinstance(action, str) and isinstance(args, list):
-                parsed.append(PlanStep(action=action.strip(), args=[str(a).strip() for a in args]))
-            else:
+
+            if not (
+                isinstance(action, str)
+                and isinstance(args, list)
+            ):
                 return None
+
+            raw_args = args
+
+            # Some models add one unnecessary argument-list wrapper:
+            #
+            # {
+            #   "action": "remove-stacked-occluder",
+            #   "args": [["O2", "O1"]]
+            # }
+            #
+            # Normalise only that structural wrapper.
+            if (
+                len(raw_args) == 1
+                and isinstance(raw_args[0], list)
+            ):
+                raw_args = raw_args[0]
+
+            parsed.append(
+                PlanStep(
+                    action=action.strip(),
+                    args=[
+                        str(argument).strip()
+                        for argument in raw_args
+                    ],
+                )
+            )
+
+        # --------------------------------------------------------
+        # Format B:
+        #
+        # ["action-name", "arg1", "arg2"]
+        #
+        # or:
+        #
+        # ["action-name", ["arg1", "arg2"]]
+        # --------------------------------------------------------
+
+        elif isinstance(item, list):
+            if (
+                not item
+                or not isinstance(
+                    item[0],
+                    str,
+                )
+            ):
+                return None
+
+            action = item[0].strip()
+            raw_args = item[1:]
+
+            # Some models wrap the complete argument list inside
+            # one additional list.
+            #
+            # Example:
+            #
+            # [
+            #   "remove-stacked-occluder",
+            #   ["O2", "O1"]
+            # ]
+            #
+            # Convert it to:
+            #
+            # action = "remove-stacked-occluder"
+            # args   = ["O2", "O1"]
+            if (
+                len(raw_args) == 1
+                and isinstance(
+                    raw_args[0],
+                    list,
+                )
+            ):
+                raw_args = raw_args[0]
+
+            args = [
+                str(argument).strip()
+                for argument in raw_args
+            ]
+
+            parsed.append(
+                PlanStep(
+                    action=action,
+                    args=args,
+                )
+            )
+
+        # --------------------------------------------------------
+        # Format C:
+        #
+        # "pick-up(B4)"
+        # "(pick-up B4)"
+        # --------------------------------------------------------
+
         elif isinstance(item, str):
-            # Accept JSON arrays of action strings, e.g. ["pick-up(B4)", ...]
-            step = _parse_single_action_text(item)
+            step = _parse_single_action_text(
+                item
+            )
+
             if step is None:
                 return None
+
             parsed.append(step)
+
         else:
             return None
 
