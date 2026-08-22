@@ -12,3 +12,4 @@ generated_pddl/
 # Development / smoke-test outputs
 results/occlusion_smoke/
 results/pure_pddl/
+results/occlusion_formal_test/

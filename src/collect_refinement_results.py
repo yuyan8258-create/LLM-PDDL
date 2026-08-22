@@ -214,11 +214,29 @@ def find_summary_files(
 def load_run_rows(
     results_roots: tuple[Path, ...] | None = None,
 ) -> list[dict[str, Any]]:
+    """
+    Load and normalise supported experiment run summaries.
+
+    Supported schemas:
+
+    1. Refinement-style summaries:
+       - Pure LLM
+       - Hybrid feedback
+
+    2. Pure PDDL summaries:
+       - Fast Downward
+       - Python symbolic verification
+       - VAL validation
+
+    The returned rows share one common representation so they
+    can be written into the same run-level and grouped CSV files.
+    """
+
     summary_files = find_summary_files(
         results_roots=results_roots
     )
 
-    rows = []
+    rows: list[dict[str, Any]] = []
     seen_run_directories: set[str] = set()
 
     for summary_file in summary_files:
@@ -228,15 +246,30 @@ def load_run_rows(
                     encoding="utf-8",
                 )
             )
-        except (OSError, json.JSONDecodeError) as exc:
+
+        except (
+            OSError,
+            json.JSONDecodeError,
+        ) as exc:
             print(
                 f"Skipping unreadable file: "
-                f"{summary_file}\nReason: {exc}"
+                f"{summary_file}\n"
+                f"Reason: {exc}"
             )
             continue
 
-        # Ignore JSON files that are not run summaries.
-        required_keys = {
+        if not isinstance(data, dict):
+            continue
+
+        # ========================================================
+        # A. Refinement-style run
+        #
+        # Used by:
+        # - pure_llm
+        # - hybrid_feedback
+        # ========================================================
+
+        refinement_required_keys = {
             "scene",
             "mode",
             "success",
@@ -244,136 +277,458 @@ def load_run_rows(
             "attempts",
         }
 
-        if not required_keys.issubset(data.keys()):
-            continue
-
-        run_directory = str(
-            data.get(
-                "run_directory",
-                summary_file.parent,
+        is_refinement_summary = (
+            refinement_required_keys.issubset(
+                data.keys()
             )
         )
 
-        # Avoid counting renamed copies twice.
-        if run_directory in seen_run_directories:
+        if is_refinement_summary:
+            run_directory = str(
+                data.get(
+                    "run_directory",
+                    summary_file.parent,
+                )
+            )
+
+            # Avoid counting renamed/copied summaries twice.
+            if run_directory in seen_run_directories:
+                continue
+
+            seen_run_directories.add(
+                run_directory
+            )
+
+            attempts = data.get(
+                "attempts",
+                [],
+            )
+
+            if not isinstance(
+                attempts,
+                list,
+            ):
+                attempts = []
+
+            first_attempt = (
+                attempts[0]
+                if attempts
+                else None
+            )
+
+            final_attempt = (
+                attempts[-1]
+                if attempts
+                else None
+            )
+
+            first_val = (
+                first_attempt.get(
+                    "val",
+                    {},
+                )
+                if isinstance(
+                    first_attempt,
+                    dict,
+                )
+                else {}
+            )
+
+            if not isinstance(
+                first_val,
+                dict,
+            ):
+                first_val = {}
+
+            first_attempt_valid = bool(
+                first_val.get(
+                    "valid",
+                    False,
+                )
+            )
+
+            final_plan = data.get(
+                "final_plan"
+            )
+
+            first_plan = (
+                first_attempt.get(
+                    "plan",
+                    [],
+                )
+                if isinstance(
+                    first_attempt,
+                    dict,
+                )
+                else []
+            )
+
+            if not isinstance(
+                first_plan,
+                list,
+            ):
+                first_plan = []
+
+            first_failure = (
+                extract_failure_details(
+                    first_attempt
+                )
+            )
+
+            final_failure = (
+                extract_failure_details(
+                    final_attempt
+                )
+                if not data.get(
+                    "success",
+                    False,
+                )
+                else {
+                    "failed_step": "",
+                    "failed_action": "",
+                    "error": "",
+                }
+            )
+
+            val_runtimes: list[float] = []
+
+            for attempt in attempts:
+                if not isinstance(
+                    attempt,
+                    dict,
+                ):
+                    continue
+
+                val_data = attempt.get(
+                    "val",
+                    {},
+                )
+
+                if not isinstance(
+                    val_data,
+                    dict,
+                ):
+                    continue
+
+                runtime = val_data.get(
+                    "runtime_seconds"
+                )
+
+                if isinstance(
+                    runtime,
+                    (int, float),
+                ):
+                    val_runtimes.append(
+                        float(runtime)
+                    )
+
+            total_val_runtime = sum(
+                val_runtimes
+            )
+
+            average_val_runtime = (
+                total_val_runtime
+                / len(val_runtimes)
+                if val_runtimes
+                else 0.0
+            )
+
+            run_id = Path(
+                run_directory
+            ).name
+
+            rows.append(
+                {
+                    "run_id": run_id,
+                    "scene": data.get(
+                        "scene",
+                        "",
+                    ),
+                    "mode": data.get(
+                        "mode",
+                        "",
+                    ),
+                    "method": data.get(
+                        "method",
+                        "",
+                    ),
+                    "provider": data.get(
+                        "provider",
+                        "",
+                    ),
+                    "model": data.get(
+                        "model",
+                        "",
+                    ),
+                    "success": bool(
+                        data.get(
+                            "success",
+                            False,
+                        )
+                    ),
+                    "first_attempt_valid":
+                        first_attempt_valid,
+                    "iterations": data.get(
+                        "iterations",
+                        "",
+                    ),
+                    "first_plan_length":
+                        len(first_plan),
+                    "final_plan_length": (
+                        len(final_plan)
+                        if isinstance(
+                            final_plan,
+                            list,
+                        )
+                        else ""
+                    ),
+                    "first_failed_step":
+                        first_failure[
+                            "failed_step"
+                        ],
+                    "first_failed_action":
+                        first_failure[
+                            "failed_action"
+                        ],
+                    "first_error":
+                        first_failure[
+                            "error"
+                        ],
+                    "final_failed_step":
+                        final_failure[
+                            "failed_step"
+                        ],
+                    "final_failed_action":
+                        final_failure[
+                            "failed_action"
+                        ],
+                    "final_error":
+                        final_failure[
+                            "error"
+                        ],
+                    "inferred_root_cause":
+                        infer_root_cause(
+                            scene_id=str(
+                                data.get(
+                                    "scene",
+                                    "",
+                                )
+                            ),
+                            first_attempt=(
+                                first_attempt
+                            ),
+                        ),
+                    "total_val_runtime_seconds":
+                        round(
+                            total_val_runtime,
+                            6,
+                        ),
+                    "average_val_runtime_seconds":
+                        round(
+                            average_val_runtime,
+                            6,
+                        ),
+                    "failure_stage":
+                        data.get(
+                            "failure_stage",
+                            "",
+                        ),
+                    "run_directory":
+                        run_directory,
+                    "summary_file":
+                        str(summary_file),
+                }
+            )
+
             continue
 
-        seen_run_directories.add(run_directory)
+        # ========================================================
+        # B. Pure PDDL run
+        #
+        # This schema is intentionally different from refinement.
+        # Do not force Pure PDDL to pretend it has LLM attempts.
+        # ========================================================
 
-        attempts = data.get("attempts", [])
-
-        if not isinstance(attempts, list):
-            attempts = []
-
-        first_attempt = attempts[0] if attempts else None
-        final_attempt = attempts[-1] if attempts else None
-
-        first_val = (
-            first_attempt.get("val", {})
-            if isinstance(first_attempt, dict)
-            else {}
+        is_pure_pddl_summary = (
+            data.get("method")
+            == "pure_pddl"
+            and "scene" in data
+            and "success" in data
+            and "planner" in data
         )
 
-        first_attempt_valid = bool(
-            first_val.get("valid", False)
-        )
+        if is_pure_pddl_summary:
+            run_directory = str(
+                data.get(
+                    "run_directory",
+                    summary_file.parent,
+                )
+            )
 
-        final_plan = data.get("final_plan")
-
-        first_plan = (
-            first_attempt.get("plan", [])
-            if isinstance(first_attempt, dict)
-            else []
-        )
-
-        first_failure = extract_failure_details(
-            first_attempt
-        )
-
-        final_failure = (
-            extract_failure_details(final_attempt)
-            if not data.get("success", False)
-            else {
-                "failed_step": "",
-                "failed_action": "",
-                "error": "",
-            }
-        )
-
-        val_runtimes = []
-
-        for attempt in attempts:
-            if not isinstance(attempt, dict):
+            if run_directory in seen_run_directories:
                 continue
 
-            val_data = attempt.get("val", {})
+            seen_run_directories.add(
+                run_directory
+            )
 
-            if not isinstance(val_data, dict):
-                continue
+            success = bool(
+                data.get(
+                    "success",
+                    False,
+                )
+            )
 
-            runtime = val_data.get("runtime_seconds")
+            planner = str(
+                data.get(
+                    "planner",
+                    "fast_downward",
+                )
+            )
 
-            if isinstance(runtime, (int, float)):
-                val_runtimes.append(float(runtime))
+            plan_steps = data.get(
+                "plan_steps",
+                "",
+            )
 
-        total_val_runtime = sum(val_runtimes)
+            if not isinstance(
+                plan_steps,
+                int,
+            ):
+                plan_steps = ""
 
-        average_val_runtime = (
-            total_val_runtime / len(val_runtimes)
-            if val_runtimes
-            else 0.0
-        )
+            val_runtime = data.get(
+                "val_runtime_seconds",
+                0.0,
+            )
 
-        run_id = Path(run_directory).name
+            if not isinstance(
+                val_runtime,
+                (int, float),
+            ):
+                val_runtime = 0.0
 
-        rows.append(
-            {
-                "run_id": run_id,
-                "scene": data.get("scene", ""),
-                "mode": data.get("mode", ""),
-                "method": data.get("method", ""),
-                "provider": data.get("provider", ""),
-                "model": data.get("model", ""),
-                "success": bool(
-                    data.get("success", False)
-                ),
-                "first_attempt_valid": first_attempt_valid,
-                "iterations": data.get("iterations", ""),
-                "first_plan_length": len(first_plan),
-                "final_plan_length": (
-                    len(final_plan)
-                    if isinstance(final_plan, list)
-                    else ""
-                ),
-                "first_failed_step":
-                    first_failure["failed_step"],
-                "first_failed_action":
-                    first_failure["failed_action"],
-                "first_error":
-                    first_failure["error"],
-                "final_failed_step":
-                    final_failure["failed_step"],
-                "final_failed_action":
-                    final_failure["failed_action"],
-                "final_error":
-                    final_failure["error"],
-                "inferred_root_cause":
-                    infer_root_cause(
-                        scene_id=str(
-                            data.get("scene", "")
+            failure_stage = str(
+                data.get(
+                    "failure_stage",
+                    "",
+                )
+            )
+
+            # Successful Fast Downward planning followed by a
+            # symbolic/VAL rejection is uncommon but possible.
+            # Older Pure PDDL summaries may not record an explicit
+            # failure_stage for those cases, so infer one only when
+            # necessary.
+            if not success and not failure_stage:
+                if (
+                    data.get(
+                        "symbolic_valid"
+                    )
+                    is False
+                ):
+                    failure_stage = (
+                        "symbolic_verification"
+                    )
+
+                elif (
+                    data.get(
+                        "val_valid"
+                    )
+                    is False
+                ):
+                    failure_stage = (
+                        "val_validation"
+                    )
+
+            run_id = Path(
+                run_directory
+            ).name
+
+            rows.append(
+                {
+                    "run_id": run_id,
+                    "scene": data.get(
+                        "scene",
+                        "",
+                    ),
+
+                    # Keep the common CSV schema while making
+                    # the execution mode explicit.
+                    "mode": "pddl",
+
+                    "method": "pure_pddl",
+
+                    # Pure PDDL has no LLM provider.
+                    "provider": "",
+
+                    # Reuse the existing "model" column as the
+                    # planner identity so grouped summaries remain
+                    # backward compatible.
+                    "model": planner,
+
+                    "success": success,
+
+                    # Pure PDDL has one deterministic planning
+                    # attempt rather than an LLM refinement loop.
+                    # For the common summary, its one attempt is
+                    # valid exactly when the complete run succeeds.
+                    "first_attempt_valid":
+                        success,
+
+                    "iterations": 1,
+
+                    "first_plan_length":
+                        plan_steps,
+
+                    "final_plan_length":
+                        plan_steps,
+
+                    # LLM-specific structured feedback fields do
+                    # not apply to Pure PDDL.
+                    "first_failed_step": "",
+                    "first_failed_action": "",
+                    "first_error": "",
+                    "final_failed_step": "",
+                    "final_failed_action": "",
+                    "final_error": "",
+                    "inferred_root_cause": "",
+
+                    "total_val_runtime_seconds":
+                        round(
+                            float(
+                                val_runtime
+                            ),
+                            6,
                         ),
-                        first_attempt=first_attempt,
-                ),
-                "total_val_runtime_seconds":
-                    round(total_val_runtime, 6),
-                "average_val_runtime_seconds":
-                    round(average_val_runtime, 6),
-                "failure_stage":
-                    data.get("failure_stage", ""),
-                "run_directory": run_directory,
-                "summary_file": str(summary_file),
-            }
-        )
+
+                    "average_val_runtime_seconds":
+                        round(
+                            float(
+                                val_runtime
+                            ),
+                            6,
+                        ),
+
+                    "failure_stage":
+                        failure_stage,
+
+                    "run_directory":
+                        run_directory,
+
+                    "summary_file":
+                        str(summary_file),
+                }
+            )
+
+            continue
+
+        # ========================================================
+        # C. Other JSON
+        #
+        # batch_config.json, batch_summary.json and unrelated JSON
+        # are intentionally ignored.
+        # ========================================================
 
     return rows
 
@@ -570,14 +925,25 @@ def write_model_summary_csv(
 
 def print_console_summary(
     rows: list[dict[str, Any]],
+    output_directory: Path = OUTPUT_DIRECTORY,
 ) -> None:
     print("=" * 78)
     print("REFINEMENT RESULT COLLECTION")
     print("=" * 78)
 
+    run_output_file = (
+        output_directory
+        / "refinement_runs.csv"
+    )
+
+    model_output_file = (
+        output_directory
+        / "refinement_model_summary.csv"
+    )
+
     print(f"Unique runs found: {len(rows)}")
-    print(f"Run-level CSV: {RUN_OUTPUT_FILE}")
-    print(f"Model summary CSV: {MODEL_OUTPUT_FILE}")
+    print(f"Run-level CSV: {run_output_file}")
+    print(f"Model summary CSV: {model_output_file}")
 
     print("\nCollected runs:")
 
@@ -625,8 +991,13 @@ def main() -> None:
             )
 
         results_roots = (
-            effective_results_base / "refinement",
+            effective_results_base
+            / "refinement",
+
+            effective_results_base
+            / "pure_pddl",
         )
+        
         output_directory = (
             effective_results_base / "tables"
         )
@@ -649,7 +1020,10 @@ def main() -> None:
         rows,
         output_directory=output_directory,
     )
-    print_console_summary(rows)
+    print_console_summary(
+        rows,
+        output_directory=output_directory,
+    )
 
 
 if __name__ == "__main__":

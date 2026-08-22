@@ -67,7 +67,11 @@ def refresh_existing_csv_summaries(
             )
 
         results_roots = (
-            effective_results_base / "refinement",
+            effective_results_base
+            / "refinement",
+
+            effective_results_base
+            / "pure_pddl",
         )
         output_directory = (
             effective_results_base / "tables"
@@ -94,7 +98,10 @@ def refresh_existing_csv_summaries(
         output_directory=output_directory,
     )
 
-    print_console_summary(rows)
+    print_console_summary(
+        rows,
+        output_directory=output_directory,
+    )
 
 
 def run_batch(
