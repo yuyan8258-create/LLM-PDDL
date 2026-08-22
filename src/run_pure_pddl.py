@@ -78,7 +78,7 @@ def run_pure_pddl(
         / "pure_pddl"
         / context.domain.domain_id
         / context.scene.scene_id
-        / run_started_at.strftime("run_%Y%m%d_%H%M%S")
+        / run_started_at.strftime("run_%Y%m%d_%H%M%S_%f")
     )
     run_directory.mkdir(
         parents=True,
