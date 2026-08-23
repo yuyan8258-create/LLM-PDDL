@@ -326,9 +326,16 @@ def build_pddl_problem(
         section_name="goal_state",
     )
 
-    if not goal_atoms:
+    negative_goal_atoms = state_section_to_pddl_atoms(
+        state_section=scene.negative_goal_state,
+        scene=scene,
+        domain=domain,
+        section_name="negative_goal_state",
+    )
+
+    if not goal_atoms and not negative_goal_atoms:
         raise ValueError(
-            f"Scene '{scene.scene_id}' has no positive goal atoms."
+            f"Scene '{scene.scene_id}' has no goal literals."
         )
 
     problem_name = normalise_pddl_identifier(
@@ -342,10 +349,17 @@ def build_pddl_problem(
         for atom in init_atoms
     )
 
-    goal_text = "\n".join(
+    goal_lines = [
         f"      {atom}"
         for atom in goal_atoms
+    ]
+
+    goal_lines.extend(
+        f"      (not {atom})"
+        for atom in negative_goal_atoms
     )
+
+    goal_text = "\n".join(goal_lines)
 
     return f"""(define (problem {problem_name})
   (:domain {domain.pddl_domain_name})

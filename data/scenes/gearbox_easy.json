@@ -1,0 +1,46 @@
+{
+  "scene_id": "gearbox_easy",
+  "scene_name": "Gearbox Assembly - Easy",
+  "description": "A symbolic gearbox assembly task with typed components and explicit assembly constraints.",
+  "domain_id": "gearbox",
+  "difficulty": "easy",
+
+  "objects": {
+    "permanent-component": [
+      "gearbox-housing",
+      "input-shaft",
+      "countershaft",
+      "input-bearing-carrier"
+    ]
+  },
+
+  "initial_state": {
+    "assembled": [],
+    "precedes": [
+      ["gearbox-housing", "input-shaft"],
+      ["input-shaft", "countershaft"],
+      ["countershaft", "input-bearing-carrier"]
+    ],
+    "requires_aid": []
+  },
+
+  "goal_state": {
+    "assembled": [
+      "gearbox-housing",
+      "input-shaft",
+      "countershaft",
+      "input-bearing-carrier"
+    ]
+  },
+
+  "negative_goal_state": {},
+
+  "expected_plan": [
+    "(assemble-basic gearbox-housing)",
+    "(assemble-after input-shaft gearbox-housing)",
+    "(assemble-after countershaft input-shaft)",
+    "(assemble-after input-bearing-carrier countershaft)"
+  ],
+
+  "planning_guidance": {}
+}

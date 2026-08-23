@@ -51,6 +51,19 @@ class SceneConfig:
     initial_state: dict[str, Any]
     goal_state: dict[str, Any]
 
+    # Optional negative goal literals.
+    #
+    # Example:
+    # {
+    #     "aid_present": ["t1"]
+    # }
+    #
+    # represents:
+    #     (not (aid-present t1))
+    #
+    # Existing scenes may omit this field.
+    negative_goal_state: dict[str, Any]
+
     expected_plan: list[str]
     planning_guidance: dict[str, Any]
 
@@ -369,6 +382,15 @@ def load_scene_config(scene_id: str) -> SceneConfig:
         raw_section=scene_data["goal_state"],
     )
 
+    negative_goal_state = _copy_state_section(
+        scene_id=requested_scene_id,
+        section_name="negative_goal_state",
+        raw_section=scene_data.get(
+            "negative_goal_state",
+            {},
+        ),
+    )
+
     raw_expected_plan = scene_data.get(
         "expected_plan",
         [],
@@ -414,6 +436,7 @@ def load_scene_config(scene_id: str) -> SceneConfig:
         object_types=object_types,
         initial_state=initial_state,
         goal_state=goal_state,
+        negative_goal_state=negative_goal_state,
         expected_plan=[
             str(step)
             for step in raw_expected_plan

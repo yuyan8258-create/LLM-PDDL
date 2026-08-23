@@ -1,0 +1,2 @@
+(insert-aid t1)
+(withdraw-aid-after-one t1 p2)

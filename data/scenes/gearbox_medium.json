@@ -1,0 +1,58 @@
+{
+  "scene_id": "gearbox_medium",
+  "scene_name": "Gearbox Assembly - Medium",
+  "description": "A symbolic gearbox assembly task with typed components and explicit assembly constraints.",
+  "domain_id": "gearbox",
+  "difficulty": "medium",
+
+  "objects": {
+    "permanent-component": [
+      "gearbox-housing",
+      "input-shaft",
+      "countershaft",
+      "input-bearing-carrier"
+    ],
+    "temporary-aid": [
+      "dummy-support-shaft"
+    ]
+  },
+
+  "initial_state": {
+    "assembled": [],
+    "aid_present": [],
+    "precedes": [
+      ["gearbox-housing", "input-shaft"],
+      ["input-shaft", "countershaft"],
+      ["countershaft", "input-bearing-carrier"]
+    ],
+    "requires_aid": [
+      ["input-bearing-carrier", "dummy-support-shaft"]
+    ]
+  },
+
+  "goal_state": {
+    "assembled": [
+      "gearbox-housing",
+      "input-shaft",
+      "countershaft",
+      "input-bearing-carrier"
+    ]
+  },
+
+  "negative_goal_state": {
+    "aid_present": [
+      "dummy-support-shaft"
+    ]
+  },
+
+  "expected_plan": [
+    "(assemble-basic gearbox-housing)",
+    "(assemble-after input-shaft gearbox-housing)",
+    "(assemble-after countershaft input-shaft)",
+    "(insert-aid dummy-support-shaft)",
+    "(assemble-after-with-aid input-bearing-carrier countershaft dummy-support-shaft)",
+    "(withdraw-aid-after-one dummy-support-shaft input-bearing-carrier)"
+  ],
+
+  "planning_guidance": {}
+}

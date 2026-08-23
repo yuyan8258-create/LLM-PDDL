@@ -1,0 +1,25 @@
+{
+  "domain_id": "gearbox",
+  "pddl_domain_name": "image_gearbox_assembly",
+  "adapter": "gearbox",
+  "description": "Symbolic staged gearbox assembly domain with explicit component ordering, temporary assembly-aid requirements, and delayed aid withdrawal.",
+  "predicate_arities": {
+    "assembled": 1,
+    "aid-present": 1,
+    "precedes": 2,
+    "requires-aid": 2,
+    "has-predecessor": 1,
+    "has-aid-requirement": 1,
+    "withdraw-group-1": 2,
+    "withdraw-group-2": 3
+  },
+  "action_arities": {
+    "assemble-basic": 1,
+    "assemble-after": 2,
+    "assemble-with-aid": 2,
+    "assemble-after-with-aid": 3,
+    "insert-aid": 1,
+    "withdraw-aid-after-one": 2,
+    "withdraw-aid-after-two": 3
+  }
+}

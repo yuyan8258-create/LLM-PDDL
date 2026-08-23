@@ -1,0 +1,75 @@
+{
+  "scene_id": "gearbox_hard",
+  "scene_name": "Gearbox Assembly - Hard",
+  "description": "A symbolic gearbox assembly task with typed components and explicit assembly constraints.",
+  "domain_id": "gearbox",
+  "difficulty": "hard",
+
+  "objects": {
+    "permanent-component": [
+      "gearbox-housing",
+      "input-shaft",
+      "countershaft",
+      "input-bearing-carrier",
+      "countershaft-bearing-carrier",
+      "drive-gear-assembly",
+      "countershaft-gear-assembly",
+      "output-gear-assembly"
+    ],
+    "temporary-aid": [
+      "dummy-support-shaft"
+    ]
+  },
+
+  "initial_state": {
+    "assembled": [],
+    "aid_present": [],
+    "precedes": [
+      ["gearbox-housing", "input-shaft"],
+      ["gearbox-housing", "countershaft"],
+      ["input-shaft", "input-bearing-carrier"],
+      ["countershaft", "countershaft-bearing-carrier"],
+      ["input-bearing-carrier", "drive-gear-assembly"],
+      ["countershaft-bearing-carrier", "countershaft-gear-assembly"],
+      ["drive-gear-assembly", "output-gear-assembly"]
+    ],
+    "requires_aid": [
+      ["countershaft-gear-assembly", "dummy-support-shaft"],
+      ["output-gear-assembly", "dummy-support-shaft"]
+    ]
+  },
+
+  "goal_state": {
+    "assembled": [
+      "gearbox-housing",
+      "input-shaft",
+      "countershaft",
+      "input-bearing-carrier",
+      "countershaft-bearing-carrier",
+      "drive-gear-assembly",
+      "countershaft-gear-assembly",
+      "output-gear-assembly"
+    ]
+  },
+
+  "negative_goal_state": {
+    "aid_present": [
+      "dummy-support-shaft"
+    ]
+  },
+
+  "expected_plan": [
+    "(assemble-basic gearbox-housing)",
+    "(assemble-after input-shaft gearbox-housing)",
+    "(assemble-after countershaft gearbox-housing)",
+    "(assemble-after input-bearing-carrier input-shaft)",
+    "(assemble-after countershaft-bearing-carrier countershaft)",
+    "(assemble-after drive-gear-assembly input-bearing-carrier)",
+    "(insert-aid dummy-support-shaft)",
+    "(assemble-after-with-aid output-gear-assembly drive-gear-assembly dummy-support-shaft)",
+    "(assemble-after-with-aid countershaft-gear-assembly countershaft-bearing-carrier dummy-support-shaft)",
+    "(withdraw-aid-after-two dummy-support-shaft countershaft-gear-assembly output-gear-assembly)"
+  ],
+
+  "planning_guidance": {}
+}

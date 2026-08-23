@@ -1,0 +1,4 @@
+(insert-aid t1)
+(assemble p1)
+(assemble p2)
+(withdraw-aid t1)

@@ -14,3 +14,7 @@ results/occlusion_smoke/
 results/pure_pddl/
 results/occlusion_formal_test/
 results/occlusion_formal/
+results/occlusion_invalid_runs/
+results/gearbox_formal/
+# Gearbox development / dry-run outputs
+results/refinement/gearbox/

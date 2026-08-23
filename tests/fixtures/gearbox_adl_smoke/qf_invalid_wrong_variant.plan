@@ -1,0 +1,3 @@
+(assemble-basic p1)
+(insert-aid t1)
+(assemble-with-aid p2 t1)
