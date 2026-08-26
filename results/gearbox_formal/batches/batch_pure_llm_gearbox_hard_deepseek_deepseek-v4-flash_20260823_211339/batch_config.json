@@ -1,0 +1,11 @@
+{
+  "batch_id": "batch_pure_llm_gearbox_hard_deepseek_deepseek-v4-flash_20260823_211339",
+  "scene": "gearbox_hard",
+  "provider": "deepseek",
+  "model": "deepseek-v4-flash",
+  "method": "pure_llm",
+  "number_of_runs": 10,
+  "max_iterations": 1,
+  "started_at": "2026-08-23T21:13:39",
+  "batch_directory": "D:\\LLM-PDDL\\results\\gearbox_formal\\batches\\batch_pure_llm_gearbox_hard_deepseek_deepseek-v4-flash_20260823_211339"
+}

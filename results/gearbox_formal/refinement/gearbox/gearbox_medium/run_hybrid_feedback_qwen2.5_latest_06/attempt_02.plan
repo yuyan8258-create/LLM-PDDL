@@ -1,0 +1,7 @@
+(assemble-basic gearbox-housing)
+(assemble-after input-shaft gearbox-housing)
+(assemble-after countershaft input-shaft)
+(assemble-after input-bearing-carrier countershaft)
+(insert-aid dummy-support-shaft)
+(assemble-with-aid input-bearing-carrier dummy-support-shaft)
+(withdraw-aid-after-two dummy-support-shaft input-shaft countershaft)

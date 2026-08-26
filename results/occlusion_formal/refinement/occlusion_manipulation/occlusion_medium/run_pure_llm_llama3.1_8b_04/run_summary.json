@@ -1,0 +1,116 @@
+{
+  "scene": "occlusion_medium",
+  "mode": "llm",
+  "method": "pure_llm",
+  "model": "llama3.1:8b",
+  "provider": "ollama",
+  "success": true,
+  "iterations": 1,
+  "final_plan": [
+    {
+      "action": "remove-stacked-occluder",
+      "args": [
+        "O2",
+        "O1"
+      ]
+    },
+    {
+      "action": "put-down-occluder",
+      "args": [
+        "O2",
+        "temp_A"
+      ]
+    },
+    {
+      "action": "remove-ground-occluder",
+      "args": [
+        "O1",
+        "front_slot",
+        "T1"
+      ]
+    },
+    {
+      "action": "put-down-occluder",
+      "args": [
+        "O1",
+        "temp_B"
+      ]
+    },
+    {
+      "action": "pick-up-target",
+      "args": [
+        "T1",
+        "target_slot"
+      ]
+    },
+    {
+      "action": "put-down-target",
+      "args": [
+        "T1",
+        "goal_region"
+      ]
+    }
+  ],
+  "final_plan_file": "D:\\LLM-PDDL\\results\\occlusion_formal\\refinement\\occlusion_manipulation\\occlusion_medium\\run_pure_llm_llama3.1_8b_04\\final_validated.plan",
+  "run_directory": "D:\\LLM-PDDL\\results\\occlusion_formal\\refinement\\occlusion_manipulation\\occlusion_medium\\run_pure_llm_llama3.1_8b_04",
+  "attempts": [
+    {
+      "iteration": 1,
+      "plan": [
+        {
+          "action": "remove-stacked-occluder",
+          "args": [
+            "O2",
+            "O1"
+          ]
+        },
+        {
+          "action": "put-down-occluder",
+          "args": [
+            "O2",
+            "temp_A"
+          ]
+        },
+        {
+          "action": "remove-ground-occluder",
+          "args": [
+            "O1",
+            "front_slot",
+            "T1"
+          ]
+        },
+        {
+          "action": "put-down-occluder",
+          "args": [
+            "O1",
+            "temp_B"
+          ]
+        },
+        {
+          "action": "pick-up-target",
+          "args": [
+            "T1",
+            "target_slot"
+          ]
+        },
+        {
+          "action": "put-down-target",
+          "args": [
+            "T1",
+            "goal_region"
+          ]
+        }
+      ],
+      "plan_file": "D:\\LLM-PDDL\\results\\occlusion_formal\\refinement\\occlusion_manipulation\\occlusion_medium\\run_pure_llm_llama3.1_8b_04\\attempt_01.plan",
+      "val": {
+        "valid": true,
+        "return_code": 0,
+        "runtime_seconds": 0.08313649997580796,
+        "log_file": "D:\\LLM-PDDL\\results\\occlusion_formal\\refinement\\occlusion_manipulation\\occlusion_medium\\run_pure_llm_llama3.1_8b_04\\attempt_01_val.txt",
+        "stdout_chars": 2684,
+        "stderr_chars": 132
+      },
+      "success": true
+    }
+  ]
+}

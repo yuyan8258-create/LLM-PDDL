@@ -1,0 +1,115 @@
+{
+  "scene": "scene_02_pyramid",
+  "mode": "llm",
+  "method": "hybrid_feedback",
+  "model": "deepseek-v4-flash",
+  "provider": "deepseek",
+  "success": true,
+  "iterations": 1,
+  "final_plan": [
+    {
+      "action": "pick-up",
+      "args": [
+        "B4"
+      ]
+    },
+    {
+      "action": "stack-bridge",
+      "args": [
+        "B4",
+        "B1",
+        "B2"
+      ]
+    },
+    {
+      "action": "pick-up",
+      "args": [
+        "B5"
+      ]
+    },
+    {
+      "action": "stack-bridge",
+      "args": [
+        "B5",
+        "B2",
+        "B3"
+      ]
+    },
+    {
+      "action": "pick-up",
+      "args": [
+        "pyramid"
+      ]
+    },
+    {
+      "action": "stack-bridge",
+      "args": [
+        "pyramid",
+        "B4",
+        "B5"
+      ]
+    }
+  ],
+  "final_plan_file": "D:\\LLM-PDDL\\results\\formal\\refinement\\block_building\\scene_02_pyramid\\run_hybrid_feedback_deepseek-v4-flash_07\\final_validated.plan",
+  "run_directory": "D:\\LLM-PDDL\\results\\formal\\refinement\\block_building\\scene_02_pyramid\\run_hybrid_feedback_deepseek-v4-flash_07",
+  "attempts": [
+    {
+      "iteration": 1,
+      "plan": [
+        {
+          "action": "pick-up",
+          "args": [
+            "B4"
+          ]
+        },
+        {
+          "action": "stack-bridge",
+          "args": [
+            "B4",
+            "B1",
+            "B2"
+          ]
+        },
+        {
+          "action": "pick-up",
+          "args": [
+            "B5"
+          ]
+        },
+        {
+          "action": "stack-bridge",
+          "args": [
+            "B5",
+            "B2",
+            "B3"
+          ]
+        },
+        {
+          "action": "pick-up",
+          "args": [
+            "pyramid"
+          ]
+        },
+        {
+          "action": "stack-bridge",
+          "args": [
+            "pyramid",
+            "B4",
+            "B5"
+          ]
+        }
+      ],
+      "plan_file": "D:\\LLM-PDDL\\results\\formal\\refinement\\block_building\\scene_02_pyramid\\run_hybrid_feedback_deepseek-v4-flash_07\\attempt_01.plan",
+      "val": {
+        "valid": true,
+        "return_code": 0,
+        "runtime_seconds": 3.2925692000007984,
+        "final_value": 6,
+        "stdout": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nChecking plan: /mnt/d/LLM-PDDL/results/formal/refinement/block_building/scene_02_pyramid/run_hybrid_feedback_deepseek-v4-flash_07/attempt_01.plan\nPlan to validate:\n\nPlan size: 6\n1:\n(pick-up b4)\n \n2:\n(stack-bridge b4 b1 b2)\n \n3:\n(pick-up b5)\n \n4:\n(stack-bridge b5 b2 b3)\n \n5:\n(pick-up pyramid)\n \n6:\n(stack-bridge pyramid b4 b5)\n \n\nPlan Validation details\n-----------------------\n\nChecking next happening (time 1)\nDeleting (ontable b4)\nDeleting (clear b4)\nDeleting (handempty)\nAdding (holding b4)\n\nChecking next happening (time 2)\nDeleting (holding b4)\nDeleting (right-free b1)\nDeleting (left-free b2)\nAdding (on-bridge b4 b1 b2)\nAdding (clear b4)\nAdding (handempty)\n\nChecking next happening (time 3)\nDeleting (ontable b5)\nDeleting (clear b5)\nDeleting (handempty)\nAdding (holding b5)\n\nChecking next happening (time 4)\nDeleting (holding b5)\nDeleting (right-free b2)\nDeleting (left-free b3)\nAdding (on-bridge b5 b2 b3)\nAdding (clear b5)\nAdding (handempty)\n\nChecking next happening (time 5)\nDeleting (ontable pyramid)\nDeleting (clear pyramid)\nDeleting (handempty)\nAdding (holding pyramid)\n\nChecking next happening (time 6)\nDeleting (holding pyramid)\nDeleting (right-free b4)\nDeleting (left-free b5)\nAdding (on-bridge pyramid b4 b5)\nAdding (clear pyramid)\nAdding (handempty)\nPlan executed successfully - checking goal\nPlan valid\nFinal value: 6 \n\nSuccessful plans:\nValue: 6\n /mnt/d/LLM-PDDL/results/formal/refinement/block_building/scene_02_pyramid/run_hybrid_feedback_deepseek-v4-flash_07/attempt_01.plan 6 \n\n",
+        "stderr": "",
+        "raw_log_file": "D:\\LLM-PDDL\\results\\formal\\refinement\\block_building\\scene_02_pyramid\\run_hybrid_feedback_deepseek-v4-flash_07\\attempt_01_val.txt"
+      },
+      "success": true
+    }
+  ]
+}

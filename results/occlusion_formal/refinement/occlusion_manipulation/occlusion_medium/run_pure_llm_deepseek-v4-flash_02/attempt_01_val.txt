@@ -1,0 +1,140 @@
+﻿Type-checking remove-stacked-occluder
+...action passes type checking.
+Type-checking remove-ground-occluder
+...action passes type checking.
+Type-checking put-down-occluder
+...action passes type checking.
+Type-checking pick-up-temp-occluder
+...action passes type checking.
+Type-checking pick-up-target
+...action passes type checking.
+Type-checking put-down-target
+...action passes type checking.
+Type-checking restore-ground-occluder
+...action passes type checking.
+Type-checking stack-occluder
+...action passes type checking.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Checking plan: /mnt/d/LLM-PDDL/results/occlusion_formal/refinement/occlusion_manipulation/occlusion_medium/run_pure_llm_deepseek-v4-flash_02/attempt_01.plan
+Plan to validate:
+
+Plan size: 6
+1:
+(remove-stacked-occluder o2 o1)
+
+2:
+(put-down-occluder o2 temp_a)
+
+3:
+(remove-ground-occluder o1 front_slot t1)
+
+4:
+(put-down-occluder o1 temp_b)
+
+5:
+(pick-up-target t1 target_slot)
+
+6:
+(put-down-target t1 goal_region)
+
+
+Plan Validation details
+-----------------------
+
+Checking next happening (time 1)
+Deleting (on o2 o1)
+Deleting (occludes o2 o1)
+Deleting (clear o2)
+Deleting (accessible o2)
+Deleting (handempty)
+Adding (holding o2)
+Adding (clear o1)
+Adding (accessible o1)
+
+Checking next happening (time 2)
+Deleting (holding o2)
+Deleting (free temp_a)
+Adding (at o2 temp_a)
+Adding (clear o2)
+Adding (accessible o2)
+Adding (handempty)
+
+Checking next happening (time 3)
+Deleting (at o1 front_slot)
+Deleting (occludes o1 t1)
+Deleting (clear o1)
+Deleting (accessible o1)
+Deleting (handempty)
+Adding (holding o1)
+Adding (free front_slot)
+Adding (accessible t1)
+
+Checking next happening (time 4)
+Deleting (holding o1)
+Deleting (free temp_b)
+Adding (at o1 temp_b)
+Adding (clear o1)
+Adding (accessible o1)
+Adding (handempty)
+
+Checking next happening (time 5)
+Deleting (at t1 target_slot)
+Deleting (clear t1)
+Deleting (accessible t1)
+Deleting (handempty)
+Adding (holding t1)
+Adding (free target_slot)
+
+Checking next happening (time 6)
+Deleting (holding t1)
+Deleting (free goal_region)
+Adding (at t1 goal_region)
+Adding (clear t1)
+Adding (accessible t1)
+Adding (handempty)
+Adding (target-relocated)
+Plan executed successfully - checking goal
+Plan valid
+Final value: 6
+
+Successful plans:
+Value: 6
+ /mnt/d/LLM-PDDL/results/occlusion_formal/refinement/occlusion_manipulation/occlusion_medium/run_pure_llm_deepseek-v4-flash_02/attempt_01.plan 6
+
+
+wsl: �hKm0R localhost �NtM�n�FO*g\��P0R WSL0NAT !j_N�v WSL
+N/ec localhost �Nt0

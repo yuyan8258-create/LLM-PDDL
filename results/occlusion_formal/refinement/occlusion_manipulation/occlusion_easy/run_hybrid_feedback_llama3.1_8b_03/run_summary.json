@@ -1,0 +1,403 @@
+{
+  "scene": "occlusion_easy",
+  "mode": "llm",
+  "method": "hybrid_feedback",
+  "model": "llama3.1:8b",
+  "provider": "ollama",
+  "success": false,
+  "iterations": 3,
+  "failure_stage": "maximum_iterations_reached",
+  "run_directory": "D:\\LLM-PDDL\\results\\occlusion_formal\\refinement\\occlusion_manipulation\\occlusion_easy\\run_hybrid_feedback_llama3.1_8b_03",
+  "attempts": [
+    {
+      "iteration": 1,
+      "plan": [
+        {
+          "action": "remove-ground-occluder",
+          "args": [
+            "O1",
+            "front_slot",
+            "T1"
+          ]
+        },
+        {
+          "action": "put-down-occluder",
+          "args": [
+            "O1",
+            "temp_A"
+          ]
+        },
+        {
+          "action": "pick-up-target",
+          "args": [
+            "T1",
+            "target_slot"
+          ]
+        },
+        {
+          "action": "put-down-target",
+          "args": [
+            "T1",
+            "goal_region"
+          ]
+        },
+        {
+          "action": "restore-ground-occluder",
+          "args": [
+            "O1",
+            "front_slot"
+          ]
+        }
+      ],
+      "plan_file": "D:\\LLM-PDDL\\results\\occlusion_formal\\refinement\\occlusion_manipulation\\occlusion_easy\\run_hybrid_feedback_llama3.1_8b_03\\attempt_01.plan",
+      "val": {
+        "valid": false,
+        "return_code": 1,
+        "runtime_seconds": 0.17018959997221828,
+        "log_file": "D:\\LLM-PDDL\\results\\occlusion_formal\\refinement\\occlusion_manipulation\\occlusion_easy\\run_hybrid_feedback_llama3.1_8b_03\\attempt_01_val.txt",
+        "stdout_chars": 2492,
+        "stderr_chars": 132
+      },
+      "success": false,
+      "feedback": {
+        "validation_authority": "VAL",
+        "val_valid": false,
+        "symbolic_verifier_valid": false,
+        "previous_plan": [
+          {
+            "action": "remove-ground-occluder",
+            "args": [
+              "O1",
+              "front_slot",
+              "T1"
+            ]
+          },
+          {
+            "action": "put-down-occluder",
+            "args": [
+              "O1",
+              "temp_A"
+            ]
+          },
+          {
+            "action": "pick-up-target",
+            "args": [
+              "T1",
+              "target_slot"
+            ]
+          },
+          {
+            "action": "put-down-target",
+            "args": [
+              "T1",
+              "goal_region"
+            ]
+          },
+          {
+            "action": "restore-ground-occluder",
+            "args": [
+              "O1",
+              "front_slot"
+            ]
+          }
+        ],
+        "symbolic_failure_details": {
+          "message": "Missing preconditions: holding(O1)",
+          "failed_step": 5,
+          "failed_action": "restore-ground-occluder(O1, front_slot)",
+          "error": "Missing preconditions: holding(O1)",
+          "state_before_failure": {
+            "at": [
+              [
+                "O1",
+                "temp_A"
+              ],
+              [
+                "T1",
+                "goal_region"
+              ]
+            ],
+            "on": [],
+            "clear": [
+              "O1",
+              "T1"
+            ],
+            "occludes": [],
+            "accessible": [
+              "O1",
+              "T1"
+            ],
+            "holding": [],
+            "handempty": true,
+            "free": [
+              "front_slot",
+              "target_slot"
+            ],
+            "target_relocated": true
+          }
+        },
+        "val_output_tail": "Adding (handempty)\n\nChecking next happening (time 3)\nDeleting (at t1 target_slot)\nDeleting (clear t1)\nDeleting (accessible t1)\nDeleting (handempty)\nAdding (holding t1)\nAdding (free target_slot)\n\nChecking next happening (time 4)\nDeleting (holding t1)\nDeleting (free goal_region)\nAdding (at t1 goal_region)\nAdding (clear t1)\nAdding (accessible t1)\nAdding (handempty)\nAdding (target-relocated)\n\nChecking next happening (time 5)\nPlan failed because of unsatisfied precondition in:\n(restore-ground-occluder o1 front_slot)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(restore-ground-occluder o1 front_slot) has an unsatisfied precondition at time 5\n(Set (holding o1) to true)\n\n\nFailed plans:\n /mnt/d/LLM-PDDL/results/occlusion_formal/refinement/occlusion_manipulation/occlusion_easy/run_hybrid_feedback_llama3.1_8b_03/attempt_01.plan \n\nw\u0000s\u0000l\u0000:\u0000 \u0000�hKm0R \u0000l\u0000o\u0000c\u0000a\u0000l\u0000h\u0000o\u0000s\u0000t\u0000 \u0000�N\u0006tM�n\n�FO*g\\��P0R \u0000W\u0000S\u0000L\u0000\u00020N\u0000A\u0000T\u0000 \u0000!j\u000f_\nN�v \u0000W\u0000S\u0000L\u0000 \u0000\nN/e\u0001c \u0000l\u0000o\u0000c\u0000a\u0000l\u0000h\u0000o\u0000s\u0000t\u0000 \u0000�N\u0006t\u00020\n\u0000\n\u0000",
+        "repair_instruction": "Generate a complete corrected plan. Fix the failed action and any earlier actions that caused the failed precondition. Do not return only a partial plan."
+      },
+      "feedback_file": "D:\\LLM-PDDL\\results\\occlusion_formal\\refinement\\occlusion_manipulation\\occlusion_easy\\run_hybrid_feedback_llama3.1_8b_03\\attempt_01_feedback.json"
+    },
+    {
+      "iteration": 2,
+      "plan": [
+        {
+          "action": "remove-ground-occluder",
+          "args": [
+            "O1",
+            "front_slot",
+            "T1"
+          ]
+        },
+        {
+          "action": "put-down-occluder",
+          "args": [
+            "O1",
+            "temp_A"
+          ]
+        },
+        {
+          "action": "pick-up-target",
+          "args": [
+            "T1",
+            "target_slot"
+          ]
+        },
+        {
+          "action": "put-down-target",
+          "args": [
+            "T1",
+            "goal_region"
+          ]
+        },
+        {
+          "action": "pick-up-occluder",
+          "args": [
+            "O1",
+            "temp_A"
+          ]
+        },
+        {
+          "action": "put-down-occluder",
+          "args": [
+            "O1",
+            "front_slot"
+          ]
+        }
+      ],
+      "plan_file": "D:\\LLM-PDDL\\results\\occlusion_formal\\refinement\\occlusion_manipulation\\occlusion_easy\\run_hybrid_feedback_llama3.1_8b_03\\attempt_02.plan",
+      "val": {
+        "valid": false,
+        "return_code": 0,
+        "runtime_seconds": 0.07702759990934283,
+        "log_file": "D:\\LLM-PDDL\\results\\occlusion_formal\\refinement\\occlusion_manipulation\\occlusion_easy\\run_hybrid_feedback_llama3.1_8b_03\\attempt_02_val.txt",
+        "stdout_chars": 1195,
+        "stderr_chars": 132
+      },
+      "success": false,
+      "feedback": {
+        "validation_authority": "VAL",
+        "val_valid": false,
+        "symbolic_verifier_valid": false,
+        "previous_plan": [
+          {
+            "action": "remove-ground-occluder",
+            "args": [
+              "O1",
+              "front_slot",
+              "T1"
+            ]
+          },
+          {
+            "action": "put-down-occluder",
+            "args": [
+              "O1",
+              "temp_A"
+            ]
+          },
+          {
+            "action": "pick-up-target",
+            "args": [
+              "T1",
+              "target_slot"
+            ]
+          },
+          {
+            "action": "put-down-target",
+            "args": [
+              "T1",
+              "goal_region"
+            ]
+          },
+          {
+            "action": "pick-up-occluder",
+            "args": [
+              "O1",
+              "temp_A"
+            ]
+          },
+          {
+            "action": "put-down-occluder",
+            "args": [
+              "O1",
+              "front_slot"
+            ]
+          }
+        ],
+        "symbolic_failure_details": {
+          "message": "The symbolic verifier could not execute the candidate plan because the plan is malformed.",
+          "error": "Plan step 5: unknown action 'pick-up-occluder' for domain 'occlusion_manipulation'. Available actions: pick-up-target, pick-up-temp-occluder, put-down-occluder, put-down-target, remove-ground-occluder, remove-stacked-occluder, restore-ground-occluder, stack-occluder"
+        },
+        "val_output_tail": "Checking plan: /mnt/d/LLM-PDDL/results/occlusion_formal/refinement/occlusion_manipulation/occlusion_easy/run_hybrid_feedback_llama3.1_8b_03/attempt_02.plan\nBad plan description!\n\n\nFailed plans:\n /mnt/d/LLM-PDDL/results/occlusion_formal/refinement/occlusion_manipulation/occlusion_easy/run_hybrid_feedback_llama3.1_8b_03/attempt_02.plan \n\nw\u0000s\u0000l\u0000:\u0000 \u0000�hKm0R \u0000l\u0000o\u0000c\u0000a\u0000l\u0000h\u0000o\u0000s\u0000t\u0000 \u0000�N\u0006tM�n\n�FO*g\\��P0R \u0000W\u0000S\u0000L\u0000\u00020N\u0000A\u0000T\u0000 \u0000!j\u000f_\nN�v \u0000W\u0000S\u0000L\u0000 \u0000\nN/e\u0001c \u0000l\u0000o\u0000c\u0000a\u0000l\u0000h\u0000o\u0000s\u0000t\u0000 \u0000�N\u0006t\u00020\n\u0000\n\u0000",
+        "repair_instruction": "Generate a complete corrected plan. Fix the failed action and any earlier actions that caused the failed precondition. Do not return only a partial plan."
+      },
+      "feedback_file": "D:\\LLM-PDDL\\results\\occlusion_formal\\refinement\\occlusion_manipulation\\occlusion_easy\\run_hybrid_feedback_llama3.1_8b_03\\attempt_02_feedback.json"
+    },
+    {
+      "iteration": 3,
+      "plan": [
+        {
+          "action": "remove-ground-occluder",
+          "args": [
+            "O1",
+            "front_slot",
+            "T1"
+          ]
+        },
+        {
+          "action": "put-down-occluder",
+          "args": [
+            "O1",
+            "temp_A"
+          ]
+        },
+        {
+          "action": "pick-up-target",
+          "args": [
+            "T1",
+            "target_slot"
+          ]
+        },
+        {
+          "action": "put-down-target",
+          "args": [
+            "T1",
+            "goal_region"
+          ]
+        },
+        {
+          "action": "pick-up-temp-occluder",
+          "args": [
+            "O1",
+            "temp_A"
+          ]
+        },
+        {
+          "action": "put-down-occluder",
+          "args": [
+            "O1",
+            "front_slot"
+          ]
+        }
+      ],
+      "plan_file": "D:\\LLM-PDDL\\results\\occlusion_formal\\refinement\\occlusion_manipulation\\occlusion_easy\\run_hybrid_feedback_llama3.1_8b_03\\attempt_03.plan",
+      "val": {
+        "valid": false,
+        "return_code": -1,
+        "runtime_seconds": 61.584207899984904,
+        "log_file": "D:\\LLM-PDDL\\results\\occlusion_formal\\refinement\\occlusion_manipulation\\occlusion_easy\\run_hybrid_feedback_llama3.1_8b_03\\attempt_03_val.txt",
+        "stdout_chars": 2156343288,
+        "stderr_chars": 31
+      },
+      "success": false,
+      "feedback": {
+        "validation_authority": "VAL",
+        "val_valid": false,
+        "symbolic_verifier_valid": false,
+        "previous_plan": [
+          {
+            "action": "remove-ground-occluder",
+            "args": [
+              "O1",
+              "front_slot",
+              "T1"
+            ]
+          },
+          {
+            "action": "put-down-occluder",
+            "args": [
+              "O1",
+              "temp_A"
+            ]
+          },
+          {
+            "action": "pick-up-target",
+            "args": [
+              "T1",
+              "target_slot"
+            ]
+          },
+          {
+            "action": "put-down-target",
+            "args": [
+              "T1",
+              "goal_region"
+            ]
+          },
+          {
+            "action": "pick-up-temp-occluder",
+            "args": [
+              "O1",
+              "temp_A"
+            ]
+          },
+          {
+            "action": "put-down-occluder",
+            "args": [
+              "O1",
+              "front_slot"
+            ]
+          }
+        ],
+        "symbolic_failure_details": {
+          "message": "Invalid argument role: action 'put-down-occluder' argument 2 'front_slot' must be 'temporary-location'.",
+          "failed_step": 6,
+          "failed_action": "put-down-occluder(O1, front_slot)",
+          "error": "Invalid argument role: action 'put-down-occluder' argument 2 'front_slot' must be 'temporary-location'.",
+          "state_before_failure": {
+            "at": [
+              [
+                "T1",
+                "goal_region"
+              ]
+            ],
+            "on": [],
+            "clear": [
+              "T1"
+            ],
+            "occludes": [],
+            "accessible": [
+              "T1"
+            ],
+            "holding": [
+              "O1"
+            ],
+            "handempty": false,
+            "free": [
+              "front_slot",
+              "target_slot",
+              "temp_A"
+            ],
+            "target_relocated": true
+          }
+        },
+        "val_output_tail": "...[VAL output truncated]...\n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                \nVAL timed out after 60 seconds.",
+        "repair_instruction": "Generate a complete corrected plan. Fix the failed action and any earlier actions that caused the failed precondition. Do not return only a partial plan."
+      },
+      "feedback_file": "D:\\LLM-PDDL\\results\\occlusion_formal\\refinement\\occlusion_manipulation\\occlusion_easy\\run_hybrid_feedback_llama3.1_8b_03\\attempt_03_feedback.json"
+    }
+  ]
+}

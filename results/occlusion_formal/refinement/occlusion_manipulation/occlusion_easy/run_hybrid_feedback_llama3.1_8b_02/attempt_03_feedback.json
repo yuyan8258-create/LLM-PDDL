@@ -1,0 +1,84 @@
+{
+  "validation_authority": "VAL",
+  "val_valid": false,
+  "symbolic_verifier_valid": false,
+  "previous_plan": [
+    {
+      "action": "remove-ground-occluder",
+      "args": [
+        "O1",
+        "front_slot",
+        "T1"
+      ]
+    },
+    {
+      "action": "put-down-occluder",
+      "args": [
+        "O1",
+        "temp_A"
+      ]
+    },
+    {
+      "action": "pick-up-target",
+      "args": [
+        "T1",
+        "target_slot"
+      ]
+    },
+    {
+      "action": "put-down-target",
+      "args": [
+        "T1",
+        "goal_region"
+      ]
+    },
+    {
+      "action": "pick-up-temp-occluder",
+      "args": [
+        "O1",
+        "temp_A"
+      ]
+    },
+    {
+      "action": "put-down-occluder",
+      "args": [
+        "O1",
+        "front_slot"
+      ]
+    }
+  ],
+  "symbolic_failure_details": {
+    "message": "Invalid argument role: action 'put-down-occluder' argument 2 'front_slot' must be 'temporary-location'.",
+    "failed_step": 6,
+    "failed_action": "put-down-occluder(O1, front_slot)",
+    "error": "Invalid argument role: action 'put-down-occluder' argument 2 'front_slot' must be 'temporary-location'.",
+    "state_before_failure": {
+      "at": [
+        [
+          "T1",
+          "goal_region"
+        ]
+      ],
+      "on": [],
+      "clear": [
+        "T1"
+      ],
+      "occludes": [],
+      "accessible": [
+        "T1"
+      ],
+      "holding": [
+        "O1"
+      ],
+      "handempty": false,
+      "free": [
+        "front_slot",
+        "target_slot",
+        "temp_A"
+      ],
+      "target_relocated": true
+    }
+  },
+  "val_output_tail": "...[VAL output truncated]...\n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 type: \n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        \nVAL timed out after 60 seconds.",
+  "repair_instruction": "Generate a complete corrected plan. Fix the failed action and any earlier actions that caused the failed precondition. Do not return only a partial plan."
+}

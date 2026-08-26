@@ -1,0 +1,156 @@
+You are a symbolic task planner for the block_building PDDL domain.
+
+SCENE ID:
+scene_01_blocksworld_basic
+
+SCENE NAME:
+Basic BlocksWorld rearrangement
+
+DESCRIPTION:
+A simple BlocksWorld scene where blockA starts on blockB, and the goal is to place blockA on the table and stack blockB on blockC.
+
+DIFFICULTY:
+easy
+
+OBJECTS:
+blockA, blockB, blockC
+
+INITIAL STATE:
+{
+  "on": [
+    [
+      "blockA",
+      "blockB"
+    ]
+  ],
+  "ontable": [
+    "blockB",
+    "blockC"
+  ],
+  "clear": [
+    "blockA",
+    "blockC"
+  ],
+  "holding": [],
+  "handempty": true,
+  "on_bridge": []
+}
+
+GOAL STATE:
+{
+  "on": [
+    [
+      "blockB",
+      "blockC"
+    ]
+  ],
+  "ontable": [
+    "blockA"
+  ],
+  "handempty": true
+}
+
+AVAILABLE ACTIONS:
+- pick-up: 1 argument(s)
+- put-down: 1 argument(s)
+- stack: 2 argument(s)
+- stack-bridge: 3 argument(s)
+- unstack: 2 argument(s)
+- unstack-bridge: 3 argument(s)
+
+BLOCK-DOMAIN RULES:
+- pick-up removes one clear object from the table and makes the robot hold it.
+- put-down places the held object on the table.
+- stack places one held object on one clear supporting object.
+- unstack removes one clear object from another object.
+- stack-bridge places one held object across a left support and a right support.
+- stack-bridge requires right-free on the left support and left-free on the right support.
+- unstack-bridge removes a clear bridge object and restores its support slots.
+- The robot can hold at most one object.
+- Every action must satisfy its PDDL preconditions.
+- The final state must satisfy every listed goal condition.
+
+PLANNING GUIDANCE:
+Construct a valid plan from the initial state to the goal state. Respect every action precondition and effect.
+
+
+PREVIOUS VERIFICATION FEEDBACK:
+{
+  "validation_authority": "VAL",
+  "val_valid": false,
+  "symbolic_verifier_valid": false,
+  "previous_plan": [
+    {
+      "action": "pick-up",
+      "args": [
+        "blockA"
+      ]
+    },
+    {
+      "action": "put-down",
+      "args": [
+        "blockA"
+      ]
+    },
+    {
+      "action": "pick-up",
+      "args": [
+        "blockB"
+      ]
+    },
+    {
+      "action": "stack",
+      "args": [
+        "blockB",
+        "blockC"
+      ]
+    }
+  ],
+  "symbolic_failure_details": {
+    "message": "Missing preconditions: ontable(blockA)",
+    "failed_step": 1,
+    "failed_action": "pick-up(blockA)",
+    "error": "Missing preconditions: ontable(blockA)",
+    "state_before_failure": {
+      "ontable": [
+        "blockB",
+        "blockC"
+      ],
+      "on": [
+        [
+          "blockA",
+          "blockB"
+        ]
+      ],
+      "on_bridge": [],
+      "clear": [
+        "blockA",
+        "blockC"
+      ],
+      "holding": [],
+      "handempty": true,
+      "left_free": [],
+      "right_free": []
+    }
+  },
+  "val_output_tail": "Checking plan: /mnt/e/桌面/LLM-PDDL/results/formal/refinement/block_building/scene_01_blocksworld_basic/run_hybrid_feedback_llama3.1_8b_07/attempt_01.plan\nPlan to validate:\n\nPlan size: 4\n1:\n(pick-up blocka)\n \n2:\n(put-down blocka)\n \n3:\n(pick-up blockb)\n \n4:\n(stack blockb blockc)\n \n\nPlan Validation details\n-----------------------\n\nChecking next happening (time 1)\nPlan failed because of unsatisfied precondition in:\n(pick-up blocka)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(pick-up blocka) has an unsatisfied precondition at time 1\n(Set (ontable blocka) to true)\n\n\nFailed plans:\n /mnt/e/桌面/LLM-PDDL/results/formal/refinement/block_building/scene_01_blocksworld_basic/run_hybrid_feedback_llama3.1_8b_07/attempt_01.plan",
+  "repair_instruction": "Generate a complete corrected plan. Fix the failed action and any earlier actions that caused the failed precondition. Do not return only a partial plan."
+}
+
+Return a repaired complete plan, not only the corrected action.
+
+OUTPUT REQUIREMENTS:
+- Output only one JSON array.
+- Do not output markdown.
+- Do not output explanations.
+- Each array item must contain exactly:
+  "action": an available action name
+  "args": a list of object names
+- Use only the objects listed in this scene.
+- Return the complete plan from the initial state to the goal state.
+
+OUTPUT EXAMPLE:
+[
+  {"action": "pick-up", "args": ["object_name"]},
+  {"action": "stack", "args": ["object_name", "support_name"]}
+]

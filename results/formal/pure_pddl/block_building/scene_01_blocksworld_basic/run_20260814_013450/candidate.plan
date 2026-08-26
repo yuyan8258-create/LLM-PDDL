@@ -1,0 +1,4 @@
+(unstack blockA blockB)
+(put-down blockA)
+(pick-up blockB)
+(stack blockB blockC)

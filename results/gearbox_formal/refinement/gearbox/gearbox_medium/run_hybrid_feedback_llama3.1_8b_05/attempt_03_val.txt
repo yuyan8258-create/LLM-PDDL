@@ -1,0 +1,117 @@
+﻿Type-checking assemble-basic
+...action passes type checking.
+Type-checking assemble-after
+...action passes type checking.
+Type-checking assemble-with-aid
+...action passes type checking.
+Type-checking assemble-after-with-aid
+...action passes type checking.
+Type-checking insert-aid
+...action passes type checking.
+Type-checking withdraw-aid-after-one
+...action passes type checking.
+Type-checking withdraw-aid-after-two
+...action passes type checking.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Checking plan: /mnt/d/LLM-PDDL/results/gearbox_formal/refinement/gearbox/gearbox_medium/run_hybrid_feedback_llama3.1_8b_05/attempt_03.plan
+Plan to validate:
+
+Plan size: 11
+1:
+(assemble-basic gearbox-housing)
+
+2:
+(assemble-after input-shaft gearbox-housing)
+
+3:
+(assemble-after countershaft input-shaft)
+
+4:
+(insert-aid dummy-support-shaft)
+
+5:
+(assemble-after input-shaft countershaft)
+
+6:
+(assemble-with-aid input-bearing-carrier dummy-support-shaft)
+
+7:
+(assemble-after countershaft input-bearing-carrier)
+
+8:
+(withdraw-aid-after-one dummy-support-shaft input-bearing-carrier)
+
+9:
+(withdraw-aid-after-one dummy-support-shaft countershaft)
+
+10:
+(withdraw-aid-after-one dummy-support-shaft input-shaft)
+
+11:
+(withdraw-aid-after-one dummy-support-shaft gearbox-housing)
+
+
+Plan Validation details
+-----------------------
+
+Checking next happening (time 1)
+Adding (assembled gearbox-housing)
+
+Checking next happening (time 2)
+Adding (assembled input-shaft)
+
+Checking next happening (time 3)
+Adding (assembled countershaft)
+
+Checking next happening (time 4)
+Adding (aid-present dummy-support-shaft)
+
+Checking next happening (time 5)
+Plan failed because of unsatisfied precondition in:
+(assemble-after input-shaft countershaft)
+
+Plan failed to execute
+
+Plan Repair Advice:
+
+(assemble-after input-shaft countershaft) has an unsatisfied precondition at time 5
+(Follow each of:
+    (Set (assembled input-shaft) to false)
+    and (Set (precedes countershaft input-shaft) to true)
+)
+
+
+Failed plans:
+ /mnt/d/LLM-PDDL/results/gearbox_formal/refinement/gearbox/gearbox_medium/run_hybrid_feedback_llama3.1_8b_05/attempt_03.plan
+
+wsl: �hKm0R localhost �NtM�n�FO*g\��P0R WSL0NAT !j_N�v WSL
+N/ec localhost �Nt0

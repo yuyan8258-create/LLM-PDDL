@@ -1,0 +1,11 @@
+{
+  "batch_id": "batch_hybrid_feedback_occlusion_hard_ollama_qwen2.5_latest_20260822_213732",
+  "scene": "occlusion_hard",
+  "provider": "ollama",
+  "model": "qwen2.5:latest",
+  "method": "hybrid_feedback",
+  "number_of_runs": 10,
+  "max_iterations": 3,
+  "started_at": "2026-08-22T21:37:32",
+  "batch_directory": "D:\\LLM-PDDL\\results\\occlusion_formal\\batches\\batch_hybrid_feedback_occlusion_hard_ollama_qwen2.5_latest_20260822_213732"
+}

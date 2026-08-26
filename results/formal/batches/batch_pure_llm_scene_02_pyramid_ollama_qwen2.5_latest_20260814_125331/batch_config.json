@@ -1,0 +1,11 @@
+{
+  "batch_id": "batch_pure_llm_scene_02_pyramid_ollama_qwen2.5_latest_20260814_125331",
+  "scene": "scene_02_pyramid",
+  "provider": "ollama",
+  "model": "qwen2.5:latest",
+  "method": "pure_llm",
+  "number_of_runs": 10,
+  "max_iterations": 1,
+  "started_at": "2026-08-14T12:53:31",
+  "batch_directory": "E:\\桌面\\LLM-PDDL\\results\\formal\\batches\\batch_pure_llm_scene_02_pyramid_ollama_qwen2.5_latest_20260814_125331"
+}

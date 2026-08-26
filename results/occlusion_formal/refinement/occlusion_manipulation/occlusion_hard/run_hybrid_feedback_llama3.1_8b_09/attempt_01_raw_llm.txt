@@ -1,0 +1,66 @@
+Here is the plan for the occlusion_hard scene:
+
+```
+[
+  {
+    "action": "pick-up-target",
+    "args": ["T1", "target_slot"]
+  },
+  {
+    "action": "remove-ground-occluder",
+    "args": ["O1", "front_slot", "T1"]
+  },
+  {
+    "action": "put-down-occluder",
+    "args": ["O1", "temp_A"]
+  },
+  {
+    "action": "pick-up-temp-occluder",
+    "args": ["O2", "temp_B"]
+  },
+  {
+    "action": "put-down-occluder",
+    "args": ["O2", "temp_B"]
+  },
+  {
+    "action": "remove-stacked-occluder",
+    "args": ["O3", "O2"]
+  },
+  {
+    "action": "put-down-occluder",
+    "args": ["O3", "temp_C"]
+  },
+  {
+    "action": "put-down-target",
+    "args": ["T1", "goal_region"]
+  },
+  {
+    "action": "restore-ground-occluder",
+    "args": ["O1", "front_slot"]
+  },
+  {
+    "action": "stack-occluder",
+    "args": ["O2", "O1"]
+  },
+  {
+    "action": "stack-occluder",
+    "args": ["O3", "O2"]
+  }
+]
+```
+
+This plan follows the required steps to solve the occlusion_hard scene:
+
+1. Pick up the target brick T1 from its location.
+2. Remove the ground occluder O1 from its location, revealing the target brick.
+3. Put down the removed occluder O1 in a temporary location.
+4. Pick up the stacked occluder O2 from its location.
+5. Put down the removed occluder O2 in a temporary location.
+6. Remove the stacked occluder O3 from its location.
+7. Put down the removed occluder O3 in a temporary location.
+8. Put down the target brick T1 in its goal location.
+9. Restore the ground occluder O1 to its original location.
+10. Stack the occluder O2 on top of the restored occluder O1.
+11. Stack the occluder O3 on top of the stacked occluder O2.
+
+This plan satisfies the requirements of the occlusion_hard scene, including clearing the occluders in dependency order, relocating the target brick, and restoring the occluder structure.

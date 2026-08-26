@@ -1,0 +1,141 @@
+{
+  "validation_authority": "VAL",
+  "val_valid": false,
+  "symbolic_verifier_valid": false,
+  "previous_plan": [
+    {
+      "action": "pick-up",
+      "args": [
+        "B1"
+      ]
+    },
+    {
+      "action": "stack-bridge",
+      "args": [
+        "B1",
+        "B2",
+        "B3"
+      ]
+    },
+    {
+      "action": "pick-up",
+      "args": [
+        "B4"
+      ]
+    },
+    {
+      "action": "stack-bridge",
+      "args": [
+        "B4",
+        "B1",
+        "B2"
+      ]
+    },
+    {
+      "action": "pick-up",
+      "args": [
+        "B5"
+      ]
+    },
+    {
+      "action": "stack",
+      "args": [
+        "B5",
+        "B2"
+      ]
+    },
+    {
+      "action": "stack",
+      "args": [
+        "B3",
+        "B2"
+      ]
+    },
+    {
+      "action": "pick-up",
+      "args": [
+        "pyramid"
+      ]
+    },
+    {
+      "action": "stack-bridge",
+      "args": [
+        "pyramid",
+        "B4",
+        "B5"
+      ]
+    },
+    {
+      "action": "put-down",
+      "args": [
+        "pyramid"
+      ]
+    },
+    {
+      "action": "put-down",
+      "args": [
+        "B4"
+      ]
+    },
+    {
+      "action": "put-down",
+      "args": [
+        "B5"
+      ]
+    }
+  ],
+  "symbolic_failure_details": {
+    "message": "Missing preconditions: holding(B3), clear(B2)",
+    "failed_step": 7,
+    "failed_action": "stack(B3, B2)",
+    "error": "Missing preconditions: holding(B3), clear(B2)",
+    "state_before_failure": {
+      "ontable": [
+        "B2",
+        "B3",
+        "pyramid"
+      ],
+      "on": [
+        [
+          "B5",
+          "B2"
+        ]
+      ],
+      "on_bridge": [
+        [
+          "B1",
+          "B2",
+          "B3"
+        ],
+        [
+          "B4",
+          "B1",
+          "B2"
+        ]
+      ],
+      "clear": [
+        "B1",
+        "B3",
+        "B4",
+        "B5",
+        "pyramid"
+      ],
+      "holding": [],
+      "handempty": true,
+      "left_free": [
+        "B1",
+        "B4",
+        "B5",
+        "pyramid"
+      ],
+      "right_free": [
+        "B3",
+        "B4",
+        "B5",
+        "pyramid"
+      ]
+    }
+  },
+  "val_output_tail": "Adding (holding b4)\n\nChecking next happening (time 4)\nDeleting (holding b4)\nDeleting (right-free b1)\nDeleting (left-free b2)\nAdding (on-bridge b4 b1 b2)\nAdding (clear b4)\nAdding (handempty)\n\nChecking next happening (time 5)\nDeleting (ontable b5)\nDeleting (clear b5)\nDeleting (handempty)\nAdding (holding b5)\n\nChecking next happening (time 6)\nDeleting (holding b5)\nDeleting (clear b2)\nAdding (on b5 b2)\nAdding (clear b5)\nAdding (handempty)\n\nChecking next happening (time 7)\nPlan failed because of unsatisfied precondition in:\n(stack b3 b2)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(stack b3 b2) has an unsatisfied precondition at time 7\n(Follow each of:\n    (Set (holding b3) to true)\n    and (Set (clear b2) to true)\n)\n\n\nFailed plans:\n /mnt/e/桌面/LLM-PDDL/results/formal/refinement/block_building/scene_02_pyramid/run_hybrid_feedback_llama3.1_8b_01/attempt_02.plan",
+  "repair_instruction": "Generate a complete corrected plan. Fix the failed action and any earlier actions that caused the failed precondition. Do not return only a partial plan."
+}

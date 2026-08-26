@@ -1,0 +1,243 @@
+{
+  "validation_authority": "VAL",
+  "val_valid": false,
+  "symbolic_verifier_valid": false,
+  "previous_plan": [
+    {
+      "action": "pick-up",
+      "args": [
+        "B1"
+      ]
+    },
+    {
+      "action": "stack-bridge",
+      "args": [
+        "B1",
+        "M1",
+        "B2"
+      ]
+    },
+    {
+      "action": "pick-up",
+      "args": [
+        "B2"
+      ]
+    },
+    {
+      "action": "stack-bridge",
+      "args": [
+        "B2",
+        "M2",
+        "B3"
+      ]
+    },
+    {
+      "action": "pick-up",
+      "args": [
+        "B3"
+      ]
+    },
+    {
+      "action": "stack-bridge",
+      "args": [
+        "B3",
+        "M3",
+        "B4"
+      ]
+    },
+    {
+      "action": "pick-up",
+      "args": [
+        "M1"
+      ]
+    },
+    {
+      "action": "stack",
+      "args": [
+        "M1",
+        "U1"
+      ]
+    },
+    {
+      "action": "put-down",
+      "args": [
+        "M1"
+      ]
+    },
+    {
+      "action": "pick-up",
+      "args": [
+        "M2"
+      ]
+    },
+    {
+      "action": "stack",
+      "args": [
+        "M2",
+        "U2"
+      ]
+    },
+    {
+      "action": "put-down",
+      "args": [
+        "M2"
+      ]
+    },
+    {
+      "action": "pick-up",
+      "args": [
+        "top"
+      ]
+    },
+    {
+      "action": "stack",
+      "args": [
+        "top",
+        "U1"
+      ]
+    },
+    {
+      "action": "pick-up",
+      "args": [
+        "M3"
+      ]
+    },
+    {
+      "action": "stack-bridge",
+      "args": [
+        "M3",
+        "B3",
+        "B4"
+      ]
+    },
+    {
+      "action": "pick-up",
+      "args": [
+        "U1"
+      ]
+    },
+    {
+      "action": "stack",
+      "args": [
+        "U1",
+        "M1"
+      ]
+    },
+    {
+      "action": "put-down",
+      "args": [
+        "U1"
+      ]
+    },
+    {
+      "action": "pick-up",
+      "args": [
+        "U2"
+      ]
+    },
+    {
+      "action": "stack",
+      "args": [
+        "U2",
+        "M2"
+      ]
+    },
+    {
+      "action": "put-down",
+      "args": [
+        "U2"
+      ]
+    },
+    {
+      "action": "pick-up",
+      "args": [
+        "top"
+      ]
+    },
+    {
+      "action": "stack",
+      "args": [
+        "top",
+        "U2"
+      ]
+    },
+    {
+      "action": "put-down",
+      "args": [
+        "top"
+      ]
+    }
+  ],
+  "symbolic_failure_details": {
+    "message": "Missing precondition: holding(M1)",
+    "failed_step": 9,
+    "failed_action": "put-down(M1)",
+    "error": "Missing precondition: holding(M1)",
+    "state_before_failure": {
+      "ontable": [
+        "B4",
+        "M2",
+        "M3",
+        "U1",
+        "U2",
+        "top"
+      ],
+      "on": [
+        [
+          "M1",
+          "U1"
+        ]
+      ],
+      "on_bridge": [
+        [
+          "B1",
+          "M1",
+          "B2"
+        ],
+        [
+          "B2",
+          "M2",
+          "B3"
+        ],
+        [
+          "B3",
+          "M3",
+          "B4"
+        ]
+      ],
+      "clear": [
+        "B1",
+        "B2",
+        "B3",
+        "B4",
+        "M1",
+        "M2",
+        "M3",
+        "U2",
+        "top"
+      ],
+      "holding": [],
+      "handempty": true,
+      "left_free": [
+        "B1",
+        "M1",
+        "M2",
+        "M3",
+        "U1",
+        "U2",
+        "top"
+      ],
+      "right_free": [
+        "B1",
+        "B2",
+        "B3",
+        "B4",
+        "U1",
+        "U2",
+        "top"
+      ]
+    }
+  },
+  "val_output_tail": "Deleting (ontable b3)\nDeleting (clear b3)\nDeleting (handempty)\nAdding (holding b3)\n\nChecking next happening (time 6)\nDeleting (holding b3)\nDeleting (right-free m3)\nDeleting (left-free b4)\nAdding (on-bridge b3 m3 b4)\nAdding (clear b3)\nAdding (handempty)\n\nChecking next happening (time 7)\nDeleting (ontable m1)\nDeleting (clear m1)\nDeleting (handempty)\nAdding (holding m1)\n\nChecking next happening (time 8)\nDeleting (holding m1)\nDeleting (clear u1)\nAdding (on m1 u1)\nAdding (clear m1)\nAdding (handempty)\n\nChecking next happening (time 9)\nPlan failed because of unsatisfied precondition in:\n(put-down m1)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(put-down m1) has an unsatisfied precondition at time 9\n(Set (holding m1) to true)\n\n\nFailed plans:\n /mnt/d/LLM-PDDL/results/formal/refinement/block_building/scene_03_large_pyramid/run_hybrid_feedback_llama3.1_8b_05/attempt_03.plan",
+  "repair_instruction": "Generate a complete corrected plan. Fix the failed action and any earlier actions that caused the failed precondition. Do not return only a partial plan."
+}

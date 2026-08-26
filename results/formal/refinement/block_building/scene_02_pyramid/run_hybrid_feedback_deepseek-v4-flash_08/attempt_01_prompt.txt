@@ -1,0 +1,122 @@
+You are a symbolic task planner for the block_building PDDL domain.
+
+SCENE ID:
+scene_02_pyramid
+
+SCENE NAME:
+Image-inspired pyramid block structure
+
+DESCRIPTION:
+A manually abstracted symbolic scene based on an image-like block construction task.
+
+DIFFICULTY:
+medium
+
+OBJECTS:
+B1, B2, B3, B4, B5, pyramid
+
+INITIAL STATE:
+{
+  "ontable": [
+    "B1",
+    "B2",
+    "B3",
+    "B4",
+    "B5",
+    "pyramid"
+  ],
+  "clear": [
+    "B1",
+    "B2",
+    "B3",
+    "B4",
+    "B5",
+    "pyramid"
+  ],
+  "holding": [],
+  "handempty": true,
+  "on": [],
+  "on_bridge": [],
+  "left_free": [
+    "B1",
+    "B2",
+    "B3",
+    "B4",
+    "B5",
+    "pyramid"
+  ],
+  "right_free": [
+    "B1",
+    "B2",
+    "B3",
+    "B4",
+    "B5",
+    "pyramid"
+  ]
+}
+
+GOAL STATE:
+{
+  "on_bridge": [
+    [
+      "B4",
+      "B1",
+      "B2"
+    ],
+    [
+      "B5",
+      "B2",
+      "B3"
+    ],
+    [
+      "pyramid",
+      "B4",
+      "B5"
+    ]
+  ],
+  "ontable": [
+    "B1",
+    "B2",
+    "B3"
+  ],
+  "handempty": true
+}
+
+AVAILABLE ACTIONS:
+- pick-up: 1 argument(s)
+- put-down: 1 argument(s)
+- stack: 2 argument(s)
+- stack-bridge: 3 argument(s)
+- unstack: 2 argument(s)
+- unstack-bridge: 3 argument(s)
+
+BLOCK-DOMAIN RULES:
+- pick-up removes one clear object from the table and makes the robot hold it.
+- put-down places the held object on the table.
+- stack places one held object on one clear supporting object.
+- unstack removes one clear object from another object.
+- stack-bridge places one held object across a left support and a right support.
+- stack-bridge requires right-free on the left support and left-free on the right support.
+- unstack-bridge removes a clear bridge object and restores its support slots.
+- The robot can hold at most one object.
+- Every action must satisfy its PDDL preconditions.
+- The final state must satisfy every listed goal condition.
+
+PLANNING GUIDANCE:
+Construct a valid plan from the initial state to the goal state. Respect every action precondition and effect.
+
+OUTPUT REQUIREMENTS:
+- Output only one JSON array.
+- Do not output markdown.
+- Do not output explanations.
+- Each array item must contain exactly:
+  "action": an available action name
+  "args": a list of object names
+- Use only the objects listed in this scene.
+- Return the complete plan from the initial state to the goal state.
+
+OUTPUT EXAMPLE:
+[
+  {"action": "pick-up", "args": ["object_name"]},
+  {"action": "stack", "args": ["object_name", "support_name"]}
+]

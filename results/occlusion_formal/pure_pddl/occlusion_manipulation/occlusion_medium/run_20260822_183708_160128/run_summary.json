@@ -1,0 +1,19 @@
+{
+  "scene": "occlusion_medium",
+  "domain": "occlusion_manipulation",
+  "method": "pure_pddl",
+  "planner": "fast_downward",
+  "planner_alias": "lama-first",
+  "success": true,
+  "plan_steps": 6,
+  "planner_return_code": 0,
+  "planner_runtime_seconds": 3.7407830000156537,
+  "symbolic_valid": true,
+  "val_valid": true,
+  "val_return_code": 0,
+  "val_runtime_seconds": 0.07270110002718866,
+  "started_at": "2026-08-22T18:37:08",
+  "finished_at": "2026-08-22T18:37:11",
+  "duration_seconds": 3.817,
+  "run_directory": "D:\\LLM-PDDL\\results\\occlusion_formal\\pure_pddl\\occlusion_manipulation\\occlusion_medium\\run_20260822_183708_160128"
+}

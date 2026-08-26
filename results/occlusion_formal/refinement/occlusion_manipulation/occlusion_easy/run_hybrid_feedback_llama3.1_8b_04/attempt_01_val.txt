@@ -1,0 +1,123 @@
+﻿Type-checking remove-stacked-occluder
+...action passes type checking.
+Type-checking remove-ground-occluder
+...action passes type checking.
+Type-checking put-down-occluder
+...action passes type checking.
+Type-checking pick-up-temp-occluder
+...action passes type checking.
+Type-checking pick-up-target
+...action passes type checking.
+Type-checking put-down-target
+...action passes type checking.
+Type-checking restore-ground-occluder
+...action passes type checking.
+Type-checking stack-occluder
+...action passes type checking.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Checking plan: /mnt/d/LLM-PDDL/results/occlusion_formal/refinement/occlusion_manipulation/occlusion_easy/run_hybrid_feedback_llama3.1_8b_04/attempt_01.plan
+Plan to validate:
+
+Plan size: 5
+1:
+(remove-ground-occluder o1 front_slot t1)
+
+2:
+(put-down-occluder o1 temp_a)
+
+3:
+(pick-up-target t1 target_slot)
+
+4:
+(put-down-target t1 goal_region)
+
+5:
+(restore-ground-occluder o1 front_slot)
+
+
+Plan Validation details
+-----------------------
+
+Checking next happening (time 1)
+Deleting (at o1 front_slot)
+Deleting (occludes o1 t1)
+Deleting (clear o1)
+Deleting (accessible o1)
+Deleting (handempty)
+Adding (holding o1)
+Adding (free front_slot)
+Adding (accessible t1)
+
+Checking next happening (time 2)
+Deleting (holding o1)
+Deleting (free temp_a)
+Adding (at o1 temp_a)
+Adding (clear o1)
+Adding (accessible o1)
+Adding (handempty)
+
+Checking next happening (time 3)
+Deleting (at t1 target_slot)
+Deleting (clear t1)
+Deleting (accessible t1)
+Deleting (handempty)
+Adding (holding t1)
+Adding (free target_slot)
+
+Checking next happening (time 4)
+Deleting (holding t1)
+Deleting (free goal_region)
+Adding (at t1 goal_region)
+Adding (clear t1)
+Adding (accessible t1)
+Adding (handempty)
+Adding (target-relocated)
+
+Checking next happening (time 5)
+Plan failed because of unsatisfied precondition in:
+(restore-ground-occluder o1 front_slot)
+
+Plan failed to execute
+
+Plan Repair Advice:
+
+(restore-ground-occluder o1 front_slot) has an unsatisfied precondition at time 5
+(Set (holding o1) to true)
+
+
+Failed plans:
+ /mnt/d/LLM-PDDL/results/occlusion_formal/refinement/occlusion_manipulation/occlusion_easy/run_hybrid_feedback_llama3.1_8b_04/attempt_01.plan
+
+wsl: �hKm0R localhost �NtM�n�FO*g\��P0R WSL0NAT !j_N�v WSL
+N/ec localhost �Nt0

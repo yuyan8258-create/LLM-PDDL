@@ -1,0 +1,6 @@
+(remove-stacked-occluder ['o2', 'o1'])
+(put-down-occluder ['o2', 'temp_a'])
+(remove-ground-occluder ['o1', 'front_slot', 't1'])
+(put-down-occluder ['o1', 'temp_b'])
+(pick-up-target ['t1', 'target_slot'])
+(put-down-target ['t1', 'goal_region'])

@@ -1,0 +1,11 @@
+{
+  "batch_id": "batch_hybrid_feedback_gearbox_easy_ollama_qwen2.5_latest_20260823_205421",
+  "scene": "gearbox_easy",
+  "provider": "ollama",
+  "model": "qwen2.5:latest",
+  "method": "hybrid_feedback",
+  "number_of_runs": 10,
+  "max_iterations": 3,
+  "started_at": "2026-08-23T20:54:21",
+  "batch_directory": "D:\\LLM-PDDL\\results\\gearbox_formal\\batches\\batch_hybrid_feedback_gearbox_easy_ollama_qwen2.5_latest_20260823_205421"
+}

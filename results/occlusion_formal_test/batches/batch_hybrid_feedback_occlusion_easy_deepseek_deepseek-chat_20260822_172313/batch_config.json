@@ -1,0 +1,11 @@
+{
+  "batch_id": "batch_hybrid_feedback_occlusion_easy_deepseek_deepseek-chat_20260822_172313",
+  "scene": "occlusion_easy",
+  "provider": "deepseek",
+  "model": "deepseek-chat",
+  "method": "hybrid_feedback",
+  "number_of_runs": 2,
+  "max_iterations": 3,
+  "started_at": "2026-08-22T17:23:13",
+  "batch_directory": "D:\\LLM-PDDL\\results\\occlusion_formal_test\\batches\\batch_hybrid_feedback_occlusion_easy_deepseek_deepseek-chat_20260822_172313"
+}

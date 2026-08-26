@@ -1,0 +1,7 @@
+(assemble-basic gearbox-housing)
+(assemble-after input-shaft gearbox-housing)
+(assemble-after countershaft input-shaft)
+(insert-aid dummy-support-shaft)
+(assemble-after-with-aid input-bearing-carrier countershaft dummy-support-shaft)
+(withdraw-aid-after-one dummy-support-shaft input-bearing-carrier)
+; cost = 6 (unit cost)

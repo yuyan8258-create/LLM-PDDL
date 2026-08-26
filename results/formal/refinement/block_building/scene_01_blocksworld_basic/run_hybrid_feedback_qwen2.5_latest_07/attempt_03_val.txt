@@ -1,0 +1,37 @@
+﻿Checking plan: /mnt/d/LLM-PDDL/results/formal/refinement/block_building/scene_01_blocksworld_basic/run_hybrid_feedback_qwen2.5_latest_07/attempt_03.plan
+Plan to validate:
+
+Plan size: 5
+1:
+(put-down blocka)
+
+2:
+(pick-up blockb)
+
+3:
+(put-down blockc)
+
+4:
+(stack blocka table)
+
+5:
+(stack blockb blockc)
+
+
+Plan Validation details
+-----------------------
+
+Checking next happening (time 1)
+Plan failed because of unsatisfied precondition in:
+(put-down blocka)
+
+Plan failed to execute
+
+Plan Repair Advice:
+
+(put-down blocka) has an unsatisfied precondition at time 1
+(Set (holding blocka) to true)
+
+
+Failed plans:
+ /mnt/d/LLM-PDDL/results/formal/refinement/block_building/scene_01_blocksworld_basic/run_hybrid_feedback_qwen2.5_latest_07/attempt_03.plan

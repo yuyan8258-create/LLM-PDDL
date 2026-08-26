@@ -1,0 +1,27 @@
+Here is a valid plan from the initial state to the goal state:
+
+```
+[
+  {"action": "pick-up", "args": ["B1"]},
+  {"action": "stack-bridge", "args": ["B1", "M1", "B2"]},
+  {"action": "pick-up", "args": ["B2"]},
+  {"action": "stack-bridge", "args": ["B2", "M2", "B3"]},
+  {"action": "pick-up", "args": ["B3"]},
+  {"action": "stack-bridge", "args": ["B3", "M3", "B4"]},
+  {"action": "pick-up", "args": ["M1"]},
+  {"action": "stack", "args": ["M1", "B1"]},
+  {"action": "pick-up", "args": ["M2"]},
+  {"action": "stack", "args": ["M2", "B2"]},
+  {"action": "pick-up", "args": ["M3"]},
+  {"action": "stack", "args": ["M3", "B3"]},
+  {"action": "pick-up", "args": ["U1"]},
+  {"action": "stack-bridge", "args": ["U1", "M1", "M2"]},
+  {"action": "pick-up", "args": ["U2"]},
+  {"action": "stack-bridge", "args": ["U2", "M2", "M3"]},
+  {"action": "pick-up", "args": ["top"]},
+  {"action": "stack", "args": ["top", "U1"]},
+  {"action": "put-down", "args": ["top"]}
+]
+```
+
+This plan first picks up the base blocks and places them on the middle bridge blocks, then picks up the middle bridge blocks and places them on the upper bridge blocks, and finally picks up the top block and places it on the upper bridge blocks. The `stack-bridge` action is used to place blocks across supports, and the `stack` action is used to place blocks on top of each other. The `put-down` action is used to place the top block on the upper bridge blocks.

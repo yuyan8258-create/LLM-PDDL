@@ -1,0 +1,110 @@
+﻿Type-checking assemble-basic
+...action passes type checking.
+Type-checking assemble-after
+...action passes type checking.
+Type-checking assemble-with-aid
+...action passes type checking.
+Type-checking assemble-after-with-aid
+...action passes type checking.
+Type-checking insert-aid
+...action passes type checking.
+Type-checking withdraw-aid-after-one
+...action passes type checking.
+Type-checking withdraw-aid-after-two
+...action passes type checking.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Checking plan: /mnt/d/LLM-PDDL/results/gearbox_formal/refinement/gearbox/gearbox_hard/run_hybrid_feedback_qwen2.5_latest_09/attempt_02.plan
+Plan to validate:
+
+Plan size: 9
+1:
+(assemble-basic input-shaft)
+
+2:
+(assemble-basic countershaft)
+
+3:
+(assemble-after input-bearing-carrier input-shaft)
+
+4:
+(assemble-after countershaft-bearing-carrier countershaft)
+
+5:
+(assemble-after-with-aid drive-gear-assembly input-bearing-carrier dummy-support-shaft)
+
+6:
+(assemble-after-with-aid countershaft-gear-assembly countershaft-bearing-carrier dummy-support-shaft)
+
+7:
+(assemble-after output-gear-assembly drive-gear-assembly)
+
+8:
+(insert-aid dummy-support-shaft)
+
+9:
+(withdraw-aid-after-two dummy-support-shaft countershaft-gear-assembly output-gear-assembly)
+
+
+Plan Validation details
+-----------------------
+
+Checking next happening (time 1)
+Plan failed because of unsatisfied precondition in:
+(assemble-basic input-shaft)
+
+Plan failed to execute
+
+Plan Repair Advice:
+
+(assemble-basic input-shaft) has an unsatisfied precondition at time 1
+(Set (has-predecessor input-shaft) to false)
+
+
+Failed plans:
+ /mnt/d/LLM-PDDL/results/gearbox_formal/refinement/gearbox/gearbox_hard/run_hybrid_feedback_qwen2.5_latest_09/attempt_02.plan
+
+wsl: �hKm0R localhost �NtM�n�FO*g\��P0R WSL0NAT !j_N�v WSL
+N/ec localhost �Nt0

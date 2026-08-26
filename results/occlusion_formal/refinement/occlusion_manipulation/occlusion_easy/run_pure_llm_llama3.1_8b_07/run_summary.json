@@ -1,0 +1,145 @@
+{
+  "scene": "occlusion_easy",
+  "mode": "llm",
+  "method": "pure_llm",
+  "model": "llama3.1:8b",
+  "provider": "ollama",
+  "success": false,
+  "iterations": 1,
+  "failure_stage": "maximum_iterations_reached",
+  "run_directory": "D:\\LLM-PDDL\\results\\occlusion_formal\\refinement\\occlusion_manipulation\\occlusion_easy\\run_pure_llm_llama3.1_8b_07",
+  "attempts": [
+    {
+      "iteration": 1,
+      "plan": [
+        {
+          "action": "remove-ground-occluder",
+          "args": [
+            "O1",
+            "front_slot",
+            "T1"
+          ]
+        },
+        {
+          "action": "put-down-occluder",
+          "args": [
+            "O1",
+            "temp_A"
+          ]
+        },
+        {
+          "action": "pick-up-target",
+          "args": [
+            "T1",
+            "target_slot"
+          ]
+        },
+        {
+          "action": "put-down-target",
+          "args": [
+            "T1",
+            "goal_region"
+          ]
+        },
+        {
+          "action": "restore-ground-occluder",
+          "args": [
+            "O1",
+            "front_slot"
+          ]
+        }
+      ],
+      "plan_file": "D:\\LLM-PDDL\\results\\occlusion_formal\\refinement\\occlusion_manipulation\\occlusion_easy\\run_pure_llm_llama3.1_8b_07\\attempt_01.plan",
+      "val": {
+        "valid": false,
+        "return_code": 1,
+        "runtime_seconds": 0.08366280002519488,
+        "log_file": "D:\\LLM-PDDL\\results\\occlusion_formal\\refinement\\occlusion_manipulation\\occlusion_easy\\run_pure_llm_llama3.1_8b_07\\attempt_01_val.txt",
+        "stdout_chars": 2478,
+        "stderr_chars": 132
+      },
+      "success": false,
+      "feedback": {
+        "validation_authority": "VAL",
+        "val_valid": false,
+        "symbolic_verifier_valid": false,
+        "previous_plan": [
+          {
+            "action": "remove-ground-occluder",
+            "args": [
+              "O1",
+              "front_slot",
+              "T1"
+            ]
+          },
+          {
+            "action": "put-down-occluder",
+            "args": [
+              "O1",
+              "temp_A"
+            ]
+          },
+          {
+            "action": "pick-up-target",
+            "args": [
+              "T1",
+              "target_slot"
+            ]
+          },
+          {
+            "action": "put-down-target",
+            "args": [
+              "T1",
+              "goal_region"
+            ]
+          },
+          {
+            "action": "restore-ground-occluder",
+            "args": [
+              "O1",
+              "front_slot"
+            ]
+          }
+        ],
+        "symbolic_failure_details": {
+          "message": "Missing preconditions: holding(O1)",
+          "failed_step": 5,
+          "failed_action": "restore-ground-occluder(O1, front_slot)",
+          "error": "Missing preconditions: holding(O1)",
+          "state_before_failure": {
+            "at": [
+              [
+                "O1",
+                "temp_A"
+              ],
+              [
+                "T1",
+                "goal_region"
+              ]
+            ],
+            "on": [],
+            "clear": [
+              "O1",
+              "T1"
+            ],
+            "occludes": [],
+            "accessible": [
+              "O1",
+              "T1"
+            ],
+            "holding": [],
+            "handempty": true,
+            "free": [
+              "front_slot",
+              "target_slot"
+            ],
+            "target_relocated": true
+          }
+        },
+        "val_output_tail": "Adding (handempty)\n\nChecking next happening (time 3)\nDeleting (at t1 target_slot)\nDeleting (clear t1)\nDeleting (accessible t1)\nDeleting (handempty)\nAdding (holding t1)\nAdding (free target_slot)\n\nChecking next happening (time 4)\nDeleting (holding t1)\nDeleting (free goal_region)\nAdding (at t1 goal_region)\nAdding (clear t1)\nAdding (accessible t1)\nAdding (handempty)\nAdding (target-relocated)\n\nChecking next happening (time 5)\nPlan failed because of unsatisfied precondition in:\n(restore-ground-occluder o1 front_slot)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(restore-ground-occluder o1 front_slot) has an unsatisfied precondition at time 5\n(Set (holding o1) to true)\n\n\nFailed plans:\n /mnt/d/LLM-PDDL/results/occlusion_formal/refinement/occlusion_manipulation/occlusion_easy/run_pure_llm_llama3.1_8b_07/attempt_01.plan \n\nw\u0000s\u0000l\u0000:\u0000 \u0000�hKm0R \u0000l\u0000o\u0000c\u0000a\u0000l\u0000h\u0000o\u0000s\u0000t\u0000 \u0000�N\u0006tM�n\n�FO*g\\��P0R \u0000W\u0000S\u0000L\u0000\u00020N\u0000A\u0000T\u0000 \u0000!j\u000f_\nN�v \u0000W\u0000S\u0000L\u0000 \u0000\nN/e\u0001c \u0000l\u0000o\u0000c\u0000a\u0000l\u0000h\u0000o\u0000s\u0000t\u0000 \u0000�N\u0006t\u00020\n\u0000\n\u0000",
+        "repair_instruction": "Generate a complete corrected plan. Fix the failed action and any earlier actions that caused the failed precondition. Do not return only a partial plan."
+      },
+      "feedback_file": "D:\\LLM-PDDL\\results\\occlusion_formal\\refinement\\occlusion_manipulation\\occlusion_easy\\run_pure_llm_llama3.1_8b_07\\attempt_01_feedback.json"
+    }
+  ]
+}

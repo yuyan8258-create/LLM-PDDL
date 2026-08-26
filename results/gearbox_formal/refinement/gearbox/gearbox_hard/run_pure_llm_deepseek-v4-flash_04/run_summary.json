@@ -1,0 +1,172 @@
+{
+  "scene": "gearbox_hard",
+  "mode": "llm",
+  "method": "pure_llm",
+  "model": "deepseek-v4-flash",
+  "provider": "deepseek",
+  "success": true,
+  "iterations": 1,
+  "final_plan": [
+    {
+      "action": "assemble-basic",
+      "args": [
+        "gearbox-housing"
+      ]
+    },
+    {
+      "action": "assemble-after",
+      "args": [
+        "input-shaft",
+        "gearbox-housing"
+      ]
+    },
+    {
+      "action": "assemble-after",
+      "args": [
+        "countershaft",
+        "gearbox-housing"
+      ]
+    },
+    {
+      "action": "assemble-after",
+      "args": [
+        "input-bearing-carrier",
+        "input-shaft"
+      ]
+    },
+    {
+      "action": "assemble-after",
+      "args": [
+        "countershaft-bearing-carrier",
+        "countershaft"
+      ]
+    },
+    {
+      "action": "assemble-after",
+      "args": [
+        "drive-gear-assembly",
+        "input-bearing-carrier"
+      ]
+    },
+    {
+      "action": "insert-aid",
+      "args": [
+        "dummy-support-shaft"
+      ]
+    },
+    {
+      "action": "assemble-after-with-aid",
+      "args": [
+        "countershaft-gear-assembly",
+        "countershaft-bearing-carrier",
+        "dummy-support-shaft"
+      ]
+    },
+    {
+      "action": "assemble-after-with-aid",
+      "args": [
+        "output-gear-assembly",
+        "drive-gear-assembly",
+        "dummy-support-shaft"
+      ]
+    },
+    {
+      "action": "withdraw-aid-after-two",
+      "args": [
+        "dummy-support-shaft",
+        "countershaft-gear-assembly",
+        "output-gear-assembly"
+      ]
+    }
+  ],
+  "final_plan_file": "D:\\LLM-PDDL\\results\\gearbox_formal\\refinement\\gearbox\\gearbox_hard\\run_pure_llm_deepseek-v4-flash_04\\final_validated.plan",
+  "run_directory": "D:\\LLM-PDDL\\results\\gearbox_formal\\refinement\\gearbox\\gearbox_hard\\run_pure_llm_deepseek-v4-flash_04",
+  "attempts": [
+    {
+      "iteration": 1,
+      "plan": [
+        {
+          "action": "assemble-basic",
+          "args": [
+            "gearbox-housing"
+          ]
+        },
+        {
+          "action": "assemble-after",
+          "args": [
+            "input-shaft",
+            "gearbox-housing"
+          ]
+        },
+        {
+          "action": "assemble-after",
+          "args": [
+            "countershaft",
+            "gearbox-housing"
+          ]
+        },
+        {
+          "action": "assemble-after",
+          "args": [
+            "input-bearing-carrier",
+            "input-shaft"
+          ]
+        },
+        {
+          "action": "assemble-after",
+          "args": [
+            "countershaft-bearing-carrier",
+            "countershaft"
+          ]
+        },
+        {
+          "action": "assemble-after",
+          "args": [
+            "drive-gear-assembly",
+            "input-bearing-carrier"
+          ]
+        },
+        {
+          "action": "insert-aid",
+          "args": [
+            "dummy-support-shaft"
+          ]
+        },
+        {
+          "action": "assemble-after-with-aid",
+          "args": [
+            "countershaft-gear-assembly",
+            "countershaft-bearing-carrier",
+            "dummy-support-shaft"
+          ]
+        },
+        {
+          "action": "assemble-after-with-aid",
+          "args": [
+            "output-gear-assembly",
+            "drive-gear-assembly",
+            "dummy-support-shaft"
+          ]
+        },
+        {
+          "action": "withdraw-aid-after-two",
+          "args": [
+            "dummy-support-shaft",
+            "countershaft-gear-assembly",
+            "output-gear-assembly"
+          ]
+        }
+      ],
+      "plan_file": "D:\\LLM-PDDL\\results\\gearbox_formal\\refinement\\gearbox\\gearbox_hard\\run_pure_llm_deepseek-v4-flash_04\\attempt_01.plan",
+      "val": {
+        "valid": true,
+        "return_code": 0,
+        "runtime_seconds": 1.9752427000785246,
+        "log_file": "D:\\LLM-PDDL\\results\\gearbox_formal\\refinement\\gearbox\\gearbox_hard\\run_pure_llm_deepseek-v4-flash_04\\attempt_01_val.txt",
+        "stdout_chars": 2537,
+        "stderr_chars": 132
+      },
+      "success": true
+    }
+  ]
+}

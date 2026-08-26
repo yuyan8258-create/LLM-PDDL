@@ -1,0 +1,6 @@
+﻿Checking plan: /mnt/d/LLM-PDDL/results/formal/refinement/block_building/scene_03_large_pyramid/run_hybrid_feedback_llama3.1_8b_02/attempt_02.plan
+No matching action defined for clear
+
+Errors: 0, warnings: 1
+
+Error: Bad operator in plan!

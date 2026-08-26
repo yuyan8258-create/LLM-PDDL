@@ -1,0 +1,5 @@
+[
+  {"action": "stack-bridge", "args": ["B4", "B1", "B2"]},
+  {"action": "stack-bridge", "args": ["B5", "B2", "B3"]},
+  {"action": "stack-bridge", "args": ["pyramid", "B4", "B5"]}
+]

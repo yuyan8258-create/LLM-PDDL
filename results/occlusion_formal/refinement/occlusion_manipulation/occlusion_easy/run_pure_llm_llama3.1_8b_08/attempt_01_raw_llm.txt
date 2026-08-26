@@ -1,0 +1,36 @@
+Here is the plan for the occlusion_easy scene:
+
+```
+[
+  {
+    "action": "remove-ground-occluder",
+    "args": ["O1", "front_slot", "T1"]
+  },
+  {
+    "action": "put-down-occluder",
+    "args": ["O1", "temp_A"]
+  },
+  {
+    "action": "pick-up-target",
+    "args": ["T1", "target_slot"]
+  },
+  {
+    "action": "put-down-target",
+    "args": ["T1", "goal_region"]
+  },
+  {
+    "action": "restore-ground-occluder",
+    "args": ["O1", "front_slot"]
+  }
+]
+```
+
+This plan follows the rules of the occlusion_easy scene:
+
+1. The robot removes the occluder (O1) from the front_slot, revealing the target (T1).
+2. The robot puts down the occluder in the temporary location (temp_A).
+3. The robot picks up the target from the target_slot.
+4. The robot puts down the target in the goal_region.
+5. The robot restores the occluder to the front_slot.
+
+This plan satisfies the goal state, where the target is relocated to the goal_region and the hand is empty.

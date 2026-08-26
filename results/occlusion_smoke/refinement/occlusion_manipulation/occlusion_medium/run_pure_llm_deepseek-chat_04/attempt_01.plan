@@ -1,0 +1,6 @@
+(remove-stacked-occluder o2 o1)
+(remove-ground-occluder o1 front_slot t1)
+(pick-up-target t1 target_slot)
+(put-down-target t1 goal_region)
+(put-down-occluder o1 temp_a)
+(put-down-occluder o2 temp_b)

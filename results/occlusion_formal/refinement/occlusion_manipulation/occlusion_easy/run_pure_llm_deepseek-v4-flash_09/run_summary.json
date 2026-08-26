@@ -1,0 +1,88 @@
+{
+  "scene": "occlusion_easy",
+  "mode": "llm",
+  "method": "pure_llm",
+  "model": "deepseek-v4-flash",
+  "provider": "deepseek",
+  "success": true,
+  "iterations": 1,
+  "final_plan": [
+    {
+      "action": "remove-ground-occluder",
+      "args": [
+        "O1",
+        "front_slot",
+        "T1"
+      ]
+    },
+    {
+      "action": "put-down-occluder",
+      "args": [
+        "O1",
+        "temp_A"
+      ]
+    },
+    {
+      "action": "pick-up-target",
+      "args": [
+        "T1",
+        "target_slot"
+      ]
+    },
+    {
+      "action": "put-down-target",
+      "args": [
+        "T1",
+        "goal_region"
+      ]
+    }
+  ],
+  "final_plan_file": "D:\\LLM-PDDL\\results\\occlusion_formal\\refinement\\occlusion_manipulation\\occlusion_easy\\run_pure_llm_deepseek-v4-flash_09\\final_validated.plan",
+  "run_directory": "D:\\LLM-PDDL\\results\\occlusion_formal\\refinement\\occlusion_manipulation\\occlusion_easy\\run_pure_llm_deepseek-v4-flash_09",
+  "attempts": [
+    {
+      "iteration": 1,
+      "plan": [
+        {
+          "action": "remove-ground-occluder",
+          "args": [
+            "O1",
+            "front_slot",
+            "T1"
+          ]
+        },
+        {
+          "action": "put-down-occluder",
+          "args": [
+            "O1",
+            "temp_A"
+          ]
+        },
+        {
+          "action": "pick-up-target",
+          "args": [
+            "T1",
+            "target_slot"
+          ]
+        },
+        {
+          "action": "put-down-target",
+          "args": [
+            "T1",
+            "goal_region"
+          ]
+        }
+      ],
+      "plan_file": "D:\\LLM-PDDL\\results\\occlusion_formal\\refinement\\occlusion_manipulation\\occlusion_easy\\run_pure_llm_deepseek-v4-flash_09\\attempt_01.plan",
+      "val": {
+        "valid": true,
+        "return_code": 0,
+        "runtime_seconds": 0.07435020001139492,
+        "log_file": "D:\\LLM-PDDL\\results\\occlusion_formal\\refinement\\occlusion_manipulation\\occlusion_easy\\run_pure_llm_deepseek-v4-flash_09\\attempt_01_val.txt",
+        "stdout_chars": 2249,
+        "stderr_chars": 132
+      },
+      "success": true
+    }
+  ]
+}

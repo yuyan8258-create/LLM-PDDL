@@ -1,0 +1,73 @@
+[
+  {
+    "action": "insert-aid",
+    "args": [
+      "dummy-support-shaft"
+    ]
+  },
+  {
+    "action": "assemble-basic",
+    "args": [
+      "gearbox-housing"
+    ]
+  },
+  {
+    "action": "assemble-after",
+    "args": [
+      "input-shaft",
+      "gearbox-housing"
+    ]
+  },
+  {
+    "action": "assemble-after",
+    "args": [
+      "countershaft",
+      "gearbox-housing"
+    ]
+  },
+  {
+    "action": "assemble-after",
+    "args": [
+      "input-bearing-carrier",
+      "input-shaft"
+    ]
+  },
+  {
+    "action": "assemble-after",
+    "args": [
+      "countershaft-bearing-carrier",
+      "countershaft"
+    ]
+  },
+  {
+    "action": "assemble-after",
+    "args": [
+      "drive-gear-assembly",
+      "input-bearing-carrier"
+    ]
+  },
+  {
+    "action": "assemble-after-with-aid",
+    "args": [
+      "countershaft-gear-assembly",
+      "countershaft-bearing-carrier",
+      "dummy-support-shaft"
+    ]
+  },
+  {
+    "action": "assemble-after-with-aid",
+    "args": [
+      "output-gear-assembly",
+      "drive-gear-assembly",
+      "dummy-support-shaft"
+    ]
+  },
+  {
+    "action": "withdraw-aid-after-two",
+    "args": [
+      "dummy-support-shaft",
+      "countershaft-gear-assembly",
+      "output-gear-assembly"
+    ]
+  }
+]

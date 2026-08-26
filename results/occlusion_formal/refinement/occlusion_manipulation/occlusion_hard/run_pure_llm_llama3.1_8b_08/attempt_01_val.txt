@@ -1,0 +1,117 @@
+﻿Type-checking remove-stacked-occluder
+...action passes type checking.
+Type-checking remove-ground-occluder
+...action passes type checking.
+Type-checking put-down-occluder
+...action passes type checking.
+Type-checking pick-up-temp-occluder
+...action passes type checking.
+Type-checking pick-up-target
+...action passes type checking.
+Type-checking put-down-target
+...action passes type checking.
+Type-checking restore-ground-occluder
+...action passes type checking.
+Type-checking stack-occluder
+...action passes type checking.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Checking plan: /mnt/d/LLM-PDDL/results/occlusion_formal/refinement/occlusion_manipulation/occlusion_hard/run_pure_llm_llama3.1_8b_08/attempt_01.plan
+Plan to validate:
+
+Plan size: 11
+1:
+(pick-up-target t1 target_slot)
+
+2:
+(remove-ground-occluder o1 front_slot t1)
+
+3:
+(put-down-occluder o1 temp_a)
+
+4:
+(pick-up-temp-occluder o2 temp_b)
+
+5:
+(put-down-occluder o2 temp_b)
+
+6:
+(remove-stacked-occluder o3 o2)
+
+7:
+(put-down-occluder o3 temp_c)
+
+8:
+(put-down-target t1 goal_region)
+
+9:
+(restore-ground-occluder o1 front_slot)
+
+10:
+(stack-occluder o2 o1)
+
+11:
+(stack-occluder o3 o2)
+
+
+Plan Validation details
+-----------------------
+
+Checking next happening (time 1)
+Plan failed because of unsatisfied precondition in:
+(pick-up-target t1 target_slot)
+
+Plan failed to execute
+
+Plan Repair Advice:
+
+(pick-up-target t1 target_slot) has an unsatisfied precondition at time 1
+(Set (accessible t1) to true)
+
+
+Failed plans:
+ /mnt/d/LLM-PDDL/results/occlusion_formal/refinement/occlusion_manipulation/occlusion_hard/run_pure_llm_llama3.1_8b_08/attempt_01.plan
+
+wsl: �hKm0R localhost �NtM�n�FO*g\��P0R WSL0NAT !j_N�v WSL
+N/ec localhost �Nt0

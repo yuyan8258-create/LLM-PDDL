@@ -1,0 +1,183 @@
+You are a symbolic task planner for the
+occlusion_manipulation PDDL domain.
+
+SCENE ID:
+occlusion_easy
+
+SCENE NAME:
+Single ground occluder removal
+
+DESCRIPTION:
+A Lego-like structure where one removable ground occluder blocks the target brick. The robot removes the occluder, temporarily places it, and relocates the target.
+
+DIFFICULTY:
+easy
+
+TYPED OBJECTS:
+- target-brick: T1
+- occluder-brick: O1
+- target-structural-location: target_slot
+- occluder-structural-location: front_slot
+- temporary-location: temp_A
+- goal-location: goal_region
+
+INITIAL STATE:
+{
+  "at": [
+    [
+      "T1",
+      "target_slot"
+    ],
+    [
+      "O1",
+      "front_slot"
+    ]
+  ],
+  "occludes": [
+    [
+      "O1",
+      "T1"
+    ]
+  ],
+  "accessible": [
+    "O1"
+  ],
+  "clear": [
+    "O1",
+    "T1"
+  ],
+  "holding": [],
+  "handempty": true,
+  "free": [
+    "temp_A",
+    "goal_region"
+  ],
+  "target-relocated": false
+}
+
+GOAL STATE:
+{
+  "at": [
+    [
+      "T1",
+      "goal_region"
+    ]
+  ],
+  "handempty": true,
+  "target-relocated": true
+}
+
+AVAILABLE ACTIONS:
+- pick-up-target: 2 argument(s)
+- pick-up-temp-occluder: 2 argument(s)
+- put-down-occluder: 2 argument(s)
+- put-down-target: 2 argument(s)
+- remove-ground-occluder: 3 argument(s)
+- remove-stacked-occluder: 2 argument(s)
+- restore-ground-occluder: 2 argument(s)
+- stack-occluder: 2 argument(s)
+
+ACTION ARGUMENT GUIDANCE:
+- pick-up-target: (target, target_structural_location)
+- pick-up-temp-occluder: (occluder, temporary_location)
+- put-down-occluder: (occluder, temporary_location)
+- put-down-target: (target, goal_location)
+- remove-ground-occluder: (occluder, occluder_structural_location, target)
+- remove-stacked-occluder: (occluder, support_occluder)
+- restore-ground-occluder: (occluder, occluder_structural_location)
+- stack-occluder: (occluder, support_occluder)
+
+The AVAILABLE ACTIONS section is authoritative for legal action
+names and argument counts.
+
+ACTION ARGUMENT GUIDANCE only explains the intended argument order
+for frozen Occlusion-v1 actions. It is not an action legality schema.
+
+OCCLUSION-BENCHMARK RULES:
+- The task models a Lego-like structure containing one target brick
+  and removable occluder bricks.
+- occludes(A,B) represents an immediate active occlusion relation,
+  not transitive occlusion.
+- For stacked occluders, on(A,B) together with occlusion relations
+  represent benchmark dependency abstractions rather than full
+  physical simulation.
+- Stacked occluder layers must be cleared in dependency order.
+- The front/ground occluder reveals the target.
+- Removed occluders use temporary locations during clearing.
+- Target relocation must happen before structural restoration.
+- Ground restoration does not recreate the old target occlusion.
+- Do not invent generic pick-up or put-down actions.
+
+
+
+PREVIOUS VERIFICATION FEEDBACK:
+{
+  "validation_authority": "VAL",
+  "val_valid": false,
+  "symbolic_verifier_valid": false,
+  "previous_plan": [
+    {
+      "action": "remove-ground-occluder",
+      "args": [
+        "O1",
+        "front_slot",
+        "T1"
+      ]
+    },
+    {
+      "action": "put-down-occluder",
+      "args": [
+        "O1",
+        "temp_A"
+      ]
+    },
+    {
+      "action": "pick-up-target",
+      "args": [
+        "T1",
+        "target_slot"
+      ]
+    },
+    {
+      "action": "put-down-target",
+      "args": [
+        "T1",
+        "goal_region"
+      ]
+    },
+    {
+      "action": "pick-up-occluder",
+      "args": [
+        "O1",
+        "temp_A"
+      ]
+    },
+    {
+      "action": "put-down-occluder",
+      "args": [
+        "O1",
+        "front_slot"
+      ]
+    }
+  ],
+  "symbolic_failure_details": {
+    "message": "The symbolic verifier could not execute the candidate plan because the plan is malformed.",
+    "error": "Plan step 5: unknown action 'pick-up-occluder' for domain 'occlusion_manipulation'. Available actions: pick-up-target, pick-up-temp-occluder, put-down-occluder, put-down-target, remove-ground-occluder, remove-stacked-occluder, restore-ground-occluder, stack-occluder"
+  },
+  "val_output_tail": "Checking plan: /mnt/d/LLM-PDDL/results/occlusion_formal/refinement/occlusion_manipulation/occlusion_easy/run_hybrid_feedback_llama3.1_8b_10/attempt_02.plan\nBad plan description!\n\n\nFailed plans:\n /mnt/d/LLM-PDDL/results/occlusion_formal/refinement/occlusion_manipulation/occlusion_easy/run_hybrid_feedback_llama3.1_8b_10/attempt_02.plan \n\nw\u0000s\u0000l\u0000:\u0000 \u0000�hKm0R \u0000l\u0000o\u0000c\u0000a\u0000l\u0000h\u0000o\u0000s\u0000t\u0000 \u0000�N\u0006tM�n\n�FO*g\\��P0R \u0000W\u0000S\u0000L\u0000\u00020N\u0000A\u0000T\u0000 \u0000!j\u000f_\nN�v \u0000W\u0000S\u0000L\u0000 \u0000\nN/e\u0001c \u0000l\u0000o\u0000c\u0000a\u0000l\u0000h\u0000o\u0000s\u0000t\u0000 \u0000�N\u0006t\u00020\n\u0000\n\u0000",
+  "repair_instruction": "Generate a complete corrected plan. Fix the failed action and any earlier actions that caused the failed precondition. Do not return only a partial plan."
+}
+
+Return a repaired complete plan, not only the corrected action.
+
+
+OUTPUT REQUIREMENTS:
+- Output only one JSON array.
+- Do not output markdown.
+- Do not output explanations.
+- Each item must contain:
+  "action"
+  "args"
+- Respect action count and argument guidance.
+- Use only declared objects.
+- Return the complete plan.

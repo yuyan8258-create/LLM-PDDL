@@ -1,0 +1,83 @@
+{
+  "scene": "scene_01_blocksworld_basic",
+  "mode": "llm",
+  "method": "pure_llm",
+  "model": "deepseek-v4-flash",
+  "provider": "deepseek",
+  "success": true,
+  "iterations": 1,
+  "final_plan": [
+    {
+      "action": "unstack",
+      "args": [
+        "blockA",
+        "blockB"
+      ]
+    },
+    {
+      "action": "put-down",
+      "args": [
+        "blockA"
+      ]
+    },
+    {
+      "action": "pick-up",
+      "args": [
+        "blockB"
+      ]
+    },
+    {
+      "action": "stack",
+      "args": [
+        "blockB",
+        "blockC"
+      ]
+    }
+  ],
+  "final_plan_file": "E:\\桌面\\LLM-PDDL\\results\\formal\\refinement\\block_building\\scene_01_blocksworld_basic\\run_pure_llm_deepseek-v4-flash_01\\final_validated.plan",
+  "run_directory": "E:\\桌面\\LLM-PDDL\\results\\formal\\refinement\\block_building\\scene_01_blocksworld_basic\\run_pure_llm_deepseek-v4-flash_01",
+  "attempts": [
+    {
+      "iteration": 1,
+      "plan": [
+        {
+          "action": "unstack",
+          "args": [
+            "blockA",
+            "blockB"
+          ]
+        },
+        {
+          "action": "put-down",
+          "args": [
+            "blockA"
+          ]
+        },
+        {
+          "action": "pick-up",
+          "args": [
+            "blockB"
+          ]
+        },
+        {
+          "action": "stack",
+          "args": [
+            "blockB",
+            "blockC"
+          ]
+        }
+      ],
+      "plan_file": "E:\\桌面\\LLM-PDDL\\results\\formal\\refinement\\block_building\\scene_01_blocksworld_basic\\run_pure_llm_deepseek-v4-flash_01\\attempt_01.plan",
+      "val": {
+        "valid": true,
+        "return_code": 0,
+        "runtime_seconds": 13.589796300046146,
+        "final_value": 4,
+        "stdout": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nChecking plan: /mnt/e/桌面/LLM-PDDL/results/formal/refinement/block_building/scene_01_blocksworld_basic/run_pure_llm_deepseek-v4-flash_01/attempt_01.plan\nPlan to validate:\n\nPlan size: 4\n1:\n(unstack blocka blockb)\n \n2:\n(put-down blocka)\n \n3:\n(pick-up blockb)\n \n4:\n(stack blockb blockc)\n \n\nPlan Validation details\n-----------------------\n\nChecking next happening (time 1)\nDeleting (on blocka blockb)\nDeleting (clear blocka)\nDeleting (handempty)\nAdding (holding blocka)\nAdding (clear blockb)\n\nChecking next happening (time 2)\nDeleting (holding blocka)\nAdding (ontable blocka)\nAdding (clear blocka)\nAdding (handempty)\n\nChecking next happening (time 3)\nDeleting (ontable blockb)\nDeleting (clear blockb)\nDeleting (handempty)\nAdding (holding blockb)\n\nChecking next happening (time 4)\nDeleting (holding blockb)\nDeleting (clear blockc)\nAdding (on blockb blockc)\nAdding (clear blockb)\nAdding (handempty)\nPlan executed successfully - checking goal\nPlan valid\nFinal value: 4 \n\nSuccessful plans:\nValue: 4\n /mnt/e/桌面/LLM-PDDL/results/formal/refinement/block_building/scene_01_blocksworld_basic/run_pure_llm_deepseek-v4-flash_01/attempt_01.plan 4 \n\n",
+        "stderr": "",
+        "raw_log_file": "E:\\桌面\\LLM-PDDL\\results\\formal\\refinement\\block_building\\scene_01_blocksworld_basic\\run_pure_llm_deepseek-v4-flash_01\\attempt_01_val.txt"
+      },
+      "success": true
+    }
+  ]
+}

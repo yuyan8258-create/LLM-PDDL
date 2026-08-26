@@ -1,0 +1,112 @@
+{
+  "scene": "gearbox_medium",
+  "mode": "llm",
+  "method": "pure_llm",
+  "model": "deepseek-v4-flash",
+  "provider": "deepseek",
+  "success": true,
+  "iterations": 1,
+  "final_plan": [
+    {
+      "action": "assemble-basic",
+      "args": [
+        "gearbox-housing"
+      ]
+    },
+    {
+      "action": "assemble-after",
+      "args": [
+        "input-shaft",
+        "gearbox-housing"
+      ]
+    },
+    {
+      "action": "assemble-after",
+      "args": [
+        "countershaft",
+        "input-shaft"
+      ]
+    },
+    {
+      "action": "insert-aid",
+      "args": [
+        "dummy-support-shaft"
+      ]
+    },
+    {
+      "action": "assemble-after-with-aid",
+      "args": [
+        "input-bearing-carrier",
+        "countershaft",
+        "dummy-support-shaft"
+      ]
+    },
+    {
+      "action": "withdraw-aid-after-one",
+      "args": [
+        "dummy-support-shaft",
+        "input-bearing-carrier"
+      ]
+    }
+  ],
+  "final_plan_file": "D:\\LLM-PDDL\\results\\gearbox_formal\\refinement\\gearbox\\gearbox_medium\\run_pure_llm_deepseek-v4-flash_10\\final_validated.plan",
+  "run_directory": "D:\\LLM-PDDL\\results\\gearbox_formal\\refinement\\gearbox\\gearbox_medium\\run_pure_llm_deepseek-v4-flash_10",
+  "attempts": [
+    {
+      "iteration": 1,
+      "plan": [
+        {
+          "action": "assemble-basic",
+          "args": [
+            "gearbox-housing"
+          ]
+        },
+        {
+          "action": "assemble-after",
+          "args": [
+            "input-shaft",
+            "gearbox-housing"
+          ]
+        },
+        {
+          "action": "assemble-after",
+          "args": [
+            "countershaft",
+            "input-shaft"
+          ]
+        },
+        {
+          "action": "insert-aid",
+          "args": [
+            "dummy-support-shaft"
+          ]
+        },
+        {
+          "action": "assemble-after-with-aid",
+          "args": [
+            "input-bearing-carrier",
+            "countershaft",
+            "dummy-support-shaft"
+          ]
+        },
+        {
+          "action": "withdraw-aid-after-one",
+          "args": [
+            "dummy-support-shaft",
+            "input-bearing-carrier"
+          ]
+        }
+      ],
+      "plan_file": "D:\\LLM-PDDL\\results\\gearbox_formal\\refinement\\gearbox\\gearbox_medium\\run_pure_llm_deepseek-v4-flash_10\\attempt_01.plan",
+      "val": {
+        "valid": true,
+        "return_code": 0,
+        "runtime_seconds": 0.10611009993590415,
+        "log_file": "D:\\LLM-PDDL\\results\\gearbox_formal\\refinement\\gearbox\\gearbox_medium\\run_pure_llm_deepseek-v4-flash_10\\attempt_01_val.txt",
+        "stdout_chars": 1885,
+        "stderr_chars": 132
+      },
+      "success": true
+    }
+  ]
+}

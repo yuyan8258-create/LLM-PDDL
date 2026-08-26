@@ -1,0 +1,38 @@
+{
+  "batch_id": "batch_hybrid_feedback_occlusion_hard_deepseek_deepseek-v4-flash_20260822_220301",
+  "scene": "occlusion_hard",
+  "provider": "deepseek",
+  "model": "deepseek-v4-flash",
+  "method": "hybrid_feedback",
+  "number_of_runs": 1,
+  "max_iterations": 3,
+  "started_at": "2026-08-22T22:03:01",
+  "batch_directory": "D:\\LLM-PDDL\\results\\occlusion_formal\\batches\\batch_hybrid_feedback_occlusion_hard_deepseek_deepseek-v4-flash_20260822_220301",
+  "finished_at": "2026-08-22T22:09:07",
+  "duration_seconds": 365.795,
+  "completed_runs": 1,
+  "successful_runs": 1,
+  "failed_runs": 0,
+  "completion_rate": 1.0,
+  "success_rate": 1.0,
+  "result_collection_success": true,
+  "result_collection_error": "",
+  "runs": [
+    {
+      "batch_run_index": 1,
+      "completed": true,
+      "success": true,
+      "scene": "occlusion_hard",
+      "mode": "llm",
+      "method": "hybrid_feedback",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "iterations": 1,
+      "failure_stage": "",
+      "run_directory": "D:\\LLM-PDDL\\results\\occlusion_formal\\refinement\\occlusion_manipulation\\occlusion_hard\\run_hybrid_feedback_deepseek-v4-flash_11",
+      "started_at": "2026-08-22T22:03:01",
+      "finished_at": "2026-08-22T22:09:07",
+      "duration_seconds": 365.794
+    }
+  ]
+}

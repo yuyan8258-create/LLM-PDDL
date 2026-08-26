@@ -1,0 +1,34 @@
+[
+  {
+    "action": "put-down",
+    "args": [
+      "blockA"
+    ]
+  },
+  {
+    "action": "pick-up",
+    "args": [
+      "blockB"
+    ]
+  },
+  {
+    "action": "put-down",
+    "args": [
+      "blockC"
+    ]
+  },
+  {
+    "action": "stack",
+    "args": [
+      "blockA",
+      "table"
+    ]
+  },
+  {
+    "action": "stack",
+    "args": [
+      "blockB",
+      "blockC"
+    ]
+  }
+]

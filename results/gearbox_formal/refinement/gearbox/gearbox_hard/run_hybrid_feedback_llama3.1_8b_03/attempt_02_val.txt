@@ -1,0 +1,137 @@
+﻿Type-checking assemble-basic
+...action passes type checking.
+Type-checking assemble-after
+...action passes type checking.
+Type-checking assemble-with-aid
+...action passes type checking.
+Type-checking assemble-after-with-aid
+...action passes type checking.
+Type-checking insert-aid
+...action passes type checking.
+Type-checking withdraw-aid-after-one
+...action passes type checking.
+Type-checking withdraw-aid-after-two
+...action passes type checking.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Checking plan: /mnt/d/LLM-PDDL/results/gearbox_formal/refinement/gearbox/gearbox_hard/run_hybrid_feedback_llama3.1_8b_03/attempt_02.plan
+Plan to validate:
+
+Plan size: 10
+1:
+(assemble-basic gearbox-housing)
+
+2:
+(assemble-after input-shaft gearbox-housing)
+
+3:
+(assemble-after countershaft gearbox-housing)
+
+4:
+(assemble-after input-bearing-carrier input-shaft)
+
+5:
+(assemble-after countershaft-bearing-carrier countershaft)
+
+6:
+(assemble-after drive-gear-assembly input-bearing-carrier)
+
+7:
+(insert-aid dummy-support-shaft)
+
+8:
+(assemble-after-with-aid countershaft-gear-assembly countershaft-bearing-carrier dummy-support-shaft)
+
+9:
+(assemble-after output-gear-assembly drive-gear-assembly)
+
+10:
+(withdraw-aid-after-two dummy-support-shaft countershaft-gear-assembly output-gear-assembly)
+
+
+Plan Validation details
+-----------------------
+
+Checking next happening (time 1)
+Adding (assembled gearbox-housing)
+
+Checking next happening (time 2)
+Adding (assembled input-shaft)
+
+Checking next happening (time 3)
+Adding (assembled countershaft)
+
+Checking next happening (time 4)
+Adding (assembled input-bearing-carrier)
+
+Checking next happening (time 5)
+Adding (assembled countershaft-bearing-carrier)
+
+Checking next happening (time 6)
+Adding (assembled drive-gear-assembly)
+
+Checking next happening (time 7)
+Adding (aid-present dummy-support-shaft)
+
+Checking next happening (time 8)
+Adding (assembled countershaft-gear-assembly)
+
+Checking next happening (time 9)
+Plan failed because of unsatisfied precondition in:
+(assemble-after output-gear-assembly drive-gear-assembly)
+
+Plan failed to execute
+
+Plan Repair Advice:
+
+(assemble-after output-gear-assembly drive-gear-assembly) has an unsatisfied precondition at time 9
+(Set (has-aid-requirement output-gear-assembly) to false)
+
+
+Failed plans:
+ /mnt/d/LLM-PDDL/results/gearbox_formal/refinement/gearbox/gearbox_hard/run_hybrid_feedback_llama3.1_8b_03/attempt_02.plan
+
+wsl: �hKm0R localhost �NtM�n�FO*g\��P0R WSL0NAT !j_N�v WSL
+N/ec localhost �Nt0

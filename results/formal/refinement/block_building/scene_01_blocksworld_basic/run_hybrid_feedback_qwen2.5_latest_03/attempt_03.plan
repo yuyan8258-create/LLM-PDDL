@@ -1,0 +1,5 @@
+(put-down blocka)
+(pick-up blockb)
+(put-down blockc)
+(stack blocka table)
+(stack blockb blockc)

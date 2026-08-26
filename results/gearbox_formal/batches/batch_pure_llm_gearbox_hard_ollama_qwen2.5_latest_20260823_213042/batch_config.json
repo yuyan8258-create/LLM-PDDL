@@ -1,0 +1,11 @@
+{
+  "batch_id": "batch_pure_llm_gearbox_hard_ollama_qwen2.5_latest_20260823_213042",
+  "scene": "gearbox_hard",
+  "provider": "ollama",
+  "model": "qwen2.5:latest",
+  "method": "pure_llm",
+  "number_of_runs": 10,
+  "max_iterations": 1,
+  "started_at": "2026-08-23T21:30:42",
+  "batch_directory": "D:\\LLM-PDDL\\results\\gearbox_formal\\batches\\batch_pure_llm_gearbox_hard_ollama_qwen2.5_latest_20260823_213042"
+}

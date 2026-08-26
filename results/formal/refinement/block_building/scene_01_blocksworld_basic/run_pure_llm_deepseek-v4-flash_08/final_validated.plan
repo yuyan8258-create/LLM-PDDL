@@ -1,0 +1,4 @@
+(unstack blocka blockb)
+(put-down blocka)
+(pick-up blockb)
+(stack blockb blockc)

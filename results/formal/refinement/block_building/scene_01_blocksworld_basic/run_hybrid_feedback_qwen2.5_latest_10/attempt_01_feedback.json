@@ -1,0 +1,61 @@
+{
+  "validation_authority": "VAL",
+  "val_valid": false,
+  "symbolic_verifier_valid": false,
+  "previous_plan": [
+    {
+      "action": "pick-up",
+      "args": [
+        "blockA"
+      ]
+    },
+    {
+      "action": "put-down",
+      "args": [
+        "blockB"
+      ]
+    },
+    {
+      "action": "put-down",
+      "args": [
+        "blockA"
+      ]
+    },
+    {
+      "action": "stack",
+      "args": [
+        "blockB",
+        "blockC"
+      ]
+    }
+  ],
+  "symbolic_failure_details": {
+    "message": "Missing preconditions: ontable(blockA)",
+    "failed_step": 1,
+    "failed_action": "pick-up(blockA)",
+    "error": "Missing preconditions: ontable(blockA)",
+    "state_before_failure": {
+      "ontable": [
+        "blockB",
+        "blockC"
+      ],
+      "on": [
+        [
+          "blockA",
+          "blockB"
+        ]
+      ],
+      "on_bridge": [],
+      "clear": [
+        "blockA",
+        "blockC"
+      ],
+      "holding": [],
+      "handempty": true,
+      "left_free": [],
+      "right_free": []
+    }
+  },
+  "val_output_tail": "Checking plan: /mnt/d/LLM-PDDL/results/formal/refinement/block_building/scene_01_blocksworld_basic/run_hybrid_feedback_qwen2.5_latest_10/attempt_01.plan\nPlan to validate:\n\nPlan size: 4\n1:\n(pick-up blocka)\n \n2:\n(put-down blockb)\n \n3:\n(put-down blocka)\n \n4:\n(stack blockb blockc)\n \n\nPlan Validation details\n-----------------------\n\nChecking next happening (time 1)\nPlan failed because of unsatisfied precondition in:\n(pick-up blocka)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(pick-up blocka) has an unsatisfied precondition at time 1\n(Set (ontable blocka) to true)\n\n\nFailed plans:\n /mnt/d/LLM-PDDL/results/formal/refinement/block_building/scene_01_blocksworld_basic/run_hybrid_feedback_qwen2.5_latest_10/attempt_01.plan",
+  "repair_instruction": "Generate a complete corrected plan. Fix the failed action and any earlier actions that caused the failed precondition. Do not return only a partial plan."
+}

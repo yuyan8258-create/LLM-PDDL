@@ -1,0 +1,26 @@
+[
+  {
+    "action": "remove-stacked-occluder",
+    "args": ["O2", "O1"]
+  },
+  {
+    "action": "put-down-occluder",
+    "args": ["O2", "temp_A"]
+  },
+  {
+    "action": "remove-ground-occluder",
+    "args": ["O1", "front_slot", "T1"]
+  },
+  {
+    "action": "put-down-occluder",
+    "args": ["O1", "temp_B"]
+  },
+  {
+    "action": "pick-up-target",
+    "args": ["T1", "target_slot"]
+  },
+  {
+    "action": "put-down-target",
+    "args": ["T1", "goal_region"]
+  }
+]

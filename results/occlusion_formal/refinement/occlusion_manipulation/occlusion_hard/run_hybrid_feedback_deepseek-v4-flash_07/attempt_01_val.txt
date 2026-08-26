@@ -1,0 +1,242 @@
+﻿Type-checking remove-stacked-occluder
+...action passes type checking.
+Type-checking remove-ground-occluder
+...action passes type checking.
+Type-checking put-down-occluder
+...action passes type checking.
+Type-checking pick-up-temp-occluder
+...action passes type checking.
+Type-checking pick-up-target
+...action passes type checking.
+Type-checking put-down-target
+...action passes type checking.
+Type-checking restore-ground-occluder
+...action passes type checking.
+Type-checking stack-occluder
+...action passes type checking.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Checking plan: /mnt/d/LLM-PDDL/results/occlusion_formal/refinement/occlusion_manipulation/occlusion_hard/run_hybrid_feedback_deepseek-v4-flash_07/attempt_01.plan
+Plan to validate:
+
+Plan size: 14
+1:
+(remove-stacked-occluder o3 o2)
+
+2:
+(put-down-occluder o3 temp_a)
+
+3:
+(remove-stacked-occluder o2 o1)
+
+4:
+(put-down-occluder o2 temp_b)
+
+5:
+(remove-ground-occluder o1 front_slot t1)
+
+6:
+(put-down-occluder o1 temp_c)
+
+7:
+(pick-up-target t1 target_slot)
+
+8:
+(put-down-target t1 goal_region)
+
+9:
+(pick-up-temp-occluder o1 temp_c)
+
+10:
+(restore-ground-occluder o1 front_slot)
+
+11:
+(pick-up-temp-occluder o2 temp_b)
+
+12:
+(stack-occluder o2 o1)
+
+13:
+(pick-up-temp-occluder o3 temp_a)
+
+14:
+(stack-occluder o3 o2)
+
+
+Plan Validation details
+-----------------------
+
+Checking next happening (time 1)
+Deleting (on o3 o2)
+Deleting (occludes o3 o2)
+Deleting (clear o3)
+Deleting (accessible o3)
+Deleting (handempty)
+Adding (holding o3)
+Adding (clear o2)
+Adding (accessible o2)
+
+Checking next happening (time 2)
+Deleting (holding o3)
+Deleting (free temp_a)
+Adding (at o3 temp_a)
+Adding (clear o3)
+Adding (accessible o3)
+Adding (handempty)
+
+Checking next happening (time 3)
+Deleting (on o2 o1)
+Deleting (occludes o2 o1)
+Deleting (clear o2)
+Deleting (accessible o2)
+Deleting (handempty)
+Adding (holding o2)
+Adding (clear o1)
+Adding (accessible o1)
+
+Checking next happening (time 4)
+Deleting (holding o2)
+Deleting (free temp_b)
+Adding (at o2 temp_b)
+Adding (clear o2)
+Adding (accessible o2)
+Adding (handempty)
+
+Checking next happening (time 5)
+Deleting (at o1 front_slot)
+Deleting (occludes o1 t1)
+Deleting (clear o1)
+Deleting (accessible o1)
+Deleting (handempty)
+Adding (holding o1)
+Adding (free front_slot)
+Adding (accessible t1)
+
+Checking next happening (time 6)
+Deleting (holding o1)
+Deleting (free temp_c)
+Adding (at o1 temp_c)
+Adding (clear o1)
+Adding (accessible o1)
+Adding (handempty)
+
+Checking next happening (time 7)
+Deleting (at t1 target_slot)
+Deleting (clear t1)
+Deleting (accessible t1)
+Deleting (handempty)
+Adding (holding t1)
+Adding (free target_slot)
+
+Checking next happening (time 8)
+Deleting (holding t1)
+Deleting (free goal_region)
+Adding (at t1 goal_region)
+Adding (clear t1)
+Adding (accessible t1)
+Adding (handempty)
+Adding (target-relocated)
+
+Checking next happening (time 9)
+Deleting (at o1 temp_c)
+Deleting (clear o1)
+Deleting (accessible o1)
+Deleting (handempty)
+Adding (holding o1)
+Adding (free temp_c)
+
+Checking next happening (time 10)
+Deleting (holding o1)
+Deleting (free front_slot)
+Adding (at o1 front_slot)
+Adding (clear o1)
+Adding (accessible o1)
+Adding (handempty)
+
+Checking next happening (time 11)
+Deleting (at o2 temp_b)
+Deleting (clear o2)
+Deleting (accessible o2)
+Deleting (handempty)
+Adding (holding o2)
+Adding (free temp_b)
+
+Checking next happening (time 12)
+Deleting (holding o2)
+Deleting (clear o1)
+Deleting (accessible o1)
+Adding (on o2 o1)
+Adding (occludes o2 o1)
+Adding (clear o2)
+Adding (accessible o2)
+Adding (handempty)
+
+Checking next happening (time 13)
+Deleting (at o3 temp_a)
+Deleting (clear o3)
+Deleting (accessible o3)
+Deleting (handempty)
+Adding (holding o3)
+Adding (free temp_a)
+
+Checking next happening (time 14)
+Deleting (holding o3)
+Deleting (clear o2)
+Deleting (accessible o2)
+Adding (on o3 o2)
+Adding (occludes o3 o2)
+Adding (clear o3)
+Adding (accessible o3)
+Adding (handempty)
+Plan executed successfully - checking goal
+Plan valid
+Final value: 14
+
+Successful plans:
+Value: 14
+ /mnt/d/LLM-PDDL/results/occlusion_formal/refinement/occlusion_manipulation/occlusion_hard/run_hybrid_feedback_deepseek-v4-flash_07/attempt_01.plan 14
+
+
+wsl: �hKm0R localhost �NtM�n�FO*g\��P0R WSL0NAT !j_N�v WSL
+N/ec localhost �Nt0

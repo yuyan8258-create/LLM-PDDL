@@ -1,0 +1,16 @@
+Based on the provided scene and the previous verification feedback, I will generate a complete corrected plan.
+
+Here is the repaired plan:
+
+[
+  {"action": "pick-up", "args": ["top"]},
+  {"action": "stack", "args": ["top", "U1"]},
+  {"action": "stack-bridge", "args": ["M1", "B1", "B2"]},
+  {"action": "stack-bridge", "args": ["M2", "B2", "B3"]},
+  {"action": "stack-bridge", "args": ["M3", "B3", "B4"]},
+  {"action": "stack-bridge", "args": ["U1", "M1", "M2"]},
+  {"action": "stack-bridge", "args": ["U2", "M2", "M3"]},
+  {"action": "put-down", "args": ["top"]}
+]
+
+This plan first picks up the top block, then stacks it on U1. After that, it constructs the bridge structure by stacking-bridge the middle and upper blocks. Finally, it puts down the top block on the completed bridge structure.

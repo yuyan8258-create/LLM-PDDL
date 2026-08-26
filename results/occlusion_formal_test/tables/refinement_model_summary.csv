@@ -1,0 +1,4 @@
+﻿scene,mode,method,provider,model,total_runs,first_attempt_successes,first_attempt_success_rate,final_successes,final_success_rate,average_iterations,average_total_val_runtime_seconds
+occlusion_easy,llm,hybrid_feedback,deepseek,deepseek-chat,2,2,1.0,2,1.0,1.0,0.077896
+occlusion_easy,llm,pure_llm,deepseek,deepseek-chat,2,2,1.0,2,1.0,1.0,1.918495
+occlusion_easy,pddl,pure_pddl,,fast_downward,1,1,1.0,1,1.0,1.0,0.090045

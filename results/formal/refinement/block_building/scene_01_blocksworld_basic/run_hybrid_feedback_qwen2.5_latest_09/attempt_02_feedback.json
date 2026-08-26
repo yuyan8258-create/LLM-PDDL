@@ -1,0 +1,45 @@
+{
+  "validation_authority": "VAL",
+  "val_valid": false,
+  "symbolic_verifier_valid": false,
+  "previous_plan": [
+    {
+      "action": "put-down",
+      "args": [
+        "blockA"
+      ]
+    },
+    {
+      "action": "pick-up",
+      "args": [
+        "blockB"
+      ]
+    },
+    {
+      "action": "put-down",
+      "args": [
+        "blockC"
+      ]
+    },
+    {
+      "action": "stack",
+      "args": [
+        "blockA",
+        "table"
+      ]
+    },
+    {
+      "action": "stack",
+      "args": [
+        "blockB",
+        "blockC"
+      ]
+    }
+  ],
+  "symbolic_failure_details": {
+    "message": "The symbolic verifier could not execute the candidate plan because the plan is malformed.",
+    "error": "Plan step 4: action 'stack' references undeclared object 'table' in scene 'scene_01_blocksworld_basic'."
+  },
+  "val_output_tail": "Checking plan: /mnt/d/LLM-PDDL/results/formal/refinement/block_building/scene_01_blocksworld_basic/run_hybrid_feedback_qwen2.5_latest_09/attempt_02.plan\nPlan to validate:\n\nPlan size: 5\n1:\n(put-down blocka)\n \n2:\n(pick-up blockb)\n \n3:\n(put-down blockc)\n \n4:\n(stack blocka table)\n \n5:\n(stack blockb blockc)\n \n\nPlan Validation details\n-----------------------\n\nChecking next happening (time 1)\nPlan failed because of unsatisfied precondition in:\n(put-down blocka)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(put-down blocka) has an unsatisfied precondition at time 1\n(Set (holding blocka) to true)\n\n\nFailed plans:\n /mnt/d/LLM-PDDL/results/formal/refinement/block_building/scene_01_blocksworld_basic/run_hybrid_feedback_qwen2.5_latest_09/attempt_02.plan",
+  "repair_instruction": "Generate a complete corrected plan. Fix the failed action and any earlier actions that caused the failed precondition. Do not return only a partial plan."
+}

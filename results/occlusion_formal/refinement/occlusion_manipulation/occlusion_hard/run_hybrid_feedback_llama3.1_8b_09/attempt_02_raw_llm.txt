@@ -1,0 +1,106 @@
+Here is the repaired complete plan:
+
+```
+[
+  {
+    "action": "pick-up-target",
+    "args": [
+      "T1",
+      "target_slot"
+    ]
+  },
+  {
+    "action": "remove-ground-occluder",
+    "args": [
+      "O1",
+      "front_slot",
+      "T1"
+    ]
+  },
+  {
+    "action": "put-down-occluder",
+    "args": [
+      "O1",
+      "temp_A"
+    ]
+  },
+  {
+    "action": "pick-up-temp-occluder",
+    "args": [
+      "O2",
+      "temp_B"
+    ]
+  },
+  {
+    "action": "put-down-occluder",
+    "args": [
+      "O2",
+      "temp_B"
+    ]
+  },
+  {
+    "action": "remove-stacked-occluder",
+    "args": [
+      "O3",
+      "O2"
+    ]
+  },
+  {
+    "action": "put-down-occluder",
+    "args": [
+      "O3",
+      "temp_C"
+    ]
+  },
+  {
+    "action": "put-down-target",
+    "args": [
+      "T1",
+      "goal_region"
+    ]
+  },
+  {
+    "action": "make-accessible",
+    "args": [
+      "T1"
+    ]
+  },
+  {
+    "action": "remove-stacked-occluder",
+    "args": [
+      "O2",
+      "O1"
+    ]
+  },
+  {
+    "action": "put-down-occluder",
+    "args": [
+      "O2",
+      "temp_B"
+    ]
+  },
+  {
+    "action": "stack-occluder",
+    "args": [
+      "O3",
+      "O2"
+    ]
+  },
+  {
+    "action": "stack-occluder",
+    "args": [
+      "O2",
+      "O1"
+    ]
+  },
+  {
+    "action": "restore-ground-occluder",
+    "args": [
+      "O1",
+      "front_slot"
+    ]
+  }
+]
+```
+
+This plan first picks up the target brick, then removes the ground occluder, and so on. The missing precondition `accessible(T1)` is fixed by adding the `make-accessible` action before removing the stacked occluder `O2`.

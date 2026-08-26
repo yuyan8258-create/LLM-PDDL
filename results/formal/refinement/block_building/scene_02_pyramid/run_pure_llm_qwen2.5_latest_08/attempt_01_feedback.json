@@ -1,0 +1,77 @@
+{
+  "validation_authority": "VAL",
+  "val_valid": false,
+  "symbolic_verifier_valid": false,
+  "previous_plan": [
+    {
+      "action": "stack-bridge",
+      "args": [
+        "B4",
+        "B1",
+        "B2"
+      ]
+    },
+    {
+      "action": "stack-bridge",
+      "args": [
+        "B5",
+        "B2",
+        "B3"
+      ]
+    },
+    {
+      "action": "stack-bridge",
+      "args": [
+        "pyramid",
+        "B4",
+        "B5"
+      ]
+    }
+  ],
+  "symbolic_failure_details": {
+    "message": "Missing preconditions: holding(B4)",
+    "failed_step": 1,
+    "failed_action": "stack-bridge(B4, B1, B2)",
+    "error": "Missing preconditions: holding(B4)",
+    "state_before_failure": {
+      "ontable": [
+        "B1",
+        "B2",
+        "B3",
+        "B4",
+        "B5",
+        "pyramid"
+      ],
+      "on": [],
+      "on_bridge": [],
+      "clear": [
+        "B1",
+        "B2",
+        "B3",
+        "B4",
+        "B5",
+        "pyramid"
+      ],
+      "holding": [],
+      "handempty": true,
+      "left_free": [
+        "B1",
+        "B2",
+        "B3",
+        "B4",
+        "B5",
+        "pyramid"
+      ],
+      "right_free": [
+        "B1",
+        "B2",
+        "B3",
+        "B4",
+        "B5",
+        "pyramid"
+      ]
+    }
+  },
+  "val_output_tail": "Checking plan: /mnt/e/桌面/LLM-PDDL/results/formal/refinement/block_building/scene_02_pyramid/run_pure_llm_qwen2.5_latest_08/attempt_01.plan\nPlan to validate:\n\nPlan size: 3\n1:\n(stack-bridge b4 b1 b2)\n \n2:\n(stack-bridge b5 b2 b3)\n \n3:\n(stack-bridge pyramid b4 b5)\n \n\nPlan Validation details\n-----------------------\n\nChecking next happening (time 1)\nPlan failed because of unsatisfied precondition in:\n(stack-bridge b4 b1 b2)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(stack-bridge b4 b1 b2) has an unsatisfied precondition at time 1\n(Set (holding b4) to true)\n\n\nFailed plans:\n /mnt/e/桌面/LLM-PDDL/results/formal/refinement/block_building/scene_02_pyramid/run_pure_llm_qwen2.5_latest_08/attempt_01.plan",
+  "repair_instruction": "Generate a complete corrected plan. Fix the failed action and any earlier actions that caused the failed precondition. Do not return only a partial plan."
+}

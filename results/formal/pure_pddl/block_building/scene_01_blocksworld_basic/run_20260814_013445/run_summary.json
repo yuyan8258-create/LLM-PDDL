@@ -1,0 +1,19 @@
+{
+  "scene": "scene_01_blocksworld_basic",
+  "domain": "block_building",
+  "method": "pure_pddl",
+  "planner": "fast_downward",
+  "planner_alias": "lama-first",
+  "success": true,
+  "plan_steps": 4,
+  "planner_return_code": 0,
+  "planner_runtime_seconds": 1.3676576999714598,
+  "symbolic_valid": true,
+  "val_valid": true,
+  "val_return_code": 0,
+  "val_runtime_seconds": 0.49922600004356354,
+  "started_at": "2026-08-14T01:34:45",
+  "finished_at": "2026-08-14T01:34:47",
+  "duration_seconds": 1.902,
+  "run_directory": "E:\\桌面\\LLM-PDDL\\results\\formal\\pure_pddl\\block_building\\scene_01_blocksworld_basic\\run_20260814_013445"
+}

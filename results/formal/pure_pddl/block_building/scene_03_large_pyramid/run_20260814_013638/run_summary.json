@@ -1,0 +1,19 @@
+{
+  "scene": "scene_03_large_pyramid",
+  "domain": "block_building",
+  "method": "pure_pddl",
+  "planner": "fast_downward",
+  "planner_alias": "lama-first",
+  "success": true,
+  "plan_steps": 12,
+  "planner_return_code": 0,
+  "planner_runtime_seconds": 12.102982699987479,
+  "symbolic_valid": true,
+  "val_valid": true,
+  "val_return_code": 0,
+  "val_runtime_seconds": 0.15560840000398457,
+  "started_at": "2026-08-14T01:36:38",
+  "finished_at": "2026-08-14T01:36:51",
+  "duration_seconds": 12.27,
+  "run_directory": "E:\\桌面\\LLM-PDDL\\results\\formal\\pure_pddl\\block_building\\scene_03_large_pyramid\\run_20260814_013638"
+}

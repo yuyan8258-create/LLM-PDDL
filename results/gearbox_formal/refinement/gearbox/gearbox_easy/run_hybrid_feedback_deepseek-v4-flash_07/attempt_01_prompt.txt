@@ -1,0 +1,106 @@
+You are a symbolic task planner for the gearbox PDDL domain.
+
+SCENE ID:
+gearbox_easy
+
+SCENE NAME:
+Gearbox Assembly - Easy
+
+DESCRIPTION:
+A symbolic gearbox assembly task with typed components and explicit assembly constraints.
+
+DIFFICULTY:
+easy
+
+TYPED OBJECTS:
+{
+  "permanent-component": [
+    "gearbox-housing",
+    "input-shaft",
+    "countershaft",
+    "input-bearing-carrier"
+  ]
+}
+
+SEMANTIC INITIAL STATE:
+{
+  "assembled": [],
+  "precedes": [
+    [
+      "gearbox-housing",
+      "input-shaft"
+    ],
+    [
+      "input-shaft",
+      "countershaft"
+    ],
+    [
+      "countershaft",
+      "input-bearing-carrier"
+    ]
+  ],
+  "requires_aid": []
+}
+
+GOAL STATE:
+{
+  "assembled": [
+    "gearbox-housing",
+    "input-shaft",
+    "countershaft",
+    "input-bearing-carrier"
+  ]
+}
+
+NEGATIVE GOAL STATE:
+{}
+
+AVAILABLE ACTIONS:
+- assemble-after: 2 argument(s)
+- assemble-after-with-aid: 3 argument(s)
+- assemble-basic: 1 argument(s)
+- assemble-with-aid: 2 argument(s)
+- insert-aid: 1 argument(s)
+- withdraw-aid-after-one: 2 argument(s)
+- withdraw-aid-after-two: 3 argument(s)
+
+ACTION ARGUMENT GUIDANCE:
+- assemble-basic: (component)
+- assemble-after: (component, predecessor)
+- assemble-with-aid: (component, aid)
+- assemble-after-with-aid: (component, predecessor, aid)
+- insert-aid: (aid)
+- withdraw-aid-after-one: (aid, component)
+- withdraw-aid-after-two: (aid, component_1, component_2)
+
+GEARBOX-BENCHMARK RULES:
+- Permanent components may have explicit assembly-order constraints.
+- precedes(A,B) means A must be assembled before B.
+- requires-aid(P,T) means temporary aid T must be present while P is assembled.
+- A temporary aid may be inserted when it is absent.
+- A temporary aid may be withdrawn only after every permanent component
+  requiring that aid has been assembled.
+- The final configuration must satisfy all positive goals and all
+  negative goals.
+- The four assemble-* actions represent the same conceptual assembly
+  operation under different dependency structures.
+- Do not invent additional actions, stages, resources, locations, or
+  physical simulation rules.
+
+The AVAILABLE ACTIONS section is authoritative for legal action names
+and argument counts.
+
+ACTION ARGUMENT GUIDANCE explains parameter order only. It does not
+replace the benchmark preconditions.
+
+
+
+OUTPUT REQUIREMENTS:
+- Output only one JSON array.
+- Do not output markdown.
+- Do not output explanations.
+- Each item must contain exactly:
+  "action"
+  "args"
+- Use only declared objects.
+- Return the complete plan from the initial state to the final goal.

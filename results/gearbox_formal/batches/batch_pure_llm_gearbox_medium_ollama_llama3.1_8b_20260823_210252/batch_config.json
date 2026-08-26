@@ -1,0 +1,11 @@
+{
+  "batch_id": "batch_pure_llm_gearbox_medium_ollama_llama3.1_8b_20260823_210252",
+  "scene": "gearbox_medium",
+  "provider": "ollama",
+  "model": "llama3.1:8b",
+  "method": "pure_llm",
+  "number_of_runs": 10,
+  "max_iterations": 1,
+  "started_at": "2026-08-23T21:02:52",
+  "batch_directory": "D:\\LLM-PDDL\\results\\gearbox_formal\\batches\\batch_pure_llm_gearbox_medium_ollama_llama3.1_8b_20260823_210252"
+}

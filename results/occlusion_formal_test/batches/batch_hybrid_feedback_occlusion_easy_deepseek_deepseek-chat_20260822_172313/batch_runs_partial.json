@@ -1,0 +1,34 @@
+[
+  {
+    "batch_run_index": 1,
+    "completed": true,
+    "success": true,
+    "scene": "occlusion_easy",
+    "mode": "llm",
+    "method": "hybrid_feedback",
+    "provider": "deepseek",
+    "model": "deepseek-chat",
+    "iterations": 1,
+    "failure_stage": "",
+    "run_directory": "D:\\LLM-PDDL\\results\\occlusion_formal_test\\refinement\\occlusion_manipulation\\occlusion_easy\\run_hybrid_feedback_deepseek-chat_01",
+    "started_at": "2026-08-22T17:23:13",
+    "finished_at": "2026-08-22T17:23:16",
+    "duration_seconds": 2.228
+  },
+  {
+    "batch_run_index": 2,
+    "completed": true,
+    "success": true,
+    "scene": "occlusion_easy",
+    "mode": "llm",
+    "method": "hybrid_feedback",
+    "provider": "deepseek",
+    "model": "deepseek-chat",
+    "iterations": 1,
+    "failure_stage": "",
+    "run_directory": "D:\\LLM-PDDL\\results\\occlusion_formal_test\\refinement\\occlusion_manipulation\\occlusion_easy\\run_hybrid_feedback_deepseek-chat_02",
+    "started_at": "2026-08-22T17:23:16",
+    "finished_at": "2026-08-22T17:23:17",
+    "duration_seconds": 1.106
+  }
+]

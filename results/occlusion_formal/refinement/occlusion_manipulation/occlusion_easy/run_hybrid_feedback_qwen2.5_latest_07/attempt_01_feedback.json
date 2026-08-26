@@ -1,0 +1,70 @@
+{
+  "validation_authority": "VAL",
+  "val_valid": false,
+  "symbolic_verifier_valid": false,
+  "previous_plan": [
+    {
+      "action": "remove-ground-occluder",
+      "args": [
+        "O1",
+        "front_slot",
+        "T1"
+      ]
+    },
+    {
+      "action": "pick-up-target",
+      "args": [
+        "T1",
+        "target_slot"
+      ]
+    },
+    {
+      "action": "put-down-target",
+      "args": [
+        "T1",
+        "goal_region"
+      ]
+    },
+    {
+      "action": "put-down-occluder",
+      "args": [
+        "O1",
+        "temp_A"
+      ]
+    }
+  ],
+  "symbolic_failure_details": {
+    "message": "Missing preconditions: handempty",
+    "failed_step": 2,
+    "failed_action": "pick-up-target(T1, target_slot)",
+    "error": "Missing preconditions: handempty",
+    "state_before_failure": {
+      "at": [
+        [
+          "T1",
+          "target_slot"
+        ]
+      ],
+      "on": [],
+      "clear": [
+        "T1"
+      ],
+      "occludes": [],
+      "accessible": [
+        "T1"
+      ],
+      "holding": [
+        "O1"
+      ],
+      "handempty": false,
+      "free": [
+        "front_slot",
+        "goal_region",
+        "temp_A"
+      ],
+      "target_relocated": false
+    }
+  },
+  "val_output_tail": "(put-down-target t1 goal_region)\n \n4:\n(put-down-occluder o1 temp_a)\n \n\nPlan Validation details\n-----------------------\n\nChecking next happening (time 1)\nDeleting (at o1 front_slot)\nDeleting (occludes o1 t1)\nDeleting (clear o1)\nDeleting (accessible o1)\nDeleting (handempty)\nAdding (holding o1)\nAdding (free front_slot)\nAdding (accessible t1)\n\nChecking next happening (time 2)\nPlan failed because of unsatisfied precondition in:\n(pick-up-target t1 target_slot)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(pick-up-target t1 target_slot) has an unsatisfied precondition at time 2\n(Set (handempty) to true)\n\n\nFailed plans:\n /mnt/d/LLM-PDDL/results/occlusion_formal/refinement/occlusion_manipulation/occlusion_easy/run_hybrid_feedback_qwen2.5_latest_07/attempt_01.plan \n\nw\u0000s\u0000l\u0000:\u0000 \u0000�hKm0R \u0000l\u0000o\u0000c\u0000a\u0000l\u0000h\u0000o\u0000s\u0000t\u0000 \u0000�N\u0006tM�n\n�FO*g\\��P0R \u0000W\u0000S\u0000L\u0000\u00020N\u0000A\u0000T\u0000 \u0000!j\u000f_\nN�v \u0000W\u0000S\u0000L\u0000 \u0000\nN/e\u0001c \u0000l\u0000o\u0000c\u0000a\u0000l\u0000h\u0000o\u0000s\u0000t\u0000 \u0000�N\u0006t\u00020\n\u0000\n\u0000",
+  "repair_instruction": "Generate a complete corrected plan. Fix the failed action and any earlier actions that caused the failed precondition. Do not return only a partial plan."
+}

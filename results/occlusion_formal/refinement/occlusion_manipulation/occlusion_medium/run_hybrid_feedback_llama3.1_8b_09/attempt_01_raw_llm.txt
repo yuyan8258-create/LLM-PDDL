@@ -1,0 +1,32 @@
+Here is the plan for the occlusion_manipulation PDDL domain:
+
+```
+[
+  {
+    "action": "remove-stacked-occluder",
+    "args": ["O2", "O1"]
+  },
+  {
+    "action": "put-down-occluder",
+    "args": ["O2", "temp_A"]
+  },
+  {
+    "action": "remove-ground-occluder",
+    "args": ["O1", "front_slot", "T1"]
+  },
+  {
+    "action": "put-down-occluder",
+    "args": ["O1", "temp_B"]
+  },
+  {
+    "action": "pick-up-target",
+    "args": ["T1", "target_slot"]
+  },
+  {
+    "action": "put-down-target",
+    "args": ["T1", "goal_region"]
+  }
+]
+```
+
+This plan first removes the stacked occluder O2, then puts it down in a temporary location. Next, it removes the ground occluder O1, which reveals the target T1. After that, it puts O1 down in another temporary location. The plan then picks up the target T1 from its original location and puts it down in the goal region.

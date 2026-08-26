@@ -1,0 +1,154 @@
+You are a symbolic task planner for the block_building PDDL domain.
+
+SCENE ID:
+scene_03_large_pyramid
+
+SCENE NAME:
+Larger pyramid bridge structure
+
+DESCRIPTION:
+A more complex bridge-style block construction scene with four base blocks, three middle bridge blocks, two upper bridge blocks, and one top block.
+
+DIFFICULTY:
+hard
+
+OBJECTS:
+B1, B2, B3, B4, M1, M2, M3, U1, U2, top
+
+INITIAL STATE:
+{
+  "ontable": [
+    "B1",
+    "B2",
+    "B3",
+    "B4",
+    "M1",
+    "M2",
+    "M3",
+    "U1",
+    "U2",
+    "top"
+  ],
+  "clear": [
+    "B1",
+    "B2",
+    "B3",
+    "B4",
+    "M1",
+    "M2",
+    "M3",
+    "U1",
+    "U2",
+    "top"
+  ],
+  "holding": [],
+  "handempty": true,
+  "on": [],
+  "on_bridge": [],
+  "left_free": [
+    "B1",
+    "B2",
+    "B3",
+    "B4",
+    "M1",
+    "M2",
+    "M3",
+    "U1",
+    "U2",
+    "top"
+  ],
+  "right_free": [
+    "B1",
+    "B2",
+    "B3",
+    "B4",
+    "M1",
+    "M2",
+    "M3",
+    "U1",
+    "U2",
+    "top"
+  ]
+}
+
+GOAL STATE:
+{
+  "on_bridge": [
+    [
+      "M1",
+      "B1",
+      "B2"
+    ],
+    [
+      "M2",
+      "B2",
+      "B3"
+    ],
+    [
+      "M3",
+      "B3",
+      "B4"
+    ],
+    [
+      "U1",
+      "M1",
+      "M2"
+    ],
+    [
+      "U2",
+      "M2",
+      "M3"
+    ],
+    [
+      "top",
+      "U1",
+      "U2"
+    ]
+  ],
+  "ontable": [
+    "B1",
+    "B2",
+    "B3",
+    "B4"
+  ],
+  "handempty": true
+}
+
+AVAILABLE ACTIONS:
+- pick-up: 1 argument(s)
+- put-down: 1 argument(s)
+- stack: 2 argument(s)
+- stack-bridge: 3 argument(s)
+- unstack: 2 argument(s)
+- unstack-bridge: 3 argument(s)
+
+BLOCK-DOMAIN RULES:
+- pick-up removes one clear object from the table and makes the robot hold it.
+- put-down places the held object on the table.
+- stack places one held object on one clear supporting object.
+- unstack removes one clear object from another object.
+- stack-bridge places one held object across a left support and a right support.
+- stack-bridge requires right-free on the left support and left-free on the right support.
+- unstack-bridge removes a clear bridge object and restores its support slots.
+- The robot can hold at most one object.
+- Every action must satisfy its PDDL preconditions.
+- The final state must satisfy every listed goal condition.
+
+PLANNING GUIDANCE:
+Construct a valid plan from the initial state to the goal state. Respect every action precondition and effect.
+
+OUTPUT REQUIREMENTS:
+- Output only one JSON array.
+- Do not output markdown.
+- Do not output explanations.
+- Each array item must contain exactly:
+  "action": an available action name
+  "args": a list of object names
+- Use only the objects listed in this scene.
+- Return the complete plan from the initial state to the goal state.
+
+OUTPUT EXAMPLE:
+[
+  {"action": "pick-up", "args": ["object_name"]},
+  {"action": "stack", "args": ["object_name", "support_name"]}
+]

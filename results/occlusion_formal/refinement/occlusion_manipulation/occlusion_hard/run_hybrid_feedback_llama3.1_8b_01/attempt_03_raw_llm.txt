@@ -1,0 +1,86 @@
+Here is a repaired complete plan for the occlusion_hard scene:
+
+```
+[
+  {
+    "action": "pick-up-target",
+    "args": [
+      "T1",
+      "target_slot"
+    ]
+  },
+  {
+    "action": "remove-ground-occluder",
+    "args": [
+      "O1",
+      "front_slot",
+      "T1"
+    ]
+  },
+  {
+    "action": "put-down-occluder",
+    "args": [
+      "O1",
+      "temp_A"
+    ]
+  },
+  {
+    "action": "pick-up-temp-occluder",
+    "args": [
+      "O2",
+      "temp_B"
+    ]
+  },
+  {
+    "action": "put-down-occluder",
+    "args": [
+      "O2",
+      "temp_B"
+    ]
+  },
+  {
+    "action": "remove-stacked-occluder",
+    "args": [
+      "O3",
+      "O2"
+    ]
+  },
+  {
+    "action": "put-down-occluder",
+    "args": [
+      "O3",
+      "temp_C"
+    ]
+  },
+  {
+    "action": "put-down-target",
+    "args": [
+      "T1",
+      "goal_region"
+    ]
+  },
+  {
+    "action": "stack-occluder",
+    "args": [
+      "O3",
+      "O2"
+    ]
+  },
+  {
+    "action": "stack-occluder",
+    "args": [
+      "O2",
+      "O1"
+    ]
+  },
+  {
+    "action": "restore-ground-occluder",
+    "args": [
+      "O1",
+      "front_slot"
+    ]
+  }
+]
+```
+
+This plan follows the correct sequence of actions to solve the occlusion_hard scene, including picking up the target, removing the ground occluder, putting down the occluders, removing the stacked occluder, putting down the target, stacking the occluders, and restoring the ground occluder.

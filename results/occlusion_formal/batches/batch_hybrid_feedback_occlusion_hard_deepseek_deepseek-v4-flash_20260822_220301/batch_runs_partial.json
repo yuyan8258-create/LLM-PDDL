@@ -1,0 +1,18 @@
+[
+  {
+    "batch_run_index": 1,
+    "completed": true,
+    "success": true,
+    "scene": "occlusion_hard",
+    "mode": "llm",
+    "method": "hybrid_feedback",
+    "provider": "deepseek",
+    "model": "deepseek-v4-flash",
+    "iterations": 1,
+    "failure_stage": "",
+    "run_directory": "D:\\LLM-PDDL\\results\\occlusion_formal\\refinement\\occlusion_manipulation\\occlusion_hard\\run_hybrid_feedback_deepseek-v4-flash_11",
+    "started_at": "2026-08-22T22:03:01",
+    "finished_at": "2026-08-22T22:09:07",
+    "duration_seconds": 365.794
+  }
+]

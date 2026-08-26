@@ -1,0 +1,10 @@
+Here is a valid plan from the initial state to the goal state:
+
+[
+  {"action": "pick-up", "args": ["blockA"]},
+  {"action": "put-down", "args": ["blockA"]},
+  {"action": "pick-up", "args": ["blockB"]},
+  {"action": "stack", "args": ["blockB", "blockC"]}
+]
+
+This plan satisfies every action precondition and effect, and the final state satisfies every listed goal condition.

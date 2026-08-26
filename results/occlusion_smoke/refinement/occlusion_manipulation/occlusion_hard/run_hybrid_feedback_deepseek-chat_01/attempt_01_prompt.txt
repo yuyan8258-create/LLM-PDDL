@@ -1,0 +1,166 @@
+You are a symbolic task planner for the
+occlusion_manipulation PDDL domain.
+
+SCENE ID:
+occlusion_hard
+
+SCENE NAME:
+Three-layer occlusion with mandatory restoration
+
+DESCRIPTION:
+A Lego-like structural occlusion scene with a three-layer dependency chain. The top occluder O3 blocks O2, O2 blocks the front ground occluder O1, and O1 blocks access to the target brick T1. The robot must remove all three occluders in dependency order, temporarily store them, relocate the target, and then reconstruct the remaining occluder dependency chain. Restoration reconstructs the occluder structure after target relocation; the original O1-to-T1 occlusion is not restored because T1 has moved to the goal location.
+
+DIFFICULTY:
+hard
+
+TYPED OBJECTS:
+- target-brick: T1
+- occluder-brick: O1, O2, O3
+- target-structural-location: target_slot
+- occluder-structural-location: front_slot
+- temporary-location: temp_A, temp_B, temp_C
+- goal-location: goal_region
+
+INITIAL STATE:
+{
+  "at": [
+    [
+      "T1",
+      "target_slot"
+    ],
+    [
+      "O1",
+      "front_slot"
+    ]
+  ],
+  "on": [
+    [
+      "O2",
+      "O1"
+    ],
+    [
+      "O3",
+      "O2"
+    ]
+  ],
+  "occludes": [
+    [
+      "O3",
+      "O2"
+    ],
+    [
+      "O2",
+      "O1"
+    ],
+    [
+      "O1",
+      "T1"
+    ]
+  ],
+  "clear": [
+    "O3",
+    "T1"
+  ],
+  "accessible": [
+    "O3"
+  ],
+  "holding": [],
+  "handempty": true,
+  "free": [
+    "temp_A",
+    "temp_B",
+    "temp_C",
+    "goal_region"
+  ],
+  "target-relocated": false
+}
+
+GOAL STATE:
+{
+  "at": [
+    [
+      "T1",
+      "goal_region"
+    ],
+    [
+      "O1",
+      "front_slot"
+    ]
+  ],
+  "on": [
+    [
+      "O2",
+      "O1"
+    ],
+    [
+      "O3",
+      "O2"
+    ]
+  ],
+  "occludes": [
+    [
+      "O2",
+      "O1"
+    ],
+    [
+      "O3",
+      "O2"
+    ]
+  ],
+  "handempty": true,
+  "target-relocated": true
+}
+
+AVAILABLE ACTIONS:
+- pick-up-target: 2 argument(s)
+- pick-up-temp-occluder: 2 argument(s)
+- put-down-occluder: 2 argument(s)
+- put-down-target: 2 argument(s)
+- remove-ground-occluder: 3 argument(s)
+- remove-stacked-occluder: 2 argument(s)
+- restore-ground-occluder: 2 argument(s)
+- stack-occluder: 2 argument(s)
+
+ACTION ARGUMENT GUIDANCE:
+- pick-up-target: (target, target_structural_location)
+- pick-up-temp-occluder: (occluder, temporary_location)
+- put-down-occluder: (occluder, temporary_location)
+- put-down-target: (target, goal_location)
+- remove-ground-occluder: (occluder, occluder_structural_location, target)
+- remove-stacked-occluder: (occluder, support_occluder)
+- restore-ground-occluder: (occluder, occluder_structural_location)
+- stack-occluder: (occluder, support_occluder)
+
+The AVAILABLE ACTIONS section is authoritative for legal action
+names and argument counts.
+
+ACTION ARGUMENT GUIDANCE only explains the intended argument order
+for frozen Occlusion-v1 actions. It is not an action legality schema.
+
+OCCLUSION-BENCHMARK RULES:
+- The task models a Lego-like structure containing one target brick
+  and removable occluder bricks.
+- occludes(A,B) represents an immediate active occlusion relation,
+  not transitive occlusion.
+- For stacked occluders, on(A,B) together with occlusion relations
+  represent benchmark dependency abstractions rather than full
+  physical simulation.
+- Stacked occluder layers must be cleared in dependency order.
+- The front/ground occluder reveals the target.
+- Removed occluders use temporary locations during clearing.
+- Target relocation must happen before structural restoration.
+- Ground restoration does not recreate the old target occlusion.
+- Do not invent generic pick-up or put-down actions.
+
+
+
+OUTPUT REQUIREMENTS:
+- Output only one JSON array.
+- Do not output markdown.
+- Do not output explanations.
+- Each item must contain:
+  "action"
+  "args"
+- Respect action count and argument guidance.
+- Use only declared objects.
+- Return the complete plan.

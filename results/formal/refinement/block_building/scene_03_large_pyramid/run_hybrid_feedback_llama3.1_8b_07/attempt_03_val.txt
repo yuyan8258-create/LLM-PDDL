@@ -1,0 +1,128 @@
+﻿Checking plan: /mnt/d/LLM-PDDL/results/formal/refinement/block_building/scene_03_large_pyramid/run_hybrid_feedback_llama3.1_8b_07/attempt_03.plan
+Plan to validate:
+
+Plan size: 17
+1:
+(pick-up b1)
+
+2:
+(stack-bridge b1 m1 b2)
+
+3:
+(pick-up b2)
+
+4:
+(stack-bridge b2 m2 b3)
+
+5:
+(pick-up b3)
+
+6:
+(stack-bridge b3 m3 b4)
+
+7:
+(pick-up m1)
+
+8:
+(stack m1 u1)
+
+9:
+(put-down m1)
+
+10:
+(pick-up m2)
+
+11:
+(stack m2 u2)
+
+12:
+(put-down m2)
+
+13:
+(pick-up top)
+
+14:
+(stack top u1)
+
+15:
+(pick-up m1)
+
+16:
+(stack m1 u1)
+
+17:
+(put-down m1)
+
+
+Plan Validation details
+-----------------------
+
+Checking next happening (time 1)
+Deleting (ontable b1)
+Deleting (clear b1)
+Deleting (handempty)
+Adding (holding b1)
+
+Checking next happening (time 2)
+Deleting (holding b1)
+Deleting (right-free m1)
+Deleting (left-free b2)
+Adding (on-bridge b1 m1 b2)
+Adding (clear b1)
+Adding (handempty)
+
+Checking next happening (time 3)
+Deleting (ontable b2)
+Deleting (clear b2)
+Deleting (handempty)
+Adding (holding b2)
+
+Checking next happening (time 4)
+Deleting (holding b2)
+Deleting (right-free m2)
+Deleting (left-free b3)
+Adding (on-bridge b2 m2 b3)
+Adding (clear b2)
+Adding (handempty)
+
+Checking next happening (time 5)
+Deleting (ontable b3)
+Deleting (clear b3)
+Deleting (handempty)
+Adding (holding b3)
+
+Checking next happening (time 6)
+Deleting (holding b3)
+Deleting (right-free m3)
+Deleting (left-free b4)
+Adding (on-bridge b3 m3 b4)
+Adding (clear b3)
+Adding (handempty)
+
+Checking next happening (time 7)
+Deleting (ontable m1)
+Deleting (clear m1)
+Deleting (handempty)
+Adding (holding m1)
+
+Checking next happening (time 8)
+Deleting (holding m1)
+Deleting (clear u1)
+Adding (on m1 u1)
+Adding (clear m1)
+Adding (handempty)
+
+Checking next happening (time 9)
+Plan failed because of unsatisfied precondition in:
+(put-down m1)
+
+Plan failed to execute
+
+Plan Repair Advice:
+
+(put-down m1) has an unsatisfied precondition at time 9
+(Set (holding m1) to true)
+
+
+Failed plans:
+ /mnt/d/LLM-PDDL/results/formal/refinement/block_building/scene_03_large_pyramid/run_hybrid_feedback_llama3.1_8b_07/attempt_03.plan

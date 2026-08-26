@@ -1,0 +1,45 @@
+[
+    {
+        "action": "remove-ground-occluder",
+        "args": [
+            "O1",
+            "front_slot",
+            "T1"
+        ]
+    },
+    {
+        "action": "pick-up-temp-occluder",
+        "args": [
+            "O1",
+            "temp_A"
+        ]
+    },
+    {
+        "action": "put-down-occluder",
+        "args": [
+            "O1",
+            "temp_A"
+        ]
+    },
+    {
+        "action": "pick-up-target",
+        "args": [
+            "T1",
+            "target_slot"
+        ]
+    },
+    {
+        "action": "put-down-target",
+        "args": [
+            "T1",
+            "goal_region"
+        ]
+    },
+    {
+        "action": "put-down-occluder",
+        "args": [
+            "O1",
+            "temp_A"
+        ]
+    }
+]

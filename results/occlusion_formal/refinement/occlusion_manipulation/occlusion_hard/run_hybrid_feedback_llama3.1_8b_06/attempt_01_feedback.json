@@ -1,0 +1,145 @@
+{
+  "validation_authority": "VAL",
+  "val_valid": false,
+  "symbolic_verifier_valid": false,
+  "previous_plan": [
+    {
+      "action": "pick-up-target",
+      "args": [
+        "T1",
+        "target_slot"
+      ]
+    },
+    {
+      "action": "remove-ground-occluder",
+      "args": [
+        "O1",
+        "front_slot",
+        "T1"
+      ]
+    },
+    {
+      "action": "put-down-occluder",
+      "args": [
+        "O1",
+        "temp_A"
+      ]
+    },
+    {
+      "action": "pick-up-temp-occluder",
+      "args": [
+        "O2",
+        "temp_B"
+      ]
+    },
+    {
+      "action": "put-down-occluder",
+      "args": [
+        "O2",
+        "temp_B"
+      ]
+    },
+    {
+      "action": "remove-stacked-occluder",
+      "args": [
+        "O3",
+        "O2"
+      ]
+    },
+    {
+      "action": "put-down-occluder",
+      "args": [
+        "O3",
+        "temp_C"
+      ]
+    },
+    {
+      "action": "put-down-target",
+      "args": [
+        "T1",
+        "goal_region"
+      ]
+    },
+    {
+      "action": "restore-ground-occluder",
+      "args": [
+        "O1",
+        "front_slot"
+      ]
+    },
+    {
+      "action": "stack-occluder",
+      "args": [
+        "O2",
+        "O1"
+      ]
+    },
+    {
+      "action": "stack-occluder",
+      "args": [
+        "O3",
+        "O2"
+      ]
+    }
+  ],
+  "symbolic_failure_details": {
+    "message": "Missing preconditions: accessible(T1)",
+    "failed_step": 1,
+    "failed_action": "pick-up-target(T1, target_slot)",
+    "error": "Missing preconditions: accessible(T1)",
+    "state_before_failure": {
+      "at": [
+        [
+          "O1",
+          "front_slot"
+        ],
+        [
+          "T1",
+          "target_slot"
+        ]
+      ],
+      "on": [
+        [
+          "O2",
+          "O1"
+        ],
+        [
+          "O3",
+          "O2"
+        ]
+      ],
+      "clear": [
+        "O3",
+        "T1"
+      ],
+      "occludes": [
+        [
+          "O1",
+          "T1"
+        ],
+        [
+          "O2",
+          "O1"
+        ],
+        [
+          "O3",
+          "O2"
+        ]
+      ],
+      "accessible": [
+        "O3"
+      ],
+      "holding": [],
+      "handempty": true,
+      "free": [
+        "goal_region",
+        "temp_A",
+        "temp_B",
+        "temp_C"
+      ],
+      "target_relocated": false
+    }
+  },
+  "val_output_tail": "7:\n(put-down-occluder o3 temp_c)\n \n8:\n(put-down-target t1 goal_region)\n \n9:\n(restore-ground-occluder o1 front_slot)\n \n10:\n(stack-occluder o2 o1)\n \n11:\n(stack-occluder o3 o2)\n \n\nPlan Validation details\n-----------------------\n\nChecking next happening (time 1)\nPlan failed because of unsatisfied precondition in:\n(pick-up-target t1 target_slot)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(pick-up-target t1 target_slot) has an unsatisfied precondition at time 1\n(Set (accessible t1) to true)\n\n\nFailed plans:\n /mnt/d/LLM-PDDL/results/occlusion_formal/refinement/occlusion_manipulation/occlusion_hard/run_hybrid_feedback_llama3.1_8b_06/attempt_01.plan \n\nw\u0000s\u0000l\u0000:\u0000 \u0000�hKm0R \u0000l\u0000o\u0000c\u0000a\u0000l\u0000h\u0000o\u0000s\u0000t\u0000 \u0000�N\u0006tM�n\n�FO*g\\��P0R \u0000W\u0000S\u0000L\u0000\u00020N\u0000A\u0000T\u0000 \u0000!j\u000f_\nN�v \u0000W\u0000S\u0000L\u0000 \u0000\nN/e\u0001c \u0000l\u0000o\u0000c\u0000a\u0000l\u0000h\u0000o\u0000s\u0000t\u0000 \u0000�N\u0006t\u00020\n\u0000\n\u0000",
+  "repair_instruction": "Generate a complete corrected plan. Fix the failed action and any earlier actions that caused the failed precondition. Do not return only a partial plan."
+}

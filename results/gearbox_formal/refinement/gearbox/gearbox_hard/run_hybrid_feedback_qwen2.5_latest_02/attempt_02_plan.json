@@ -1,0 +1,65 @@
+[
+  {
+    "action": "assemble-basic",
+    "args": [
+      "input-shaft"
+    ]
+  },
+  {
+    "action": "assemble-basic",
+    "args": [
+      "countershaft"
+    ]
+  },
+  {
+    "action": "assemble-after",
+    "args": [
+      "input-bearing-carrier",
+      "input-shaft"
+    ]
+  },
+  {
+    "action": "assemble-after",
+    "args": [
+      "countershaft-bearing-carrier",
+      "countershaft"
+    ]
+  },
+  {
+    "action": "assemble-after-with-aid",
+    "args": [
+      "drive-gear-assembly",
+      "input-bearing-carrier",
+      "dummy-support-shaft"
+    ]
+  },
+  {
+    "action": "assemble-after-with-aid",
+    "args": [
+      "countershaft-gear-assembly",
+      "countershaft-bearing-carrier",
+      "dummy-support-shaft"
+    ]
+  },
+  {
+    "action": "assemble-after",
+    "args": [
+      "output-gear-assembly",
+      "drive-gear-assembly"
+    ]
+  },
+  {
+    "action": "insert-aid",
+    "args": [
+      "dummy-support-shaft"
+    ]
+  },
+  {
+    "action": "withdraw-aid-after-two",
+    "args": [
+      "dummy-support-shaft",
+      "countershaft-gear-assembly",
+      "output-gear-assembly"
+    ]
+  }
+]

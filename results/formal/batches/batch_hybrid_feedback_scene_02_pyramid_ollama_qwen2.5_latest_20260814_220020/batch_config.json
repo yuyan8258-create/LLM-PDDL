@@ -1,0 +1,11 @@
+{
+  "batch_id": "batch_hybrid_feedback_scene_02_pyramid_ollama_qwen2.5_latest_20260814_220020",
+  "scene": "scene_02_pyramid",
+  "provider": "ollama",
+  "model": "qwen2.5:latest",
+  "method": "hybrid_feedback",
+  "number_of_runs": 10,
+  "max_iterations": 3,
+  "started_at": "2026-08-14T22:00:20",
+  "batch_directory": "D:\\LLM-PDDL\\results\\formal\\batches\\batch_hybrid_feedback_scene_02_pyramid_ollama_qwen2.5_latest_20260814_220020"
+}

@@ -1,0 +1,11 @@
+{
+  "batch_id": "batch_pure_llm_occlusion_easy_deepseek_deepseek-chat_20260822_172302",
+  "scene": "occlusion_easy",
+  "provider": "deepseek",
+  "model": "deepseek-chat",
+  "method": "pure_llm",
+  "number_of_runs": 2,
+  "max_iterations": 1,
+  "started_at": "2026-08-22T17:23:02",
+  "batch_directory": "D:\\LLM-PDDL\\results\\occlusion_formal_test\\batches\\batch_pure_llm_occlusion_easy_deepseek_deepseek-chat_20260822_172302"
+}

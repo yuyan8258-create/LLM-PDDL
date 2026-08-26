@@ -1,0 +1,11 @@
+{
+  "batch_id": "batch_hybrid_feedback_scene_03_large_pyramid_deepseek_deepseek-v4-flash_20260814_224722",
+  "scene": "scene_03_large_pyramid",
+  "provider": "deepseek",
+  "model": "deepseek-v4-flash",
+  "method": "hybrid_feedback",
+  "number_of_runs": 10,
+  "max_iterations": 3,
+  "started_at": "2026-08-14T22:47:22",
+  "batch_directory": "D:\\LLM-PDDL\\results\\formal\\batches\\batch_hybrid_feedback_scene_03_large_pyramid_deepseek_deepseek-v4-flash_20260814_224722"
+}

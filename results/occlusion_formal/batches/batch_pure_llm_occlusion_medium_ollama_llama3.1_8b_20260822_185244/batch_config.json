@@ -1,0 +1,11 @@
+{
+  "batch_id": "batch_pure_llm_occlusion_medium_ollama_llama3.1_8b_20260822_185244",
+  "scene": "occlusion_medium",
+  "provider": "ollama",
+  "model": "llama3.1:8b",
+  "method": "pure_llm",
+  "number_of_runs": 10,
+  "max_iterations": 1,
+  "started_at": "2026-08-22T18:52:44",
+  "batch_directory": "D:\\LLM-PDDL\\results\\occlusion_formal\\batches\\batch_pure_llm_occlusion_medium_ollama_llama3.1_8b_20260822_185244"
+}

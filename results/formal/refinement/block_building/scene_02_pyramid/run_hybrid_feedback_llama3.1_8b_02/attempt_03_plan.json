@@ -1,0 +1,94 @@
+[
+  {
+    "action": "pick-up",
+    "args": [
+      "B1"
+    ]
+  },
+  {
+    "action": "stack-bridge",
+    "args": [
+      "B1",
+      "B2",
+      "B3"
+    ]
+  },
+  {
+    "action": "pick-up",
+    "args": [
+      "B4"
+    ]
+  },
+  {
+    "action": "stack-bridge",
+    "args": [
+      "B4",
+      "B1",
+      "B2"
+    ]
+  },
+  {
+    "action": "pick-up",
+    "args": [
+      "B5"
+    ]
+  },
+  {
+    "action": "stack",
+    "args": [
+      "B5",
+      "B2"
+    ]
+  },
+  {
+    "action": "pick-up",
+    "args": [
+      "B3"
+    ]
+  },
+  {
+    "action": "stack",
+    "args": [
+      "B3",
+      "B2"
+    ]
+  },
+  {
+    "action": "pick-up",
+    "args": [
+      "pyramid"
+    ]
+  },
+  {
+    "action": "stack-bridge",
+    "args": [
+      "pyramid",
+      "B4",
+      "B5"
+    ]
+  },
+  {
+    "action": "put-down",
+    "args": [
+      "pyramid"
+    ]
+  },
+  {
+    "action": "put-down",
+    "args": [
+      "B4"
+    ]
+  },
+  {
+    "action": "put-down",
+    "args": [
+      "B5"
+    ]
+  },
+  {
+    "action": "put-down",
+    "args": [
+      "B3"
+    ]
+  }
+]

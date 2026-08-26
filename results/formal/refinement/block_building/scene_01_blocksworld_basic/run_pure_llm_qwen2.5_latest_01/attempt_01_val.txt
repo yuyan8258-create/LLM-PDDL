@@ -1,0 +1,34 @@
+﻿Checking plan: /mnt/e/桌面/LLM-PDDL/results/formal/refinement/block_building/scene_01_blocksworld_basic/run_pure_llm_qwen2.5_latest_01/attempt_01.plan
+Plan to validate:
+
+Plan size: 4
+1:
+(pick-up blocka)
+
+2:
+(put-down blockb)
+
+3:
+(put-down blocka)
+
+4:
+(stack blockb blockc)
+
+
+Plan Validation details
+-----------------------
+
+Checking next happening (time 1)
+Plan failed because of unsatisfied precondition in:
+(pick-up blocka)
+
+Plan failed to execute
+
+Plan Repair Advice:
+
+(pick-up blocka) has an unsatisfied precondition at time 1
+(Set (ontable blocka) to true)
+
+
+Failed plans:
+ /mnt/e/桌面/LLM-PDDL/results/formal/refinement/block_building/scene_01_blocksworld_basic/run_pure_llm_qwen2.5_latest_01/attempt_01.plan

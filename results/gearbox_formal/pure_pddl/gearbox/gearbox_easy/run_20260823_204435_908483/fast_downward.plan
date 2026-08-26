@@ -1,0 +1,5 @@
+(assemble-basic gearbox-housing)
+(assemble-after input-shaft gearbox-housing)
+(assemble-after countershaft input-shaft)
+(assemble-after input-bearing-carrier countershaft)
+; cost = 4 (unit cost)

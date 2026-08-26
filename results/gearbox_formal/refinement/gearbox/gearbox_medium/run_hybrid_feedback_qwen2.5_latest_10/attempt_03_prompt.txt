@@ -1,0 +1,195 @@
+You are a symbolic task planner for the gearbox PDDL domain.
+
+SCENE ID:
+gearbox_medium
+
+SCENE NAME:
+Gearbox Assembly - Medium
+
+DESCRIPTION:
+A symbolic gearbox assembly task with typed components and explicit assembly constraints.
+
+DIFFICULTY:
+medium
+
+TYPED OBJECTS:
+{
+  "permanent-component": [
+    "gearbox-housing",
+    "input-shaft",
+    "countershaft",
+    "input-bearing-carrier"
+  ],
+  "temporary-aid": [
+    "dummy-support-shaft"
+  ]
+}
+
+SEMANTIC INITIAL STATE:
+{
+  "assembled": [],
+  "aid_present": [],
+  "precedes": [
+    [
+      "gearbox-housing",
+      "input-shaft"
+    ],
+    [
+      "input-shaft",
+      "countershaft"
+    ],
+    [
+      "countershaft",
+      "input-bearing-carrier"
+    ]
+  ],
+  "requires_aid": [
+    [
+      "input-bearing-carrier",
+      "dummy-support-shaft"
+    ]
+  ]
+}
+
+GOAL STATE:
+{
+  "assembled": [
+    "gearbox-housing",
+    "input-shaft",
+    "countershaft",
+    "input-bearing-carrier"
+  ]
+}
+
+NEGATIVE GOAL STATE:
+{
+  "aid_present": [
+    "dummy-support-shaft"
+  ]
+}
+
+AVAILABLE ACTIONS:
+- assemble-after: 2 argument(s)
+- assemble-after-with-aid: 3 argument(s)
+- assemble-basic: 1 argument(s)
+- assemble-with-aid: 2 argument(s)
+- insert-aid: 1 argument(s)
+- withdraw-aid-after-one: 2 argument(s)
+- withdraw-aid-after-two: 3 argument(s)
+
+ACTION ARGUMENT GUIDANCE:
+- assemble-basic: (component)
+- assemble-after: (component, predecessor)
+- assemble-with-aid: (component, aid)
+- assemble-after-with-aid: (component, predecessor, aid)
+- insert-aid: (aid)
+- withdraw-aid-after-one: (aid, component)
+- withdraw-aid-after-two: (aid, component_1, component_2)
+
+GEARBOX-BENCHMARK RULES:
+- Permanent components may have explicit assembly-order constraints.
+- precedes(A,B) means A must be assembled before B.
+- requires-aid(P,T) means temporary aid T must be present while P is assembled.
+- A temporary aid may be inserted when it is absent.
+- A temporary aid may be withdrawn only after every permanent component
+  requiring that aid has been assembled.
+- The final configuration must satisfy all positive goals and all
+  negative goals.
+- The four assemble-* actions represent the same conceptual assembly
+  operation under different dependency structures.
+- Do not invent additional actions, stages, resources, locations, or
+  physical simulation rules.
+
+The AVAILABLE ACTIONS section is authoritative for legal action names
+and argument counts.
+
+ACTION ARGUMENT GUIDANCE explains parameter order only. It does not
+replace the benchmark preconditions.
+
+
+
+PREVIOUS VERIFICATION FEEDBACK:
+{
+  "validation_authority": "VAL",
+  "val_valid": false,
+  "symbolic_verifier_valid": false,
+  "previous_plan": [
+    {
+      "action": "assemble-basic",
+      "args": [
+        "gearbox-housing"
+      ]
+    },
+    {
+      "action": "assemble-after",
+      "args": [
+        "input-shaft",
+        "gearbox-housing"
+      ]
+    },
+    {
+      "action": "assemble-after",
+      "args": [
+        "countershaft",
+        "input-shaft"
+      ]
+    },
+    {
+      "action": "assemble-after",
+      "args": [
+        "input-bearing-carrier",
+        "countershaft"
+      ]
+    },
+    {
+      "action": "insert-aid",
+      "args": [
+        "dummy-support-shaft"
+      ]
+    },
+    {
+      "action": "assemble-with-aid",
+      "args": [
+        "input-bearing-carrier",
+        "dummy-support-shaft"
+      ]
+    },
+    {
+      "action": "withdraw-aid-after-two",
+      "args": [
+        "dummy-support-shaft",
+        "input-shaft",
+        "countershaft"
+      ]
+    }
+  ],
+  "symbolic_failure_details": {
+    "message": "Invalid assemble-after: component has an aid requirement",
+    "failed_step": 4,
+    "failed_action": "assemble-after(input-bearing-carrier, countershaft)",
+    "error": "Invalid assemble-after: component has an aid requirement",
+    "state_before_failure": {
+      "assembled": [
+        "countershaft",
+        "gearbox-housing",
+        "input-shaft"
+      ],
+      "aid_present": []
+    }
+  },
+  "val_output_tail": "6:\n(assemble-with-aid input-bearing-carrier dummy-support-shaft)\n \n7:\n(withdraw-aid-after-two dummy-support-shaft input-shaft countershaft)\n \n\nPlan Validation details\n-----------------------\n\nChecking next happening (time 1)\nAdding (assembled gearbox-housing)\n\nChecking next happening (time 2)\nAdding (assembled input-shaft)\n\nChecking next happening (time 3)\nAdding (assembled countershaft)\n\nChecking next happening (time 4)\nPlan failed because of unsatisfied precondition in:\n(assemble-after input-bearing-carrier countershaft)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(assemble-after input-bearing-carrier countershaft) has an unsatisfied precondition at time 4\n(Set (has-aid-requirement input-bearing-carrier) to false)\n\n\nFailed plans:\n /mnt/d/LLM-PDDL/results/gearbox_formal/refinement/gearbox/gearbox_medium/run_hybrid_feedback_qwen2.5_latest_10/attempt_02.plan \n\nw\u0000s\u0000l\u0000:\u0000 \u0000�hKm0R \u0000l\u0000o\u0000c\u0000a\u0000l\u0000h\u0000o\u0000s\u0000t\u0000 \u0000�N\u0006tM�n\n�FO*g\\��P0R \u0000W\u0000S\u0000L\u0000\u00020N\u0000A\u0000T\u0000 \u0000!j\u000f_\nN�v \u0000W\u0000S\u0000L\u0000 \u0000\nN/e\u0001c \u0000l\u0000o\u0000c\u0000a\u0000l\u0000h\u0000o\u0000s\u0000t\u0000 \u0000�N\u0006t\u00020\n\u0000\n\u0000",
+  "repair_instruction": "Generate a complete corrected plan. Fix the failed action and any earlier actions that caused the failed precondition. Do not return only a partial plan."
+}
+
+Return a repaired complete plan, not only the corrected action.
+
+
+OUTPUT REQUIREMENTS:
+- Output only one JSON array.
+- Do not output markdown.
+- Do not output explanations.
+- Each item must contain exactly:
+  "action"
+  "args"
+- Use only declared objects.
+- Return the complete plan from the initial state to the final goal.

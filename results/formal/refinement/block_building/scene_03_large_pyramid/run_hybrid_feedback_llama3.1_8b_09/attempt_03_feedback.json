@@ -1,0 +1,131 @@
+{
+  "validation_authority": "VAL",
+  "val_valid": false,
+  "symbolic_verifier_valid": false,
+  "previous_plan": [
+    {
+      "action": "pick-up",
+      "args": [
+        "top"
+      ]
+    },
+    {
+      "action": "stack",
+      "args": [
+        "top",
+        "U1"
+      ]
+    },
+    {
+      "action": "stack-bridge",
+      "args": [
+        "M1",
+        "B1",
+        "B2"
+      ]
+    },
+    {
+      "action": "stack-bridge",
+      "args": [
+        "M2",
+        "B2",
+        "B3"
+      ]
+    },
+    {
+      "action": "stack-bridge",
+      "args": [
+        "M3",
+        "B3",
+        "B4"
+      ]
+    },
+    {
+      "action": "stack-bridge",
+      "args": [
+        "U1",
+        "M1",
+        "M2"
+      ]
+    },
+    {
+      "action": "stack-bridge",
+      "args": [
+        "U2",
+        "M2",
+        "M3"
+      ]
+    },
+    {
+      "action": "put-down",
+      "args": [
+        "top"
+      ]
+    }
+  ],
+  "symbolic_failure_details": {
+    "message": "Missing preconditions: holding(M1)",
+    "failed_step": 3,
+    "failed_action": "stack-bridge(M1, B1, B2)",
+    "error": "Missing preconditions: holding(M1)",
+    "state_before_failure": {
+      "ontable": [
+        "B1",
+        "B2",
+        "B3",
+        "B4",
+        "M1",
+        "M2",
+        "M3",
+        "U1",
+        "U2"
+      ],
+      "on": [
+        [
+          "top",
+          "U1"
+        ]
+      ],
+      "on_bridge": [],
+      "clear": [
+        "B1",
+        "B2",
+        "B3",
+        "B4",
+        "M1",
+        "M2",
+        "M3",
+        "U2",
+        "top"
+      ],
+      "holding": [],
+      "handempty": true,
+      "left_free": [
+        "B1",
+        "B2",
+        "B3",
+        "B4",
+        "M1",
+        "M2",
+        "M3",
+        "U1",
+        "U2",
+        "top"
+      ],
+      "right_free": [
+        "B1",
+        "B2",
+        "B3",
+        "B4",
+        "M1",
+        "M2",
+        "M3",
+        "U1",
+        "U2",
+        "top"
+      ]
+    }
+  },
+  "val_output_tail": "6:\n(stack-bridge u1 m1 m2)\n \n7:\n(stack-bridge u2 m2 m3)\n \n8:\n(put-down top)\n \n\nPlan Validation details\n-----------------------\n\nChecking next happening (time 1)\nDeleting (ontable top)\nDeleting (clear top)\nDeleting (handempty)\nAdding (holding top)\n\nChecking next happening (time 2)\nDeleting (holding top)\nDeleting (clear u1)\nAdding (on top u1)\nAdding (clear top)\nAdding (handempty)\n\nChecking next happening (time 3)\nPlan failed because of unsatisfied precondition in:\n(stack-bridge m1 b1 b2)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(stack-bridge m1 b1 b2) has an unsatisfied precondition at time 3\n(Set (holding m1) to true)\n\n\nFailed plans:\n /mnt/d/LLM-PDDL/results/formal/refinement/block_building/scene_03_large_pyramid/run_hybrid_feedback_llama3.1_8b_09/attempt_03.plan",
+  "repair_instruction": "Generate a complete corrected plan. Fix the failed action and any earlier actions that caused the failed precondition. Do not return only a partial plan."
+}

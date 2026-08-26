@@ -1,0 +1,331 @@
+You are a symbolic task planner for the block_building PDDL domain.
+
+SCENE ID:
+scene_03_large_pyramid
+
+SCENE NAME:
+Larger pyramid bridge structure
+
+DESCRIPTION:
+A more complex bridge-style block construction scene with four base blocks, three middle bridge blocks, two upper bridge blocks, and one top block.
+
+DIFFICULTY:
+hard
+
+OBJECTS:
+B1, B2, B3, B4, M1, M2, M3, U1, U2, top
+
+INITIAL STATE:
+{
+  "ontable": [
+    "B1",
+    "B2",
+    "B3",
+    "B4",
+    "M1",
+    "M2",
+    "M3",
+    "U1",
+    "U2",
+    "top"
+  ],
+  "clear": [
+    "B1",
+    "B2",
+    "B3",
+    "B4",
+    "M1",
+    "M2",
+    "M3",
+    "U1",
+    "U2",
+    "top"
+  ],
+  "holding": [],
+  "handempty": true,
+  "on": [],
+  "on_bridge": [],
+  "left_free": [
+    "B1",
+    "B2",
+    "B3",
+    "B4",
+    "M1",
+    "M2",
+    "M3",
+    "U1",
+    "U2",
+    "top"
+  ],
+  "right_free": [
+    "B1",
+    "B2",
+    "B3",
+    "B4",
+    "M1",
+    "M2",
+    "M3",
+    "U1",
+    "U2",
+    "top"
+  ]
+}
+
+GOAL STATE:
+{
+  "on_bridge": [
+    [
+      "M1",
+      "B1",
+      "B2"
+    ],
+    [
+      "M2",
+      "B2",
+      "B3"
+    ],
+    [
+      "M3",
+      "B3",
+      "B4"
+    ],
+    [
+      "U1",
+      "M1",
+      "M2"
+    ],
+    [
+      "U2",
+      "M2",
+      "M3"
+    ],
+    [
+      "top",
+      "U1",
+      "U2"
+    ]
+  ],
+  "ontable": [
+    "B1",
+    "B2",
+    "B3",
+    "B4"
+  ],
+  "handempty": true
+}
+
+AVAILABLE ACTIONS:
+- pick-up: 1 argument(s)
+- put-down: 1 argument(s)
+- stack: 2 argument(s)
+- stack-bridge: 3 argument(s)
+- unstack: 2 argument(s)
+- unstack-bridge: 3 argument(s)
+
+BLOCK-DOMAIN RULES:
+- pick-up removes one clear object from the table and makes the robot hold it.
+- put-down places the held object on the table.
+- stack places one held object on one clear supporting object.
+- unstack removes one clear object from another object.
+- stack-bridge places one held object across a left support and a right support.
+- stack-bridge requires right-free on the left support and left-free on the right support.
+- unstack-bridge removes a clear bridge object and restores its support slots.
+- The robot can hold at most one object.
+- Every action must satisfy its PDDL preconditions.
+- The final state must satisfy every listed goal condition.
+
+PLANNING GUIDANCE:
+Construct a valid plan from the initial state to the goal state. Respect every action precondition and effect.
+
+
+PREVIOUS VERIFICATION FEEDBACK:
+{
+  "validation_authority": "VAL",
+  "val_valid": false,
+  "symbolic_verifier_valid": false,
+  "previous_plan": [
+    {
+      "action": "pick-up",
+      "args": [
+        "B1"
+      ]
+    },
+    {
+      "action": "stack-bridge",
+      "args": [
+        "B1",
+        "M1",
+        "B2"
+      ]
+    },
+    {
+      "action": "pick-up",
+      "args": [
+        "B2"
+      ]
+    },
+    {
+      "action": "stack-bridge",
+      "args": [
+        "B2",
+        "M2",
+        "B3"
+      ]
+    },
+    {
+      "action": "pick-up",
+      "args": [
+        "B3"
+      ]
+    },
+    {
+      "action": "stack-bridge",
+      "args": [
+        "B3",
+        "M3",
+        "B4"
+      ]
+    },
+    {
+      "action": "pick-up",
+      "args": [
+        "M1"
+      ]
+    },
+    {
+      "action": "stack",
+      "args": [
+        "M1",
+        "U1"
+      ]
+    },
+    {
+      "action": "put-down",
+      "args": [
+        "M1"
+      ]
+    },
+    {
+      "action": "pick-up",
+      "args": [
+        "M2"
+      ]
+    },
+    {
+      "action": "stack",
+      "args": [
+        "M2",
+        "U2"
+      ]
+    },
+    {
+      "action": "put-down",
+      "args": [
+        "M2"
+      ]
+    },
+    {
+      "action": "pick-up",
+      "args": [
+        "top"
+      ]
+    },
+    {
+      "action": "stack",
+      "args": [
+        "top",
+        "U1"
+      ]
+    }
+  ],
+  "symbolic_failure_details": {
+    "message": "Missing precondition: holding(M1)",
+    "failed_step": 9,
+    "failed_action": "put-down(M1)",
+    "error": "Missing precondition: holding(M1)",
+    "state_before_failure": {
+      "ontable": [
+        "B4",
+        "M2",
+        "M3",
+        "U1",
+        "U2",
+        "top"
+      ],
+      "on": [
+        [
+          "M1",
+          "U1"
+        ]
+      ],
+      "on_bridge": [
+        [
+          "B1",
+          "M1",
+          "B2"
+        ],
+        [
+          "B2",
+          "M2",
+          "B3"
+        ],
+        [
+          "B3",
+          "M3",
+          "B4"
+        ]
+      ],
+      "clear": [
+        "B1",
+        "B2",
+        "B3",
+        "B4",
+        "M1",
+        "M2",
+        "M3",
+        "U2",
+        "top"
+      ],
+      "holding": [],
+      "handempty": true,
+      "left_free": [
+        "B1",
+        "M1",
+        "M2",
+        "M3",
+        "U1",
+        "U2",
+        "top"
+      ],
+      "right_free": [
+        "B1",
+        "B2",
+        "B3",
+        "B4",
+        "U1",
+        "U2",
+        "top"
+      ]
+    }
+  },
+  "val_output_tail": "Deleting (ontable b3)\nDeleting (clear b3)\nDeleting (handempty)\nAdding (holding b3)\n\nChecking next happening (time 6)\nDeleting (holding b3)\nDeleting (right-free m3)\nDeleting (left-free b4)\nAdding (on-bridge b3 m3 b4)\nAdding (clear b3)\nAdding (handempty)\n\nChecking next happening (time 7)\nDeleting (ontable m1)\nDeleting (clear m1)\nDeleting (handempty)\nAdding (holding m1)\n\nChecking next happening (time 8)\nDeleting (holding m1)\nDeleting (clear u1)\nAdding (on m1 u1)\nAdding (clear m1)\nAdding (handempty)\n\nChecking next happening (time 9)\nPlan failed because of unsatisfied precondition in:\n(put-down m1)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(put-down m1) has an unsatisfied precondition at time 9\n(Set (holding m1) to true)\n\n\nFailed plans:\n /mnt/d/LLM-PDDL/results/formal/refinement/block_building/scene_03_large_pyramid/run_hybrid_feedback_llama3.1_8b_10/attempt_02.plan",
+  "repair_instruction": "Generate a complete corrected plan. Fix the failed action and any earlier actions that caused the failed precondition. Do not return only a partial plan."
+}
+
+Return a repaired complete plan, not only the corrected action.
+
+OUTPUT REQUIREMENTS:
+- Output only one JSON array.
+- Do not output markdown.
+- Do not output explanations.
+- Each array item must contain exactly:
+  "action": an available action name
+  "args": a list of object names
+- Use only the objects listed in this scene.
+- Return the complete plan from the initial state to the goal state.
+
+OUTPUT EXAMPLE:
+[
+  {"action": "pick-up", "args": ["object_name"]},
+  {"action": "stack", "args": ["object_name", "support_name"]}
+]

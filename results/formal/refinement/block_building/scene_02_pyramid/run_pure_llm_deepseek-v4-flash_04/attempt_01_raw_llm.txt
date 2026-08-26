@@ -1,0 +1,8 @@
+[
+  {"action": "pick-up", "args": ["B4"]},
+  {"action": "stack-bridge", "args": ["B4", "B1", "B2"]},
+  {"action": "pick-up", "args": ["B5"]},
+  {"action": "stack-bridge", "args": ["B5", "B2", "B3"]},
+  {"action": "pick-up", "args": ["pyramid"]},
+  {"action": "stack-bridge", "args": ["pyramid", "B4", "B5"]}
+]

@@ -1,0 +1,19 @@
+{
+  "scene": "gearbox_hard",
+  "domain": "gearbox",
+  "method": "pure_pddl",
+  "planner": "fast_downward",
+  "planner_alias": "lama-first",
+  "success": true,
+  "plan_steps": 10,
+  "planner_return_code": 0,
+  "planner_runtime_seconds": 4.164707099902444,
+  "symbolic_valid": true,
+  "val_valid": true,
+  "val_return_code": 0,
+  "val_runtime_seconds": 0.08817120001185685,
+  "started_at": "2026-08-23T21:12:56",
+  "finished_at": "2026-08-23T21:13:01",
+  "duration_seconds": 4.257,
+  "run_directory": "D:\\LLM-PDDL\\results\\gearbox_formal\\pure_pddl\\gearbox\\gearbox_hard\\run_20260823_211256_853765"
+}

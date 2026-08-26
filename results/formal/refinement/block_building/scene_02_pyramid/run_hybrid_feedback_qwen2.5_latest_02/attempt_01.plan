@@ -1,0 +1,3 @@
+(stack-bridge b4 b1 b2)
+(stack-bridge b5 b2 b3)
+(stack-bridge pyramid b4 b5)

@@ -1,0 +1,11 @@
+{
+  "batch_id": "batch_hybrid_feedback_gearbox_easy_deepseek_deepseek-v4-flash_20260823_204951",
+  "scene": "gearbox_easy",
+  "provider": "deepseek",
+  "model": "deepseek-v4-flash",
+  "method": "hybrid_feedback",
+  "number_of_runs": 10,
+  "max_iterations": 3,
+  "started_at": "2026-08-23T20:49:51",
+  "batch_directory": "D:\\LLM-PDDL\\results\\gearbox_formal\\batches\\batch_hybrid_feedback_gearbox_easy_deepseek_deepseek-v4-flash_20260823_204951"
+}

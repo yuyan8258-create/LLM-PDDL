@@ -1,0 +1,74 @@
+﻿Checking plan: /mnt/e/桌面/LLM-PDDL/results/formal/refinement/block_building/scene_02_pyramid/run_pure_llm_deepseek-v4-flash_02/attempt_01.plan
+Plan to validate:
+
+Plan size: 6
+1:
+(pick-up b4)
+
+2:
+(stack-bridge b4 b1 b2)
+
+3:
+(pick-up b5)
+
+4:
+(stack-bridge b5 b2 b3)
+
+5:
+(pick-up pyramid)
+
+6:
+(stack-bridge pyramid b4 b5)
+
+
+Plan Validation details
+-----------------------
+
+Checking next happening (time 1)
+Deleting (ontable b4)
+Deleting (clear b4)
+Deleting (handempty)
+Adding (holding b4)
+
+Checking next happening (time 2)
+Deleting (holding b4)
+Deleting (right-free b1)
+Deleting (left-free b2)
+Adding (on-bridge b4 b1 b2)
+Adding (clear b4)
+Adding (handempty)
+
+Checking next happening (time 3)
+Deleting (ontable b5)
+Deleting (clear b5)
+Deleting (handempty)
+Adding (holding b5)
+
+Checking next happening (time 4)
+Deleting (holding b5)
+Deleting (right-free b2)
+Deleting (left-free b3)
+Adding (on-bridge b5 b2 b3)
+Adding (clear b5)
+Adding (handempty)
+
+Checking next happening (time 5)
+Deleting (ontable pyramid)
+Deleting (clear pyramid)
+Deleting (handempty)
+Adding (holding pyramid)
+
+Checking next happening (time 6)
+Deleting (holding pyramid)
+Deleting (right-free b4)
+Deleting (left-free b5)
+Adding (on-bridge pyramid b4 b5)
+Adding (clear pyramid)
+Adding (handempty)
+Plan executed successfully - checking goal
+Plan valid
+Final value: 6
+
+Successful plans:
+Value: 6
+ /mnt/e/桌面/LLM-PDDL/results/formal/refinement/block_building/scene_02_pyramid/run_pure_llm_deepseek-v4-flash_02/attempt_01.plan 6

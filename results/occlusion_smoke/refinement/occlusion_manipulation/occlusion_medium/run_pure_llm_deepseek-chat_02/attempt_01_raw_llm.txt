@@ -1,0 +1,1 @@
+["remove-stacked-occluder", ["O2", "O1"]], ["put-down-occluder", ["O2", "temp_A"]], ["remove-ground-occluder", ["O1", "front_slot", "T1"]], ["put-down-occluder", ["O1", "temp_B"]], ["pick-up-target", ["T1", "target_slot"]], ["put-down-target", ["T1", "goal_region"]]

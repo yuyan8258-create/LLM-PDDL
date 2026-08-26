@@ -1,0 +1,92 @@
+﻿Checking plan: /mnt/e/桌面/LLM-PDDL/results/formal/refinement/block_building/scene_02_pyramid/run_hybrid_feedback_llama3.1_8b_08/attempt_01.plan
+Plan to validate:
+
+Plan size: 11
+1:
+(pick-up b1)
+
+2:
+(stack-bridge b1 b2 b3)
+
+3:
+(pick-up b4)
+
+4:
+(stack-bridge b4 b1 b2)
+
+5:
+(pick-up b5)
+
+6:
+(stack-bridge b5 b2 b3)
+
+7:
+(pick-up pyramid)
+
+8:
+(stack-bridge pyramid b4 b5)
+
+9:
+(put-down pyramid)
+
+10:
+(put-down b4)
+
+11:
+(put-down b5)
+
+
+Plan Validation details
+-----------------------
+
+Checking next happening (time 1)
+Deleting (ontable b1)
+Deleting (clear b1)
+Deleting (handempty)
+Adding (holding b1)
+
+Checking next happening (time 2)
+Deleting (holding b1)
+Deleting (right-free b2)
+Deleting (left-free b3)
+Adding (on-bridge b1 b2 b3)
+Adding (clear b1)
+Adding (handempty)
+
+Checking next happening (time 3)
+Deleting (ontable b4)
+Deleting (clear b4)
+Deleting (handempty)
+Adding (holding b4)
+
+Checking next happening (time 4)
+Deleting (holding b4)
+Deleting (right-free b1)
+Deleting (left-free b2)
+Adding (on-bridge b4 b1 b2)
+Adding (clear b4)
+Adding (handempty)
+
+Checking next happening (time 5)
+Deleting (ontable b5)
+Deleting (clear b5)
+Deleting (handempty)
+Adding (holding b5)
+
+Checking next happening (time 6)
+Plan failed because of unsatisfied precondition in:
+(stack-bridge b5 b2 b3)
+
+Plan failed to execute
+
+Plan Repair Advice:
+
+(stack-bridge b5 b2 b3) has an unsatisfied precondition at time 6
+(Follow each of:
+    (Set (right-free b2) to true)
+    and (Set (left-free b3) to true)
+)
+
+
+Failed plans:
+ /mnt/e/桌面/LLM-PDDL/results/formal/refinement/block_building/scene_02_pyramid/run_hybrid_feedback_llama3.1_8b_08/attempt_01.plan

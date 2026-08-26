@@ -1,0 +1,48 @@
+Based on the provided PDDL domain, I will generate a symbolic task plan for the gearbox assembly task. Here is the plan:
+
+```
+[
+  {
+    "action": "assemble-basic",
+    "args": ["gearbox-housing"]
+  },
+  {
+    "action": "assemble-after",
+    "args": ["input-shaft", "gearbox-housing"]
+  },
+  {
+    "action": "assemble-after",
+    "args": ["countershaft", "input-shaft"]
+  },
+  {
+    "action": "assemble-after",
+    "args": ["input-bearing-carrier", "countershaft"]
+  },
+  {
+    "action": "insert-aid",
+    "args": ["dummy-support-shaft"]
+  },
+  {
+    "action": "assemble-with-aid",
+    "args": ["input-bearing-carrier", "dummy-support-shaft"]
+  },
+  {
+    "action": "withdraw-aid-after-one",
+    "args": ["dummy-support-shaft", "input-bearing-carrier"]
+  },
+  {
+    "action": "withdraw-aid-after-one",
+    "args": ["dummy-support-shaft", "countershaft"]
+  },
+  {
+    "action": "withdraw-aid-after-one",
+    "args": ["dummy-support-shaft", "input-shaft"]
+  },
+  {
+    "action": "withdraw-aid-after-one",
+    "args": ["dummy-support-shaft", "gearbox-housing"]
+  }
+]
+```
+
+This plan satisfies the positive goal state by assembling all the required components in the correct order, and it also satisfies the negative goal state by withdrawing the temporary aid after every permanent component requiring that aid has been assembled.

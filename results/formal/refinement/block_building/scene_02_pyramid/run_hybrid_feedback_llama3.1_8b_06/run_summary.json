@@ -1,0 +1,481 @@
+{
+  "scene": "scene_02_pyramid",
+  "mode": "llm",
+  "method": "hybrid_feedback",
+  "provider": "ollama",
+  "model": "llama3.1:8b",
+  "success": false,
+  "iterations": 3,
+  "failure_stage": "llm_generation_or_parsing",
+  "run_directory": "E:\\桌面\\LLM-PDDL\\results\\formal\\refinement\\block_building\\scene_02_pyramid\\run_hybrid_feedback_llama3.1_8b_06",
+  "attempts": [
+    {
+      "iteration": 1,
+      "plan": [
+        {
+          "action": "pick-up",
+          "args": [
+            "B1"
+          ]
+        },
+        {
+          "action": "stack-bridge",
+          "args": [
+            "B1",
+            "B2",
+            "B3"
+          ]
+        },
+        {
+          "action": "pick-up",
+          "args": [
+            "B4"
+          ]
+        },
+        {
+          "action": "stack-bridge",
+          "args": [
+            "B4",
+            "B1",
+            "B2"
+          ]
+        },
+        {
+          "action": "pick-up",
+          "args": [
+            "B5"
+          ]
+        },
+        {
+          "action": "stack-bridge",
+          "args": [
+            "B5",
+            "B2",
+            "B3"
+          ]
+        },
+        {
+          "action": "pick-up",
+          "args": [
+            "pyramid"
+          ]
+        },
+        {
+          "action": "stack-bridge",
+          "args": [
+            "pyramid",
+            "B4",
+            "B5"
+          ]
+        },
+        {
+          "action": "put-down",
+          "args": [
+            "pyramid"
+          ]
+        },
+        {
+          "action": "put-down",
+          "args": [
+            "B4"
+          ]
+        },
+        {
+          "action": "put-down",
+          "args": [
+            "B5"
+          ]
+        }
+      ],
+      "plan_file": "E:\\桌面\\LLM-PDDL\\results\\formal\\refinement\\block_building\\scene_02_pyramid\\run_hybrid_feedback_llama3.1_8b_06\\attempt_01.plan",
+      "val": {
+        "valid": false,
+        "return_code": 1,
+        "runtime_seconds": 8.447042600018904,
+        "final_value": null,
+        "stdout": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nChecking plan: /mnt/e/桌面/LLM-PDDL/results/formal/refinement/block_building/scene_02_pyramid/run_hybrid_feedback_llama3.1_8b_06/attempt_01.plan\nPlan to validate:\n\nPlan size: 11\n1:\n(pick-up b1)\n \n2:\n(stack-bridge b1 b2 b3)\n \n3:\n(pick-up b4)\n \n4:\n(stack-bridge b4 b1 b2)\n \n5:\n(pick-up b5)\n \n6:\n(stack-bridge b5 b2 b3)\n \n7:\n(pick-up pyramid)\n \n8:\n(stack-bridge pyramid b4 b5)\n \n9:\n(put-down pyramid)\n \n10:\n(put-down b4)\n \n11:\n(put-down b5)\n \n\nPlan Validation details\n-----------------------\n\nChecking next happening (time 1)\nDeleting (ontable b1)\nDeleting (clear b1)\nDeleting (handempty)\nAdding (holding b1)\n\nChecking next happening (time 2)\nDeleting (holding b1)\nDeleting (right-free b2)\nDeleting (left-free b3)\nAdding (on-bridge b1 b2 b3)\nAdding (clear b1)\nAdding (handempty)\n\nChecking next happening (time 3)\nDeleting (ontable b4)\nDeleting (clear b4)\nDeleting (handempty)\nAdding (holding b4)\n\nChecking next happening (time 4)\nDeleting (holding b4)\nDeleting (right-free b1)\nDeleting (left-free b2)\nAdding (on-bridge b4 b1 b2)\nAdding (clear b4)\nAdding (handempty)\n\nChecking next happening (time 5)\nDeleting (ontable b5)\nDeleting (clear b5)\nDeleting (handempty)\nAdding (holding b5)\n\nChecking next happening (time 6)\nPlan failed because of unsatisfied precondition in:\n(stack-bridge b5 b2 b3)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(stack-bridge b5 b2 b3) has an unsatisfied precondition at time 6\n(Follow each of:\n    (Set (right-free b2) to true)\n    and (Set (left-free b3) to true)\n)\n\n\nFailed plans:\n /mnt/e/桌面/LLM-PDDL/results/formal/refinement/block_building/scene_02_pyramid/run_hybrid_feedback_llama3.1_8b_06/attempt_01.plan \n",
+        "stderr": "",
+        "raw_log_file": "E:\\桌面\\LLM-PDDL\\results\\formal\\refinement\\block_building\\scene_02_pyramid\\run_hybrid_feedback_llama3.1_8b_06\\attempt_01_val.txt"
+      },
+      "success": false,
+      "feedback": {
+        "validation_authority": "VAL",
+        "val_valid": false,
+        "symbolic_verifier_valid": false,
+        "previous_plan": [
+          {
+            "action": "pick-up",
+            "args": [
+              "B1"
+            ]
+          },
+          {
+            "action": "stack-bridge",
+            "args": [
+              "B1",
+              "B2",
+              "B3"
+            ]
+          },
+          {
+            "action": "pick-up",
+            "args": [
+              "B4"
+            ]
+          },
+          {
+            "action": "stack-bridge",
+            "args": [
+              "B4",
+              "B1",
+              "B2"
+            ]
+          },
+          {
+            "action": "pick-up",
+            "args": [
+              "B5"
+            ]
+          },
+          {
+            "action": "stack-bridge",
+            "args": [
+              "B5",
+              "B2",
+              "B3"
+            ]
+          },
+          {
+            "action": "pick-up",
+            "args": [
+              "pyramid"
+            ]
+          },
+          {
+            "action": "stack-bridge",
+            "args": [
+              "pyramid",
+              "B4",
+              "B5"
+            ]
+          },
+          {
+            "action": "put-down",
+            "args": [
+              "pyramid"
+            ]
+          },
+          {
+            "action": "put-down",
+            "args": [
+              "B4"
+            ]
+          },
+          {
+            "action": "put-down",
+            "args": [
+              "B5"
+            ]
+          }
+        ],
+        "symbolic_failure_details": {
+          "message": "Missing preconditions: right-free(B2), left-free(B3)",
+          "failed_step": 6,
+          "failed_action": "stack-bridge(B5, B2, B3)",
+          "error": "Missing preconditions: right-free(B2), left-free(B3)",
+          "state_before_failure": {
+            "ontable": [
+              "B2",
+              "B3",
+              "pyramid"
+            ],
+            "on": [],
+            "on_bridge": [
+              [
+                "B1",
+                "B2",
+                "B3"
+              ],
+              [
+                "B4",
+                "B1",
+                "B2"
+              ]
+            ],
+            "clear": [
+              "B1",
+              "B2",
+              "B3",
+              "B4",
+              "pyramid"
+            ],
+            "holding": [
+              "B5"
+            ],
+            "handempty": false,
+            "left_free": [
+              "B1",
+              "B4",
+              "B5",
+              "pyramid"
+            ],
+            "right_free": [
+              "B3",
+              "B4",
+              "B5",
+              "pyramid"
+            ]
+          }
+        },
+        "val_output_tail": "Adding (clear b1)\nAdding (handempty)\n\nChecking next happening (time 3)\nDeleting (ontable b4)\nDeleting (clear b4)\nDeleting (handempty)\nAdding (holding b4)\n\nChecking next happening (time 4)\nDeleting (holding b4)\nDeleting (right-free b1)\nDeleting (left-free b2)\nAdding (on-bridge b4 b1 b2)\nAdding (clear b4)\nAdding (handempty)\n\nChecking next happening (time 5)\nDeleting (ontable b5)\nDeleting (clear b5)\nDeleting (handempty)\nAdding (holding b5)\n\nChecking next happening (time 6)\nPlan failed because of unsatisfied precondition in:\n(stack-bridge b5 b2 b3)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(stack-bridge b5 b2 b3) has an unsatisfied precondition at time 6\n(Follow each of:\n    (Set (right-free b2) to true)\n    and (Set (left-free b3) to true)\n)\n\n\nFailed plans:\n /mnt/e/桌面/LLM-PDDL/results/formal/refinement/block_building/scene_02_pyramid/run_hybrid_feedback_llama3.1_8b_06/attempt_01.plan",
+        "repair_instruction": "Generate a complete corrected plan. Fix the failed action and any earlier actions that caused the failed precondition. Do not return only a partial plan."
+      },
+      "feedback_file": "E:\\桌面\\LLM-PDDL\\results\\formal\\refinement\\block_building\\scene_02_pyramid\\run_hybrid_feedback_llama3.1_8b_06\\attempt_01_feedback.json"
+    },
+    {
+      "iteration": 2,
+      "plan": [
+        {
+          "action": "pick-up",
+          "args": [
+            "B1"
+          ]
+        },
+        {
+          "action": "stack-bridge",
+          "args": [
+            "B1",
+            "B2",
+            "B3"
+          ]
+        },
+        {
+          "action": "pick-up",
+          "args": [
+            "B4"
+          ]
+        },
+        {
+          "action": "stack-bridge",
+          "args": [
+            "B4",
+            "B1",
+            "B2"
+          ]
+        },
+        {
+          "action": "pick-up",
+          "args": [
+            "B5"
+          ]
+        },
+        {
+          "action": "stack",
+          "args": [
+            "B5",
+            "B2"
+          ]
+        },
+        {
+          "action": "stack",
+          "args": [
+            "B3",
+            "B2"
+          ]
+        },
+        {
+          "action": "pick-up",
+          "args": [
+            "pyramid"
+          ]
+        },
+        {
+          "action": "stack-bridge",
+          "args": [
+            "pyramid",
+            "B4",
+            "B5"
+          ]
+        },
+        {
+          "action": "put-down",
+          "args": [
+            "pyramid"
+          ]
+        },
+        {
+          "action": "put-down",
+          "args": [
+            "B4"
+          ]
+        },
+        {
+          "action": "put-down",
+          "args": [
+            "B5"
+          ]
+        }
+      ],
+      "plan_file": "E:\\桌面\\LLM-PDDL\\results\\formal\\refinement\\block_building\\scene_02_pyramid\\run_hybrid_feedback_llama3.1_8b_06\\attempt_02.plan",
+      "val": {
+        "valid": false,
+        "return_code": 1,
+        "runtime_seconds": 10.31883410003502,
+        "final_value": null,
+        "stdout": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nChecking plan: /mnt/e/桌面/LLM-PDDL/results/formal/refinement/block_building/scene_02_pyramid/run_hybrid_feedback_llama3.1_8b_06/attempt_02.plan\nPlan to validate:\n\nPlan size: 12\n1:\n(pick-up b1)\n \n2:\n(stack-bridge b1 b2 b3)\n \n3:\n(pick-up b4)\n \n4:\n(stack-bridge b4 b1 b2)\n \n5:\n(pick-up b5)\n \n6:\n(stack b5 b2)\n \n7:\n(stack b3 b2)\n \n8:\n(pick-up pyramid)\n \n9:\n(stack-bridge pyramid b4 b5)\n \n10:\n(put-down pyramid)\n \n11:\n(put-down b4)\n \n12:\n(put-down b5)\n \n\nPlan Validation details\n-----------------------\n\nChecking next happening (time 1)\nDeleting (ontable b1)\nDeleting (clear b1)\nDeleting (handempty)\nAdding (holding b1)\n\nChecking next happening (time 2)\nDeleting (holding b1)\nDeleting (right-free b2)\nDeleting (left-free b3)\nAdding (on-bridge b1 b2 b3)\nAdding (clear b1)\nAdding (handempty)\n\nChecking next happening (time 3)\nDeleting (ontable b4)\nDeleting (clear b4)\nDeleting (handempty)\nAdding (holding b4)\n\nChecking next happening (time 4)\nDeleting (holding b4)\nDeleting (right-free b1)\nDeleting (left-free b2)\nAdding (on-bridge b4 b1 b2)\nAdding (clear b4)\nAdding (handempty)\n\nChecking next happening (time 5)\nDeleting (ontable b5)\nDeleting (clear b5)\nDeleting (handempty)\nAdding (holding b5)\n\nChecking next happening (time 6)\nDeleting (holding b5)\nDeleting (clear b2)\nAdding (on b5 b2)\nAdding (clear b5)\nAdding (handempty)\n\nChecking next happening (time 7)\nPlan failed because of unsatisfied precondition in:\n(stack b3 b2)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(stack b3 b2) has an unsatisfied precondition at time 7\n(Follow each of:\n    (Set (holding b3) to true)\n    and (Set (clear b2) to true)\n)\n\n\nFailed plans:\n /mnt/e/桌面/LLM-PDDL/results/formal/refinement/block_building/scene_02_pyramid/run_hybrid_feedback_llama3.1_8b_06/attempt_02.plan \n",
+        "stderr": "",
+        "raw_log_file": "E:\\桌面\\LLM-PDDL\\results\\formal\\refinement\\block_building\\scene_02_pyramid\\run_hybrid_feedback_llama3.1_8b_06\\attempt_02_val.txt"
+      },
+      "success": false,
+      "feedback": {
+        "validation_authority": "VAL",
+        "val_valid": false,
+        "symbolic_verifier_valid": false,
+        "previous_plan": [
+          {
+            "action": "pick-up",
+            "args": [
+              "B1"
+            ]
+          },
+          {
+            "action": "stack-bridge",
+            "args": [
+              "B1",
+              "B2",
+              "B3"
+            ]
+          },
+          {
+            "action": "pick-up",
+            "args": [
+              "B4"
+            ]
+          },
+          {
+            "action": "stack-bridge",
+            "args": [
+              "B4",
+              "B1",
+              "B2"
+            ]
+          },
+          {
+            "action": "pick-up",
+            "args": [
+              "B5"
+            ]
+          },
+          {
+            "action": "stack",
+            "args": [
+              "B5",
+              "B2"
+            ]
+          },
+          {
+            "action": "stack",
+            "args": [
+              "B3",
+              "B2"
+            ]
+          },
+          {
+            "action": "pick-up",
+            "args": [
+              "pyramid"
+            ]
+          },
+          {
+            "action": "stack-bridge",
+            "args": [
+              "pyramid",
+              "B4",
+              "B5"
+            ]
+          },
+          {
+            "action": "put-down",
+            "args": [
+              "pyramid"
+            ]
+          },
+          {
+            "action": "put-down",
+            "args": [
+              "B4"
+            ]
+          },
+          {
+            "action": "put-down",
+            "args": [
+              "B5"
+            ]
+          }
+        ],
+        "symbolic_failure_details": {
+          "message": "Missing preconditions: holding(B3), clear(B2)",
+          "failed_step": 7,
+          "failed_action": "stack(B3, B2)",
+          "error": "Missing preconditions: holding(B3), clear(B2)",
+          "state_before_failure": {
+            "ontable": [
+              "B2",
+              "B3",
+              "pyramid"
+            ],
+            "on": [
+              [
+                "B5",
+                "B2"
+              ]
+            ],
+            "on_bridge": [
+              [
+                "B1",
+                "B2",
+                "B3"
+              ],
+              [
+                "B4",
+                "B1",
+                "B2"
+              ]
+            ],
+            "clear": [
+              "B1",
+              "B3",
+              "B4",
+              "B5",
+              "pyramid"
+            ],
+            "holding": [],
+            "handempty": true,
+            "left_free": [
+              "B1",
+              "B4",
+              "B5",
+              "pyramid"
+            ],
+            "right_free": [
+              "B3",
+              "B4",
+              "B5",
+              "pyramid"
+            ]
+          }
+        },
+        "val_output_tail": "Adding (holding b4)\n\nChecking next happening (time 4)\nDeleting (holding b4)\nDeleting (right-free b1)\nDeleting (left-free b2)\nAdding (on-bridge b4 b1 b2)\nAdding (clear b4)\nAdding (handempty)\n\nChecking next happening (time 5)\nDeleting (ontable b5)\nDeleting (clear b5)\nDeleting (handempty)\nAdding (holding b5)\n\nChecking next happening (time 6)\nDeleting (holding b5)\nDeleting (clear b2)\nAdding (on b5 b2)\nAdding (clear b5)\nAdding (handempty)\n\nChecking next happening (time 7)\nPlan failed because of unsatisfied precondition in:\n(stack b3 b2)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(stack b3 b2) has an unsatisfied precondition at time 7\n(Follow each of:\n    (Set (holding b3) to true)\n    and (Set (clear b2) to true)\n)\n\n\nFailed plans:\n /mnt/e/桌面/LLM-PDDL/results/formal/refinement/block_building/scene_02_pyramid/run_hybrid_feedback_llama3.1_8b_06/attempt_02.plan",
+        "repair_instruction": "Generate a complete corrected plan. Fix the failed action and any earlier actions that caused the failed precondition. Do not return only a partial plan."
+      },
+      "feedback_file": "E:\\桌面\\LLM-PDDL\\results\\formal\\refinement\\block_building\\scene_02_pyramid\\run_hybrid_feedback_llama3.1_8b_06\\attempt_02_feedback.json"
+    },
+    {
+      "iteration": 3,
+      "stage": "llm_generation_or_parsing",
+      "error": "Could not parse LLM output as JSON or action-list text.\nRaw LLM output was:\nBased on the provided scene and the previous verification feedback, I will generate a complete corrected plan.\n\nHere is the repaired plan:\n\n[\n  {\"action\": \"pick-up\", \"args\": [\"B1\"]},\n  {\"action\": \"stack-bridge\", \"args\": [\"B1\", \"B2\", \"B3\"]},\n  {\"action\": \"pick-up\", \"args\": [\"B4\"]},\n  {\"action\": \"stack-bridge\", \"args\": [\"B4\", \"B1\", \"B2\"]},\n  {\"action\": \"pick-up\", \"args\": [\"B5\"]},\n  {\"action\": \"stack\", \"args\": [\"B5\", \"B2\"]},\n  {\"action\": \"pick-up\", \"B3\"},\n  {\"action\": \"stack\", \"args\": [\"B3\", \"B2\"]},\n  {\"action\": \"pick-up\", \"args\": [\"pyramid\"]},\n  {\"action\": \"stack-bridge\", \"args\": [\"pyramid\", \"B4\", \"B5\"]},\n  {\"action\": \"put-down\", \"args\": [\"pyramid\"]},\n  {\"action\": \"put-down\", \"args\": [\"B4\"]},\n  {\"action\": \"put-down\", \"args\": [\"B5\"]}\n]\n\nThis plan first picks up B1 and stacks it on B2 and B3, then picks up B4 and stacks it on B1 and B2, then picks up B5 and stacks it on B2, then picks up B3 and stacks it on B2, then picks up the pyramid and stacks it on B4 and B5, and finally puts down the pyramid, B4, and B5.",
+      "planning_prompt": "You are a symbolic task planner for the block_building PDDL domain.\n\nSCENE ID:\nscene_02_pyramid\n\nSCENE NAME:\nImage-inspired pyramid block structure\n\nDESCRIPTION:\nA manually abstracted symbolic scene based on an image-like block construction task.\n\nDIFFICULTY:\nmedium\n\nOBJECTS:\nB1, B2, B3, B4, B5, pyramid\n\nINITIAL STATE:\n{\n  \"ontable\": [\n    \"B1\",\n    \"B2\",\n    \"B3\",\n    \"B4\",\n    \"B5\",\n    \"pyramid\"\n  ],\n  \"clear\": [\n    \"B1\",\n    \"B2\",\n    \"B3\",\n    \"B4\",\n    \"B5\",\n    \"pyramid\"\n  ],\n  \"holding\": [],\n  \"handempty\": true,\n  \"on\": [],\n  \"on_bridge\": [],\n  \"left_free\": [\n    \"B1\",\n    \"B2\",\n    \"B3\",\n    \"B4\",\n    \"B5\",\n    \"pyramid\"\n  ],\n  \"right_free\": [\n    \"B1\",\n    \"B2\",\n    \"B3\",\n    \"B4\",\n    \"B5\",\n    \"pyramid\"\n  ]\n}\n\nGOAL STATE:\n{\n  \"on_bridge\": [\n    [\n      \"B4\",\n      \"B1\",\n      \"B2\"\n    ],\n    [\n      \"B5\",\n      \"B2\",\n      \"B3\"\n    ],\n    [\n      \"pyramid\",\n      \"B4\",\n      \"B5\"\n    ]\n  ],\n  \"ontable\": [\n    \"B1\",\n    \"B2\",\n    \"B3\"\n  ],\n  \"handempty\": true\n}\n\nAVAILABLE ACTIONS:\n- pick-up: 1 argument(s)\n- put-down: 1 argument(s)\n- stack: 2 argument(s)\n- stack-bridge: 3 argument(s)\n- unstack: 2 argument(s)\n- unstack-bridge: 3 argument(s)\n\nBLOCK-DOMAIN RULES:\n- pick-up removes one clear object from the table and makes the robot hold it.\n- put-down places the held object on the table.\n- stack places one held object on one clear supporting object.\n- unstack removes one clear object from another object.\n- stack-bridge places one held object across a left support and a right support.\n- stack-bridge requires right-free on the left support and left-free on the right support.\n- unstack-bridge removes a clear bridge object and restores its support slots.\n- The robot can hold at most one object.\n- Every action must satisfy its PDDL preconditions.\n- The final state must satisfy every listed goal condition.\n\nPLANNING GUIDANCE:\nConstruct a valid plan from the initial state to the goal state. Respect every action precondition and effect.\n\n\nPREVIOUS VERIFICATION FEEDBACK:\n{\n  \"validation_authority\": \"VAL\",\n  \"val_valid\": false,\n  \"symbolic_verifier_valid\": false,\n  \"previous_plan\": [\n    {\n      \"action\": \"pick-up\",\n      \"args\": [\n        \"B1\"\n      ]\n    },\n    {\n      \"action\": \"stack-bridge\",\n      \"args\": [\n        \"B1\",\n        \"B2\",\n        \"B3\"\n      ]\n    },\n    {\n      \"action\": \"pick-up\",\n      \"args\": [\n        \"B4\"\n      ]\n    },\n    {\n      \"action\": \"stack-bridge\",\n      \"args\": [\n        \"B4\",\n        \"B1\",\n        \"B2\"\n      ]\n    },\n    {\n      \"action\": \"pick-up\",\n      \"args\": [\n        \"B5\"\n      ]\n    },\n    {\n      \"action\": \"stack\",\n      \"args\": [\n        \"B5\",\n        \"B2\"\n      ]\n    },\n    {\n      \"action\": \"stack\",\n      \"args\": [\n        \"B3\",\n        \"B2\"\n      ]\n    },\n    {\n      \"action\": \"pick-up\",\n      \"args\": [\n        \"pyramid\"\n      ]\n    },\n    {\n      \"action\": \"stack-bridge\",\n      \"args\": [\n        \"pyramid\",\n        \"B4\",\n        \"B5\"\n      ]\n    },\n    {\n      \"action\": \"put-down\",\n      \"args\": [\n        \"pyramid\"\n      ]\n    },\n    {\n      \"action\": \"put-down\",\n      \"args\": [\n        \"B4\"\n      ]\n    },\n    {\n      \"action\": \"put-down\",\n      \"args\": [\n        \"B5\"\n      ]\n    }\n  ],\n  \"symbolic_failure_details\": {\n    \"message\": \"Missing preconditions: holding(B3), clear(B2)\",\n    \"failed_step\": 7,\n    \"failed_action\": \"stack(B3, B2)\",\n    \"error\": \"Missing preconditions: holding(B3), clear(B2)\",\n    \"state_before_failure\": {\n      \"ontable\": [\n        \"B2\",\n        \"B3\",\n        \"pyramid\"\n      ],\n      \"on\": [\n        [\n          \"B5\",\n          \"B2\"\n        ]\n      ],\n      \"on_bridge\": [\n        [\n          \"B1\",\n          \"B2\",\n          \"B3\"\n        ],\n        [\n          \"B4\",\n          \"B1\",\n          \"B2\"\n        ]\n      ],\n      \"clear\": [\n        \"B1\",\n        \"B3\",\n        \"B4\",\n        \"B5\",\n        \"pyramid\"\n      ],\n      \"holding\": [],\n      \"handempty\": true,\n      \"left_free\": [\n        \"B1\",\n        \"B4\",\n        \"B5\",\n        \"pyramid\"\n      ],\n      \"right_free\": [\n        \"B3\",\n        \"B4\",\n        \"B5\",\n        \"pyramid\"\n      ]\n    }\n  },\n  \"val_output_tail\": \"Adding (holding b4)\\n\\nChecking next happening (time 4)\\nDeleting (holding b4)\\nDeleting (right-free b1)\\nDeleting (left-free b2)\\nAdding (on-bridge b4 b1 b2)\\nAdding (clear b4)\\nAdding (handempty)\\n\\nChecking next happening (time 5)\\nDeleting (ontable b5)\\nDeleting (clear b5)\\nDeleting (handempty)\\nAdding (holding b5)\\n\\nChecking next happening (time 6)\\nDeleting (holding b5)\\nDeleting (clear b2)\\nAdding (on b5 b2)\\nAdding (clear b5)\\nAdding (handempty)\\n\\nChecking next happening (time 7)\\nPlan failed because of unsatisfied precondition in:\\n(stack b3 b2)\\n\\nPlan failed to execute\\n\\nPlan Repair Advice:\\n\\n(stack b3 b2) has an unsatisfied precondition at time 7\\n(Follow each of:\\n    (Set (holding b3) to true)\\n    and (Set (clear b2) to true)\\n)\\n\\n\\nFailed plans:\\n /mnt/e/桌面/LLM-PDDL/results/formal/refinement/block_building/scene_02_pyramid/run_hybrid_feedback_llama3.1_8b_06/attempt_02.plan\",\n  \"repair_instruction\": \"Generate a complete corrected plan. Fix the failed action and any earlier actions that caused the failed precondition. Do not return only a partial plan.\"\n}\n\nReturn a repaired complete plan, not only the corrected action.\n\nOUTPUT REQUIREMENTS:\n- Output only one JSON array.\n- Do not output markdown.\n- Do not output explanations.\n- Each array item must contain exactly:\n  \"action\": an available action name\n  \"args\": a list of object names\n- Use only the objects listed in this scene.\n- Return the complete plan from the initial state to the goal state.\n\nOUTPUT EXAMPLE:\n[\n  {\"action\": \"pick-up\", \"args\": [\"object_name\"]},\n  {\"action\": \"stack\", \"args\": [\"object_name\", \"support_name\"]}\n]",
+      "raw_llm_output": "Based on the provided scene and the previous verification feedback, I will generate a complete corrected plan.\n\nHere is the repaired plan:\n\n[\n  {\"action\": \"pick-up\", \"args\": [\"B1\"]},\n  {\"action\": \"stack-bridge\", \"args\": [\"B1\", \"B2\", \"B3\"]},\n  {\"action\": \"pick-up\", \"args\": [\"B4\"]},\n  {\"action\": \"stack-bridge\", \"args\": [\"B4\", \"B1\", \"B2\"]},\n  {\"action\": \"pick-up\", \"args\": [\"B5\"]},\n  {\"action\": \"stack\", \"args\": [\"B5\", \"B2\"]},\n  {\"action\": \"pick-up\", \"B3\"},\n  {\"action\": \"stack\", \"args\": [\"B3\", \"B2\"]},\n  {\"action\": \"pick-up\", \"args\": [\"pyramid\"]},\n  {\"action\": \"stack-bridge\", \"args\": [\"pyramid\", \"B4\", \"B5\"]},\n  {\"action\": \"put-down\", \"args\": [\"pyramid\"]},\n  {\"action\": \"put-down\", \"args\": [\"B4\"]},\n  {\"action\": \"put-down\", \"args\": [\"B5\"]}\n]\n\nThis plan first picks up B1 and stacks it on B2 and B3, then picks up B4 and stacks it on B1 and B2, then picks up B5 and stacks it on B2, then picks up B3 and stacks it on B2, then picks up the pyramid and stacks it on B4 and B5, and finally puts down the pyramid, B4, and B5."
+    }
+  ]
+}

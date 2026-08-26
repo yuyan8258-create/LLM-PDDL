@@ -1,0 +1,7 @@
+(pick-up b4)
+(stack-bridge b4 b1 b2)
+(pick-up b5)
+(stack-bridge b5 b2 b3)
+(pick-up pyramid)
+(stack-bridge pyramid b4 b5)
+; cost = 6 (unit cost)

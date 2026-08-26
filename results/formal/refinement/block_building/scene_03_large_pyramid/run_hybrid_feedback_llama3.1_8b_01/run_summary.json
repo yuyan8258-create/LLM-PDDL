@@ -1,0 +1,580 @@
+{
+  "scene": "scene_03_large_pyramid",
+  "mode": "llm",
+  "method": "hybrid_feedback",
+  "model": "llama3.1:8b",
+  "provider": "ollama",
+  "success": false,
+  "iterations": 3,
+  "failure_stage": "maximum_iterations_reached",
+  "run_directory": "D:\\LLM-PDDL\\results\\formal\\refinement\\block_building\\scene_03_large_pyramid\\run_hybrid_feedback_llama3.1_8b_01",
+  "attempts": [
+    {
+      "iteration": 1,
+      "plan": [
+        {
+          "action": "pick-up",
+          "args": [
+            "B1"
+          ]
+        },
+        {
+          "action": "stack-bridge",
+          "args": [
+            "B1",
+            "M1",
+            "B2"
+          ]
+        },
+        {
+          "action": "pick-up",
+          "args": [
+            "B2"
+          ]
+        },
+        {
+          "action": "stack-bridge",
+          "args": [
+            "B2",
+            "M2",
+            "B3"
+          ]
+        },
+        {
+          "action": "pick-up",
+          "args": [
+            "B3"
+          ]
+        },
+        {
+          "action": "stack-bridge",
+          "args": [
+            "B3",
+            "M3",
+            "B4"
+          ]
+        },
+        {
+          "action": "pick-up",
+          "args": [
+            "M1"
+          ]
+        },
+        {
+          "action": "stack",
+          "args": [
+            "M1",
+            "U1"
+          ]
+        },
+        {
+          "action": "pick-up",
+          "args": [
+            "M2"
+          ]
+        },
+        {
+          "action": "stack",
+          "args": [
+            "M2",
+            "U2"
+          ]
+        },
+        {
+          "action": "pick-up",
+          "args": [
+            "top"
+          ]
+        },
+        {
+          "action": "stack",
+          "args": [
+            "top",
+            "U1"
+          ]
+        }
+      ],
+      "plan_file": "D:\\LLM-PDDL\\results\\formal\\refinement\\block_building\\scene_03_large_pyramid\\run_hybrid_feedback_llama3.1_8b_01\\attempt_01.plan",
+      "val": {
+        "valid": false,
+        "return_code": 1,
+        "runtime_seconds": 4.184080600000016,
+        "final_value": null,
+        "stdout": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nChecking plan: /mnt/d/LLM-PDDL/results/formal/refinement/block_building/scene_03_large_pyramid/run_hybrid_feedback_llama3.1_8b_01/attempt_01.plan\nPlan to validate:\n\nPlan size: 12\n1:\n(pick-up b1)\n \n2:\n(stack-bridge b1 m1 b2)\n \n3:\n(pick-up b2)\n \n4:\n(stack-bridge b2 m2 b3)\n \n5:\n(pick-up b3)\n \n6:\n(stack-bridge b3 m3 b4)\n \n7:\n(pick-up m1)\n \n8:\n(stack m1 u1)\n \n9:\n(pick-up m2)\n \n10:\n(stack m2 u2)\n \n11:\n(pick-up top)\n \n12:\n(stack top u1)\n \n\nPlan Validation details\n-----------------------\n\nChecking next happening (time 1)\nDeleting (ontable b1)\nDeleting (clear b1)\nDeleting (handempty)\nAdding (holding b1)\n\nChecking next happening (time 2)\nDeleting (holding b1)\nDeleting (right-free m1)\nDeleting (left-free b2)\nAdding (on-bridge b1 m1 b2)\nAdding (clear b1)\nAdding (handempty)\n\nChecking next happening (time 3)\nDeleting (ontable b2)\nDeleting (clear b2)\nDeleting (handempty)\nAdding (holding b2)\n\nChecking next happening (time 4)\nDeleting (holding b2)\nDeleting (right-free m2)\nDeleting (left-free b3)\nAdding (on-bridge b2 m2 b3)\nAdding (clear b2)\nAdding (handempty)\n\nChecking next happening (time 5)\nDeleting (ontable b3)\nDeleting (clear b3)\nDeleting (handempty)\nAdding (holding b3)\n\nChecking next happening (time 6)\nDeleting (holding b3)\nDeleting (right-free m3)\nDeleting (left-free b4)\nAdding (on-bridge b3 m3 b4)\nAdding (clear b3)\nAdding (handempty)\n\nChecking next happening (time 7)\nDeleting (ontable m1)\nDeleting (clear m1)\nDeleting (handempty)\nAdding (holding m1)\n\nChecking next happening (time 8)\nDeleting (holding m1)\nDeleting (clear u1)\nAdding (on m1 u1)\nAdding (clear m1)\nAdding (handempty)\n\nChecking next happening (time 9)\nDeleting (ontable m2)\nDeleting (clear m2)\nDeleting (handempty)\nAdding (holding m2)\n\nChecking next happening (time 10)\nDeleting (holding m2)\nDeleting (clear u2)\nAdding (on m2 u2)\nAdding (clear m2)\nAdding (handempty)\n\nChecking next happening (time 11)\nDeleting (ontable top)\nDeleting (clear top)\nDeleting (handempty)\nAdding (holding top)\n\nChecking next happening (time 12)\nPlan failed because of unsatisfied precondition in:\n(stack top u1)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(stack top u1) has an unsatisfied precondition at time 12\n(Set (clear u1) to true)\n\n\nFailed plans:\n /mnt/d/LLM-PDDL/results/formal/refinement/block_building/scene_03_large_pyramid/run_hybrid_feedback_llama3.1_8b_01/attempt_01.plan \n",
+        "stderr": "",
+        "raw_log_file": "D:\\LLM-PDDL\\results\\formal\\refinement\\block_building\\scene_03_large_pyramid\\run_hybrid_feedback_llama3.1_8b_01\\attempt_01_val.txt"
+      },
+      "success": false,
+      "feedback": {
+        "validation_authority": "VAL",
+        "val_valid": false,
+        "symbolic_verifier_valid": false,
+        "previous_plan": [
+          {
+            "action": "pick-up",
+            "args": [
+              "B1"
+            ]
+          },
+          {
+            "action": "stack-bridge",
+            "args": [
+              "B1",
+              "M1",
+              "B2"
+            ]
+          },
+          {
+            "action": "pick-up",
+            "args": [
+              "B2"
+            ]
+          },
+          {
+            "action": "stack-bridge",
+            "args": [
+              "B2",
+              "M2",
+              "B3"
+            ]
+          },
+          {
+            "action": "pick-up",
+            "args": [
+              "B3"
+            ]
+          },
+          {
+            "action": "stack-bridge",
+            "args": [
+              "B3",
+              "M3",
+              "B4"
+            ]
+          },
+          {
+            "action": "pick-up",
+            "args": [
+              "M1"
+            ]
+          },
+          {
+            "action": "stack",
+            "args": [
+              "M1",
+              "U1"
+            ]
+          },
+          {
+            "action": "pick-up",
+            "args": [
+              "M2"
+            ]
+          },
+          {
+            "action": "stack",
+            "args": [
+              "M2",
+              "U2"
+            ]
+          },
+          {
+            "action": "pick-up",
+            "args": [
+              "top"
+            ]
+          },
+          {
+            "action": "stack",
+            "args": [
+              "top",
+              "U1"
+            ]
+          }
+        ],
+        "symbolic_failure_details": {
+          "message": "Missing preconditions: clear(U1)",
+          "failed_step": 12,
+          "failed_action": "stack(top, U1)",
+          "error": "Missing preconditions: clear(U1)",
+          "state_before_failure": {
+            "ontable": [
+              "B4",
+              "M3",
+              "U1",
+              "U2"
+            ],
+            "on": [
+              [
+                "M1",
+                "U1"
+              ],
+              [
+                "M2",
+                "U2"
+              ]
+            ],
+            "on_bridge": [
+              [
+                "B1",
+                "M1",
+                "B2"
+              ],
+              [
+                "B2",
+                "M2",
+                "B3"
+              ],
+              [
+                "B3",
+                "M3",
+                "B4"
+              ]
+            ],
+            "clear": [
+              "B1",
+              "B2",
+              "B3",
+              "B4",
+              "M1",
+              "M2",
+              "M3"
+            ],
+            "holding": [
+              "top"
+            ],
+            "handempty": false,
+            "left_free": [
+              "B1",
+              "M1",
+              "M2",
+              "M3",
+              "U1",
+              "U2",
+              "top"
+            ],
+            "right_free": [
+              "B1",
+              "B2",
+              "B3",
+              "B4",
+              "U1",
+              "U2",
+              "top"
+            ]
+          }
+        },
+        "val_output_tail": "Checking next happening (time 8)\nDeleting (holding m1)\nDeleting (clear u1)\nAdding (on m1 u1)\nAdding (clear m1)\nAdding (handempty)\n\nChecking next happening (time 9)\nDeleting (ontable m2)\nDeleting (clear m2)\nDeleting (handempty)\nAdding (holding m2)\n\nChecking next happening (time 10)\nDeleting (holding m2)\nDeleting (clear u2)\nAdding (on m2 u2)\nAdding (clear m2)\nAdding (handempty)\n\nChecking next happening (time 11)\nDeleting (ontable top)\nDeleting (clear top)\nDeleting (handempty)\nAdding (holding top)\n\nChecking next happening (time 12)\nPlan failed because of unsatisfied precondition in:\n(stack top u1)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(stack top u1) has an unsatisfied precondition at time 12\n(Set (clear u1) to true)\n\n\nFailed plans:\n /mnt/d/LLM-PDDL/results/formal/refinement/block_building/scene_03_large_pyramid/run_hybrid_feedback_llama3.1_8b_01/attempt_01.plan",
+        "repair_instruction": "Generate a complete corrected plan. Fix the failed action and any earlier actions that caused the failed precondition. Do not return only a partial plan."
+      },
+      "feedback_file": "D:\\LLM-PDDL\\results\\formal\\refinement\\block_building\\scene_03_large_pyramid\\run_hybrid_feedback_llama3.1_8b_01\\attempt_01_feedback.json"
+    },
+    {
+      "iteration": 2,
+      "plan": [
+        {
+          "action": "stack",
+          "args": [
+            "top",
+            "U1"
+          ]
+        }
+      ],
+      "plan_file": "D:\\LLM-PDDL\\results\\formal\\refinement\\block_building\\scene_03_large_pyramid\\run_hybrid_feedback_llama3.1_8b_01\\attempt_02.plan",
+      "val": {
+        "valid": false,
+        "return_code": 1,
+        "runtime_seconds": 0.08892740000010235,
+        "final_value": null,
+        "stdout": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nChecking plan: /mnt/d/LLM-PDDL/results/formal/refinement/block_building/scene_03_large_pyramid/run_hybrid_feedback_llama3.1_8b_01/attempt_02.plan\nPlan to validate:\n\nPlan size: 1\n1:\n(stack top u1)\n \n\nPlan Validation details\n-----------------------\n\nChecking next happening (time 1)\nPlan failed because of unsatisfied precondition in:\n(stack top u1)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(stack top u1) has an unsatisfied precondition at time 1\n(Set (holding top) to true)\n\n\nFailed plans:\n /mnt/d/LLM-PDDL/results/formal/refinement/block_building/scene_03_large_pyramid/run_hybrid_feedback_llama3.1_8b_01/attempt_02.plan \n",
+        "stderr": "",
+        "raw_log_file": "D:\\LLM-PDDL\\results\\formal\\refinement\\block_building\\scene_03_large_pyramid\\run_hybrid_feedback_llama3.1_8b_01\\attempt_02_val.txt"
+      },
+      "success": false,
+      "feedback": {
+        "validation_authority": "VAL",
+        "val_valid": false,
+        "symbolic_verifier_valid": false,
+        "previous_plan": [
+          {
+            "action": "stack",
+            "args": [
+              "top",
+              "U1"
+            ]
+          }
+        ],
+        "symbolic_failure_details": {
+          "message": "Missing preconditions: holding(top)",
+          "failed_step": 1,
+          "failed_action": "stack(top, U1)",
+          "error": "Missing preconditions: holding(top)",
+          "state_before_failure": {
+            "ontable": [
+              "B1",
+              "B2",
+              "B3",
+              "B4",
+              "M1",
+              "M2",
+              "M3",
+              "U1",
+              "U2",
+              "top"
+            ],
+            "on": [],
+            "on_bridge": [],
+            "clear": [
+              "B1",
+              "B2",
+              "B3",
+              "B4",
+              "M1",
+              "M2",
+              "M3",
+              "U1",
+              "U2",
+              "top"
+            ],
+            "holding": [],
+            "handempty": true,
+            "left_free": [
+              "B1",
+              "B2",
+              "B3",
+              "B4",
+              "M1",
+              "M2",
+              "M3",
+              "U1",
+              "U2",
+              "top"
+            ],
+            "right_free": [
+              "B1",
+              "B2",
+              "B3",
+              "B4",
+              "M1",
+              "M2",
+              "M3",
+              "U1",
+              "U2",
+              "top"
+            ]
+          }
+        },
+        "val_output_tail": "Checking plan: /mnt/d/LLM-PDDL/results/formal/refinement/block_building/scene_03_large_pyramid/run_hybrid_feedback_llama3.1_8b_01/attempt_02.plan\nPlan to validate:\n\nPlan size: 1\n1:\n(stack top u1)\n \n\nPlan Validation details\n-----------------------\n\nChecking next happening (time 1)\nPlan failed because of unsatisfied precondition in:\n(stack top u1)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(stack top u1) has an unsatisfied precondition at time 1\n(Set (holding top) to true)\n\n\nFailed plans:\n /mnt/d/LLM-PDDL/results/formal/refinement/block_building/scene_03_large_pyramid/run_hybrid_feedback_llama3.1_8b_01/attempt_02.plan",
+        "repair_instruction": "Generate a complete corrected plan. Fix the failed action and any earlier actions that caused the failed precondition. Do not return only a partial plan."
+      },
+      "feedback_file": "D:\\LLM-PDDL\\results\\formal\\refinement\\block_building\\scene_03_large_pyramid\\run_hybrid_feedback_llama3.1_8b_01\\attempt_02_feedback.json"
+    },
+    {
+      "iteration": 3,
+      "plan": [
+        {
+          "action": "pick-up",
+          "args": [
+            "top"
+          ]
+        },
+        {
+          "action": "stack",
+          "args": [
+            "top",
+            "U1"
+          ]
+        },
+        {
+          "action": "stack-bridge",
+          "args": [
+            "M1",
+            "B1",
+            "B2"
+          ]
+        },
+        {
+          "action": "stack-bridge",
+          "args": [
+            "M2",
+            "B2",
+            "B3"
+          ]
+        },
+        {
+          "action": "stack-bridge",
+          "args": [
+            "M3",
+            "B3",
+            "B4"
+          ]
+        },
+        {
+          "action": "stack-bridge",
+          "args": [
+            "U1",
+            "M1",
+            "M2"
+          ]
+        },
+        {
+          "action": "stack-bridge",
+          "args": [
+            "U2",
+            "M2",
+            "M3"
+          ]
+        },
+        {
+          "action": "put-down",
+          "args": [
+            "top"
+          ]
+        }
+      ],
+      "plan_file": "D:\\LLM-PDDL\\results\\formal\\refinement\\block_building\\scene_03_large_pyramid\\run_hybrid_feedback_llama3.1_8b_01\\attempt_03.plan",
+      "val": {
+        "valid": false,
+        "return_code": 1,
+        "runtime_seconds": 0.07485240000005433,
+        "final_value": null,
+        "stdout": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nChecking plan: /mnt/d/LLM-PDDL/results/formal/refinement/block_building/scene_03_large_pyramid/run_hybrid_feedback_llama3.1_8b_01/attempt_03.plan\nPlan to validate:\n\nPlan size: 8\n1:\n(pick-up top)\n \n2:\n(stack top u1)\n \n3:\n(stack-bridge m1 b1 b2)\n \n4:\n(stack-bridge m2 b2 b3)\n \n5:\n(stack-bridge m3 b3 b4)\n \n6:\n(stack-bridge u1 m1 m2)\n \n7:\n(stack-bridge u2 m2 m3)\n \n8:\n(put-down top)\n \n\nPlan Validation details\n-----------------------\n\nChecking next happening (time 1)\nDeleting (ontable top)\nDeleting (clear top)\nDeleting (handempty)\nAdding (holding top)\n\nChecking next happening (time 2)\nDeleting (holding top)\nDeleting (clear u1)\nAdding (on top u1)\nAdding (clear top)\nAdding (handempty)\n\nChecking next happening (time 3)\nPlan failed because of unsatisfied precondition in:\n(stack-bridge m1 b1 b2)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(stack-bridge m1 b1 b2) has an unsatisfied precondition at time 3\n(Set (holding m1) to true)\n\n\nFailed plans:\n /mnt/d/LLM-PDDL/results/formal/refinement/block_building/scene_03_large_pyramid/run_hybrid_feedback_llama3.1_8b_01/attempt_03.plan \n",
+        "stderr": "",
+        "raw_log_file": "D:\\LLM-PDDL\\results\\formal\\refinement\\block_building\\scene_03_large_pyramid\\run_hybrid_feedback_llama3.1_8b_01\\attempt_03_val.txt"
+      },
+      "success": false,
+      "feedback": {
+        "validation_authority": "VAL",
+        "val_valid": false,
+        "symbolic_verifier_valid": false,
+        "previous_plan": [
+          {
+            "action": "pick-up",
+            "args": [
+              "top"
+            ]
+          },
+          {
+            "action": "stack",
+            "args": [
+              "top",
+              "U1"
+            ]
+          },
+          {
+            "action": "stack-bridge",
+            "args": [
+              "M1",
+              "B1",
+              "B2"
+            ]
+          },
+          {
+            "action": "stack-bridge",
+            "args": [
+              "M2",
+              "B2",
+              "B3"
+            ]
+          },
+          {
+            "action": "stack-bridge",
+            "args": [
+              "M3",
+              "B3",
+              "B4"
+            ]
+          },
+          {
+            "action": "stack-bridge",
+            "args": [
+              "U1",
+              "M1",
+              "M2"
+            ]
+          },
+          {
+            "action": "stack-bridge",
+            "args": [
+              "U2",
+              "M2",
+              "M3"
+            ]
+          },
+          {
+            "action": "put-down",
+            "args": [
+              "top"
+            ]
+          }
+        ],
+        "symbolic_failure_details": {
+          "message": "Missing preconditions: holding(M1)",
+          "failed_step": 3,
+          "failed_action": "stack-bridge(M1, B1, B2)",
+          "error": "Missing preconditions: holding(M1)",
+          "state_before_failure": {
+            "ontable": [
+              "B1",
+              "B2",
+              "B3",
+              "B4",
+              "M1",
+              "M2",
+              "M3",
+              "U1",
+              "U2"
+            ],
+            "on": [
+              [
+                "top",
+                "U1"
+              ]
+            ],
+            "on_bridge": [],
+            "clear": [
+              "B1",
+              "B2",
+              "B3",
+              "B4",
+              "M1",
+              "M2",
+              "M3",
+              "U2",
+              "top"
+            ],
+            "holding": [],
+            "handempty": true,
+            "left_free": [
+              "B1",
+              "B2",
+              "B3",
+              "B4",
+              "M1",
+              "M2",
+              "M3",
+              "U1",
+              "U2",
+              "top"
+            ],
+            "right_free": [
+              "B1",
+              "B2",
+              "B3",
+              "B4",
+              "M1",
+              "M2",
+              "M3",
+              "U1",
+              "U2",
+              "top"
+            ]
+          }
+        },
+        "val_output_tail": "6:\n(stack-bridge u1 m1 m2)\n \n7:\n(stack-bridge u2 m2 m3)\n \n8:\n(put-down top)\n \n\nPlan Validation details\n-----------------------\n\nChecking next happening (time 1)\nDeleting (ontable top)\nDeleting (clear top)\nDeleting (handempty)\nAdding (holding top)\n\nChecking next happening (time 2)\nDeleting (holding top)\nDeleting (clear u1)\nAdding (on top u1)\nAdding (clear top)\nAdding (handempty)\n\nChecking next happening (time 3)\nPlan failed because of unsatisfied precondition in:\n(stack-bridge m1 b1 b2)\n\nPlan failed to execute\n\nPlan Repair Advice:\n\n(stack-bridge m1 b1 b2) has an unsatisfied precondition at time 3\n(Set (holding m1) to true)\n\n\nFailed plans:\n /mnt/d/LLM-PDDL/results/formal/refinement/block_building/scene_03_large_pyramid/run_hybrid_feedback_llama3.1_8b_01/attempt_03.plan",
+        "repair_instruction": "Generate a complete corrected plan. Fix the failed action and any earlier actions that caused the failed precondition. Do not return only a partial plan."
+      },
+      "feedback_file": "D:\\LLM-PDDL\\results\\formal\\refinement\\block_building\\scene_03_large_pyramid\\run_hybrid_feedback_llama3.1_8b_01\\attempt_03_feedback.json"
+    }
+  ]
+}

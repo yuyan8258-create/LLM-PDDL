@@ -1,0 +1,87 @@
+﻿Type-checking assemble-basic
+...action passes type checking.
+Type-checking assemble-after
+...action passes type checking.
+Type-checking assemble-with-aid
+...action passes type checking.
+Type-checking assemble-after-with-aid
+...action passes type checking.
+Type-checking insert-aid
+...action passes type checking.
+Type-checking withdraw-aid-after-one
+...action passes type checking.
+Type-checking withdraw-aid-after-two
+...action passes type checking.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Checking plan: /mnt/d/LLM-PDDL/results/gearbox_formal/refinement/gearbox/gearbox_medium/run_pure_llm_qwen2.5_latest_04/attempt_01.plan
+Plan to validate:
+
+Plan size: 6
+1:
+(assemble-after input-shaft gearbox-housing)
+
+2:
+(assemble-after countershaft input-shaft)
+
+3:
+(assemble-after input-bearing-carrier countershaft)
+
+4:
+(insert-aid dummy-support-shaft)
+
+5:
+(assemble-with-aid input-bearing-carrier dummy-support-shaft)
+
+6:
+(withdraw-aid-after-two dummy-support-shaft input-shaft countershaft)
+
+
+Plan Validation details
+-----------------------
+
+Checking next happening (time 1)
+Plan failed because of unsatisfied precondition in:
+(assemble-after input-shaft gearbox-housing)
+
+Plan failed to execute
+
+Plan Repair Advice:
+
+(assemble-after input-shaft gearbox-housing) has an unsatisfied precondition at time 1
+(Set (assembled gearbox-housing) to true)
+
+
+Failed plans:
+ /mnt/d/LLM-PDDL/results/gearbox_formal/refinement/gearbox/gearbox_medium/run_pure_llm_qwen2.5_latest_04/attempt_01.plan
+
+wsl: �hKm0R localhost �NtM�n�FO*g\��P0R WSL0NAT !j_N�v WSL
+N/ec localhost �Nt0

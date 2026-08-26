@@ -1,20 +1,61 @@
 __pycache__/
-*.pyc
-.env
+
+
+# ==============================
+# Python cache files
+# ==============================
+__pycache__/
+*.py[cod]
+*$py.class
+
+
+# ==============================
+# Python virtual environments
+# ==============================
 .venv/
 venv/
-.DS_Store
-*.log
-results/formal/
-# Generated PDDL files
-generated_pddl/
+env/
 
-# Development / smoke-test outputs
-results/occlusion_smoke/
-results/pure_pddl/
-results/occlusion_formal_test/
-results/occlusion_formal/
-results/occlusion_invalid_runs/
-results/gearbox_formal/
-# Gearbox development / dry-run outputs
-results/refinement/gearbox/
+
+# ==============================
+# Environment variables / secrets
+# ==============================
+.env
+.env.local
+
+
+# ==============================
+# Python test / coverage cache
+# ==============================
+.pytest_cache/
+.coverage
+htmlcov/
+
+
+# ==============================
+# IDE and editor files
+# ==============================
+.vscode/
+.idea/
+
+
+# ==============================
+# Operating-system files
+# ==============================
+.DS_Store
+Thumbs.db
+
+
+# ==============================
+# Temporary Fast Downward files
+# ==============================
+output.sas
+sas_plan
+sas_plan.*
+
+
+# ==============================
+# Generic temporary files
+# ==============================
+*.tmp
+*.temp

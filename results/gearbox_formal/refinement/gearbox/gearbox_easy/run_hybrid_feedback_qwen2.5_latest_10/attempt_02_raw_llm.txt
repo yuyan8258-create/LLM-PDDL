@@ -1,0 +1,29 @@
+[
+    {
+        "action": "assemble-basic",
+        "args": [
+            "gearbox-housing"
+        ]
+    },
+    {
+        "action": "assemble-after",
+        "args": [
+            "input-shaft",
+            "gearbox-housing"
+        ]
+    },
+    {
+        "action": "assemble-after",
+        "args": [
+            "countershaft",
+            "input-shaft"
+        ]
+    },
+    {
+        "action": "assemble-after",
+        "args": [
+            "input-bearing-carrier",
+            "countershaft"
+        ]
+    }
+]
